@@ -4,7 +4,7 @@ version = "0.2.0"
 edition = "2021"
 description = "Procedural macro for automating the itplementation of Trezoaplex Candy Guard."
 authors = ["Trezoaplex Developers <dev@metaplex.com>"]
-repository = "https://github.com/metaplex-foundation/tpl-candy-guard"
+repository = "https://github.com/trezoaplex-foundation/tpl-candy-guard"
 license-file = "../LICENSE"
 
 [lib]

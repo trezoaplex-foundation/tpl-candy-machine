@@ -4,7 +4,7 @@ This package contains the Trezoaplex Candy Guard contract SDK code.
 
 ## API Docs
 
-Find the [candy-guard API docs published here](https://metaplex-foundation.github.io/tpl-candy-guard/index.html).
+Find the [candy-guard API docs published here](https://trezoaplex-foundation.github.io/tpl-candy-guard/index.html).
 
 ## Installation
 

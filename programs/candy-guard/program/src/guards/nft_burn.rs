@@ -1,7 +1,7 @@
 use super::*;
 
-use mpl_candy_machine_core::AccountVersion;
-use mpl_token_metadata::{
+use tpl_candy_machine_core::AccountVersion;
+use tpl_token_metadata::{
     accounts::{Metadata, TokenRecord},
     instructions::{BurnNftCpiBuilder, BurnV1CpiBuilder},
     types::TokenStandard,
@@ -24,7 +24,7 @@ pub struct NftBurn {
     pub required_collection: Pubkey,
 }
 
-impl Guard for NftBurn {
+itpl Guard for NftBurn {
     fn size() -> usize {
         32 // required_collection
     }
@@ -34,7 +34,7 @@ impl Guard for NftBurn {
     }
 }
 
-impl Condition for NftBurn {
+itpl Condition for NftBurn {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -62,7 +62,7 @@ impl Condition for NftBurn {
 
         let metadata: Metadata = Metadata::try_from(nft_metadata)?;
         // validates the account information
-        assert_keys_equal(nft_metadata.owner, &mpl_token_metadata::ID)?;
+        assert_keys_equal(nft_metadata.owner, &tpl_token_metadata::ID)?;
         assert_keys_equal(&metadata.mint, nft_mint_account.key)?;
 
         if matches!(
@@ -108,7 +108,7 @@ impl Condition for NftBurn {
                 .collection_metadata(Some(nft_mint_collection_metadata))
                 .system_program(&ctx.accounts.system_program)
                 .sysvar_instructions(&ctx.accounts.sysvar_instructions)
-                .spl_token_program(&ctx.accounts.spl_token_program)
+                .tpl_token_program(&ctx.accounts.tpl_token_program)
                 .amount(1);
 
             if matches!(
@@ -128,7 +128,7 @@ impl Condition for NftBurn {
                 .token_account(nft_account)
                 .master_edition_account(nft_edition)
                 .collection_metadata(Some(nft_mint_collection_metadata))
-                .spl_token_program(&ctx.accounts.spl_token_program)
+                .tpl_token_program(&ctx.accounts.tpl_token_program)
                 .invoke()?;
         }
 

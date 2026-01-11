@@ -1,4 +1,4 @@
-import { findAssociatedTokenPda } from '@metaplex-foundation/mpl-toolbox';
+import { findAssociatedTokenPda } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   getTokenPaymentSerializer,
   TokenPayment,

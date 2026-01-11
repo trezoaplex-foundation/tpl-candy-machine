@@ -1,15 +1,15 @@
 import {
   findAssociatedTokenPda,
   getSplAssociatedTokenProgramId,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   findMasterEditionPda,
   findMetadataPda,
   findTokenRecordPda,
   isProgrammable,
   TokenStandard,
-} from '@metaplex-foundation/mpl-token-metadata';
-import { PublicKey } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-token-metadata';
+import { PublicKey } from '@trezoaplex-foundation/umi';
 import { getMplTokenAuthRulesProgramId } from '../programs';
 import {
   getNftPaymentSerializer,

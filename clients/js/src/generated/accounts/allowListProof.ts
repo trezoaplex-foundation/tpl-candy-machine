@@ -18,7 +18,7 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   bytes,
@@ -26,7 +26,7 @@ import {
   publicKey as publicKeySerializer,
   string,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /** PDA to track whether an address has been validated or not. */
 export type AllowListProof = Account<AllowListProofAccountData>;
@@ -113,7 +113,7 @@ export function getAllowListProofGpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplCandyGuard',
+    'tplCandyGuard',
     'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'
   );
   return gpaBuilder(context, programId)
@@ -142,7 +142,7 @@ export function findAllowListProofPda(
   }
 ): Pda {
   const programId = context.programs.getPublicKey(
-    'mplCandyGuard',
+    'tplCandyGuard',
     'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'
   );
   return context.eddsa.findPda(programId, [

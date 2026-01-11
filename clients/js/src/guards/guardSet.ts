@@ -10,13 +10,13 @@ import {
   Signer,
   some,
   wrapNullable,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   bitArray,
   mergeBytes,
   reverseSerializer,
   Serializer,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { UnregisteredCandyGuardError } from '../errors';
 import {
   GuardInstructionExtras,

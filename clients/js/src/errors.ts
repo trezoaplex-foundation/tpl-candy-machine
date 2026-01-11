@@ -1,4 +1,4 @@
-import { UmiError } from '@metaplex-foundation/umi';
+import { UmiError } from '@trezoaplex-foundation/umi';
 import { CANDY_GUARD_LABEL_SIZE } from './constants';
 
 export class CandyMachineError extends UmiError {
@@ -85,7 +85,7 @@ export class GuardRouteNotSupportedError extends CandyMachineError {
       'but this guard does not support this feature or did not register it on the SDK. ' +
       'Please select a guard that support the route instruction feature. ' +
       'If you are using a custom guard, make sure you registered the route instruction ' +
-      'feature by implementing the `routeSettingsParser` method on the guard manifest.';
+      'feature by itplementing the `routeSettingsParser` method on the guard manifest.';
     super(message);
   }
 }

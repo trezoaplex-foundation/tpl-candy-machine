@@ -2,18 +2,18 @@ import {
   createMint,
   createToken,
   setComputeUnitLimit,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   TokenStandard,
   fetchDigitalAssetWithAssociatedToken,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   generateSigner,
   publicKey,
   sol,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { mintV2 } from '../../src';
 import {
@@ -38,7 +38,7 @@ test('it transfers an NFT from the payer to the destination', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       nftPayment: some({ requiredCollection, destination }),
     },
@@ -96,7 +96,7 @@ test('it allows minting even when the payer is different from the minter', async
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       nftPayment: some({ requiredCollection, destination }),
     },
@@ -156,7 +156,7 @@ test('it works when the provided NFT is not on an associated token account', asy
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       nftPayment: some({ requiredCollection, destination }),
     },
@@ -231,7 +231,7 @@ test('it fails if the payer does not own the right NFT', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       nftPayment: some({ requiredCollection, destination }),
     },
@@ -279,7 +279,7 @@ test('it fails if the payer tries to provide an NFT from an unverified collectio
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       nftPayment: some({ requiredCollection, destination }),
     },
@@ -328,7 +328,7 @@ test('it charges a bot tax when trying to pay with the wrong NFT', async (t) => 
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       botTax: some({ lamports: sol(0.1), lastInstruction: true }),
       nftPayment: some({ requiredCollection, destination }),
@@ -377,7 +377,7 @@ test('it transfers a Programmable NFT from the payer to the destination', async 
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       nftPayment: some({ requiredCollection, destination }),
     },

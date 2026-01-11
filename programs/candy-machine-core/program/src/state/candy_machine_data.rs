@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use mpl_token_metadata::{MAX_CREATOR_LIMIT, MAX_NAME_LENGTH, MAX_URI_LENGTH};
+use tpl_token_metadata::{MAX_CREATOR_LIMIT, MAX_NAME_LENGTH, MAX_URI_LENGTH};
 
 use crate::{constants::HIDDEN_SECTION, errors::CandyError, utils::replace_patterns};
 
@@ -61,7 +61,7 @@ pub struct ConfigLineSettings {
     pub is_sequential: bool,
 }
 
-impl CandyMachineData {
+itpl CandyMachineData {
     pub fn get_space_for_candy(&self) -> Result<usize> {
         Ok(if self.hidden_settings.is_some() {
             HIDDEN_SECTION

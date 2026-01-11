@@ -10,8 +10,8 @@ import {
   DateTime,
   DateTimeInput,
   mapDateTimeSerializer,
-} from '@metaplex-foundation/umi';
-import { Serializer, i64, struct } from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi';
+import { Serializer, i64, struct } from '@trezoaplex-foundation/umi/serializers';
 
 /** Guard that sets a specific start date for the mint. */
 export type StartDate = { date: DateTime };

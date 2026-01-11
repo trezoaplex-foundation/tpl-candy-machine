@@ -1,11 +1,11 @@
-use anchor_lang::{prelude::*, solana_program::sysvar, Discriminator};
-use mpl_token_metadata::{types::TokenStandard, MAX_SYMBOL_LENGTH};
-use mpl_utils::resize_or_reallocate_account_raw;
+use anchor_lang::{prelude::*, trezoa_program::sysvar, Discriminator};
+use tpl_token_metadata::{types::TokenStandard, MAX_SYMBOL_LENGTH};
+use tpl_utils::resize_or_reallocate_account_raw;
 
 use crate::{
     approve_metadata_delegate, assert_token_standard,
     constants::{
-        AUTHORITY_SEED, HIDDEN_SECTION, MPL_TOKEN_AUTH_RULES_PROGRAM, RULE_SET_LENGTH, SET,
+        AUTHORITY_SEED, HIDDEN_SECTION, TPL_TOKEN_AUTH_RULES_PROGRAM, RULE_SET_LENGTH, SET,
     },
     state::{CandyMachine, CandyMachineData},
     utils::fixed_length_string,
@@ -138,8 +138,8 @@ pub struct InitializeV2<'info> {
 
     /// Authorization rule set to be used by minted NFTs.
     ///
-    /// CHECK: must be ownwed by mpl_token_auth_rules
-    #[account(owner = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    /// CHECK: must be ownwed by tpl_token_auth_rules
+    #[account(owner = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     rule_set: Option<UncheckedAccount<'info>>,
 
     /// Metadata account of the collection.
@@ -172,7 +172,7 @@ pub struct InitializeV2<'info> {
     /// Token Metadata program.
     ///
     /// CHECK: account constraint checked in account trait
-    #[account(address = mpl_token_metadata::ID)]
+    #[account(address = tpl_token_metadata::ID)]
     token_metadata_program: UncheckedAccount<'info>,
 
     /// System program.
@@ -187,12 +187,12 @@ pub struct InitializeV2<'info> {
     /// Token Authorization Rules program.
     ///
     /// CHECK: account constraint checked in account trait
-    #[account(address = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(address = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules_program: Option<UncheckedAccount<'info>>,
 
     /// Token Authorization rules account for the collection metadata (if any).
     ///
     /// CHECK: account checked in CPI
-    #[account(owner = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(owner = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules: Option<UncheckedAccount<'info>>,
 }

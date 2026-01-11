@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use solana_program::{
+use trezoa_program::{
     program::invoke_signed,
     program_memory::sol_memcmp,
     program_pack::{IsInitialized, Pack},
@@ -69,9 +69,9 @@ pub fn assert_is_ata(
     ata: &AccountInfo,
     wallet: &Pubkey,
     mint: &Pubkey,
-) -> core::result::Result<spl_token::state::Account, ProgramError> {
-    assert_owned_by(ata, &spl_token::id())?;
-    let ata_account: spl_token::state::Account = assert_initialized(ata)?;
+) -> core::result::Result<tpl_token::state::Account, ProgramError> {
+    assert_owned_by(ata, &tpl_token::id())?;
+    let ata_account: tpl_token::state::Account = assert_initialized(ata)?;
     assert_keys_equal(&ata_account.owner, wallet)?;
     assert_keys_equal(&ata_account.mint, mint)?;
     assert_keys_equal(&get_associated_token_address(wallet, mint), ata.key)?;
@@ -82,9 +82,9 @@ pub fn assert_is_token_account(
     ta: &AccountInfo,
     wallet: &Pubkey,
     mint: &Pubkey,
-) -> core::result::Result<spl_token::state::Account, ProgramError> {
-    assert_owned_by(ta, &spl_token::id())?;
-    let token_account: spl_token::state::Account = assert_initialized(ta)?;
+) -> core::result::Result<tpl_token::state::Account, ProgramError> {
+    assert_owned_by(ta, &tpl_token::id())?;
+    let token_account: tpl_token::state::Account = assert_initialized(ta)?;
     assert_keys_equal(&token_account.owner, wallet)?;
     assert_keys_equal(&token_account.mint, mint)?;
     Ok(token_account)
@@ -118,7 +118,7 @@ pub fn assert_owned_by(account: &AccountInfo, owner: &Pubkey) -> Result<()> {
     }
 }
 
-pub fn spl_token_burn(params: TokenBurnParams) -> Result<()> {
+pub fn tpl_token_burn(params: TokenBurnParams) -> Result<()> {
     let TokenBurnParams {
         mint,
         source,
@@ -132,7 +132,7 @@ pub fn spl_token_burn(params: TokenBurnParams) -> Result<()> {
         seeds.push(seed);
     }
     let result = invoke_signed(
-        &spl_token::instruction::burn(
+        &tpl_token::instruction::burn(
             token_program.key,
             source.key,
             mint.key,
@@ -146,7 +146,7 @@ pub fn spl_token_burn(params: TokenBurnParams) -> Result<()> {
     result.map_err(|_| CandyGuardError::TokenBurnFailed.into())
 }
 
-pub fn spl_token_transfer(params: TokenTransferParams<'_, '_>) -> Result<()> {
+pub fn tpl_token_transfer(params: TokenTransferParams<'_, '_>) -> Result<()> {
     let TokenTransferParams {
         source,
         destination,
@@ -162,7 +162,7 @@ pub fn spl_token_transfer(params: TokenTransferParams<'_, '_>) -> Result<()> {
     }
 
     let result = invoke_signed(
-        &spl_token::instruction::transfer(
+        &tpl_token::instruction::transfer(
             token_program.key,
             source.key,
             destination.key,

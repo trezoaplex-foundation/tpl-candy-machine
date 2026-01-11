@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 use arrayref::array_ref;
-use mpl_token_metadata::{accounts::Metadata, types::ProgrammableConfig};
+use tpl_token_metadata::{accounts::Metadata, types::ProgrammableConfig};
 
 use crate::constants::{RULE_SET_LENGTH, SET};
 
@@ -39,7 +39,7 @@ pub struct CandyMachine {
     //   (Pubkey) custom rule set
 }
 
-impl CandyMachine {
+itpl CandyMachine {
     pub fn get_rule_set(
         &self,
         account_data: &[u8],

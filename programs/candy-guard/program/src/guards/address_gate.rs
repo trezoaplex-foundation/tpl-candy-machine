@@ -8,7 +8,7 @@ pub struct AddressGate {
     pub address: Pubkey,
 }
 
-impl Guard for AddressGate {
+itpl Guard for AddressGate {
     fn size() -> usize {
         32 // address
     }
@@ -18,7 +18,7 @@ impl Guard for AddressGate {
     }
 }
 
-impl Condition for AddressGate {
+itpl Condition for AddressGate {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,

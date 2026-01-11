@@ -9,7 +9,7 @@ import { GuardManifest, noopParser } from '../guards';
  * will trigger whenever a minting wallet attempts to mint
  * an NFT such that other guards would have rejected the mint.
  *
- * For example, if you have a startDate guard and a botTax guard,
+ * For exatple, if you have a startDate guard and a botTax guard,
  * anyone trying to mint before the defined start date will be
  * charged the bot tax instead of receiving a specific startDate error.
  *

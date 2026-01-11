@@ -1,5 +1,5 @@
 import { BN } from 'bn.js';
-import * as beet from '@metaplex-foundation/beet';
+import * as beet from '@trezoaplex-foundation/beet';
 import { logDebug } from './utils/log';
 import {
   addressGateBeet,
@@ -27,7 +27,7 @@ import {
   solPaymentBeet,
   tokenPaymentBeet,
 } from './generated';
-import { u32, u64 } from '@metaplex-foundation/beet';
+import { u32, u64 } from '@trezoaplex-foundation/beet';
 
 type Guards = {
   /* 01 */ botTaxEnabled: boolean;

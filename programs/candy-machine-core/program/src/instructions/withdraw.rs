@@ -6,7 +6,7 @@ pub fn withdraw(_ctx: Context<Withdraw>) -> Result<()> {
     Ok(())
 }
 
-/// Withdraw the rent SOL from the candy machine account.
+/// Withdraw the rent TRZ from the candy machine account.
 #[derive(Accounts)]
 pub struct Withdraw<'info> {
     /// Candy Machine acccount.

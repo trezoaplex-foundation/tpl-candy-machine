@@ -1,7 +1,7 @@
 import {
   ConfirmedTransactionAssertablePromise,
   PayerTransactionHandler,
-} from '@metaplex-foundation/amman-client';
+} from '@trezoaplex-foundation/amman-client';
 import {
   AddressLookupTableAccount,
   AddressLookupTableProgram,
@@ -15,7 +15,7 @@ import {
   TransactionInstruction,
   TransactionMessage,
   VersionedTransaction,
-} from '@solana/web3.js';
+} from '@trezoa/web3.js';
 
 export async function createLookupTable(
   authority: PublicKey,

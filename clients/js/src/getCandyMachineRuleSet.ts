@@ -1,4 +1,4 @@
-import { fetchDigitalAsset } from '@metaplex-foundation/mpl-token-metadata';
+import { fetchDigitalAsset } from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   Context,
   isNone,
@@ -6,7 +6,7 @@ import {
   none,
   Option,
   PublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { fetchCandyMachine } from './generated';
 
 export const getCandyMachineRuleSet = async (

@@ -10,7 +10,7 @@ import {
   Serializer,
   bytes,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /**
  * Guard that uses a merkle tree to specify the addresses allowed to mint.

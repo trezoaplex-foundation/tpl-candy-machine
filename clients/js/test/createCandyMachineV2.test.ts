@@ -1,4 +1,4 @@
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   generateSigner,
   none,
@@ -6,7 +6,7 @@ import {
   publicKey,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   AccountVersion,
@@ -45,7 +45,7 @@ test('it can create a candy machine using config line settings', async (t) => {
         configLineSettings: some({
           prefixName: 'My NFT #',
           nameLength: 8,
-          prefixUri: 'https://example.com/',
+          prefixUri: 'https://exatple.com/',
           uriLength: 20,
           isSequential: false,
         }),
@@ -82,7 +82,7 @@ test('it can create a candy machine using config line settings', async (t) => {
       configLineSettings: some({
         prefixName: 'My NFT #',
         nameLength: 8,
-        prefixUri: 'https://example.com/',
+        prefixUri: 'https://exatple.com/',
         uriLength: 20,
         isSequential: false,
       }),
@@ -113,7 +113,7 @@ test('it can create a candy machine using hidden settings', async (t) => {
         ],
         hiddenSettings: some({
           name: 'My NFT #$ID+1$',
-          uri: 'https://example.com/$ID+1$.json',
+          uri: 'https://exatple.com/$ID+1$.json',
           hash: new Uint8Array(Array(32).fill(42)),
         }),
       })
@@ -149,7 +149,7 @@ test('it can create a candy machine using hidden settings', async (t) => {
       configLineSettings: none(),
       hiddenSettings: some({
         name: 'My NFT #$ID+1$',
-        uri: 'https://example.com/$ID+1$.json',
+        uri: 'https://exatple.com/$ID+1$.json',
         hash: new Uint8Array(Array(32).fill(42)),
       }),
     },
@@ -289,7 +289,7 @@ test('it can create a candy machine with an explicit ruleset and hidden settings
         configLineSettings: none(),
         hiddenSettings: some({
           name: 'My NFT #$ID+1$',
-          uri: 'https://example.com/$ID+1$.json',
+          uri: 'https://exatple.com/$ID+1$.json',
           hash: new Uint8Array(Array(32).fill(42)),
         }),
         candyMachine,

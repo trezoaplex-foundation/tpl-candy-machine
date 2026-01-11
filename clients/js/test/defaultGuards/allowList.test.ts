@@ -1,4 +1,4 @@
-import { setComputeUnitLimit } from '@metaplex-foundation/mpl-toolbox';
+import { setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   base58PublicKey,
   generateSigner,
@@ -6,7 +6,7 @@ import {
   sol,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   findAllowListProofPda,
@@ -40,7 +40,7 @@ test('it allows minting from wallets of a predefined list', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },
@@ -96,7 +96,7 @@ test('it is possible to verify the proof and mint in the same transaction if the
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },
@@ -150,7 +150,7 @@ test('it allows minting even when the payer is different from the minter', async
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },
@@ -203,7 +203,7 @@ test('it forbids minting from wallets that are not part of a predefined list', a
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },
@@ -245,7 +245,7 @@ test('it forbids minting from wallets that are providing the wrong proof', async
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },
@@ -290,7 +290,7 @@ test('it forbids minting if the wallet has not been verified via the route instr
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },
@@ -332,7 +332,7 @@ test('it charges a bot tax when trying to mint whilst not verified', async (t) =
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       botTax: some({ lamports: sol(0.01), lastInstruction: true }),
       allowList: some({ merkleRoot }),
@@ -376,7 +376,7 @@ test('it creates a proof for a minter even when the minter is not a signer', asy
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },
@@ -441,7 +441,7 @@ test('it creates a proof for the payer when the minter is not present', async (t
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       allowList: some({ merkleRoot }),
     },

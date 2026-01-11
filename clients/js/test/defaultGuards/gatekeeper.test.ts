@@ -5,8 +5,8 @@ import {
   issue,
   NetworkFeature,
   UserTokenExpiry,
-} from '@identity.com/solana-gateway-ts';
-import { setComputeUnitLimit } from '@metaplex-foundation/mpl-toolbox';
+} from '@identity.com/trezoa-gateway-ts';
+import { setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   assertAccountExists,
   dateTime,
@@ -18,12 +18,12 @@ import {
   some,
   transactionBuilder,
   Umi,
-} from '@metaplex-foundation/umi';
-import { generateSignerWithSol } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { generateSignerWithSol } from '@trezoaplex-foundation/umi-bundle-tests';
 import {
   fromWeb3JsInstruction,
   toWeb3JsPublicKey,
-} from '@metaplex-foundation/umi-web3js-adapters';
+} from '@trezoaplex-foundation/umi-web3js-adapters';
 import test from 'ava';
 import { Buffer } from 'buffer';
 import { mintV2 } from '../../src';
@@ -55,7 +55,7 @@ test('it allows minting via a gatekeeper service', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
@@ -107,7 +107,7 @@ test('it defaults to calculating the gateway token PDA for us', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
@@ -160,7 +160,7 @@ test('it allows minting even when the payer is different from the minter', async
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
@@ -204,7 +204,7 @@ test('it forbids minting when providing the wrong token', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
@@ -258,7 +258,7 @@ test('it allows minting using gateway tokens that expire when they are still val
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
@@ -312,7 +312,7 @@ test('it forbids minting using gateway tokens that have expired', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
@@ -372,7 +372,7 @@ test('it may immediately mark gateway tokens as expired after using them', async
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
@@ -428,7 +428,7 @@ test('it charges a bot tax when trying to mint using the wrong token', async (t)
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       botTax: some({ lamports: sol(0.1), lastInstruction: true }),
       gatekeeper: some({

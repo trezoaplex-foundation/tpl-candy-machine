@@ -10,7 +10,7 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -18,7 +18,7 @@ import {
   publicKey as publicKeySerializer,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { DefaultGuardSet, DefaultGuardSetArgs } from '../defaultGuards';
 import { findCandyGuardPda } from '../generated/accounts/candyGuard';
 import {
@@ -63,7 +63,7 @@ export function getCandyGuardAccountDataSerializer<
   },
   program?: CandyGuardProgram
 ): Serializer<CandyGuardAccountDataArgs<DA>, CandyGuardAccountData<D>> {
-  program ??= context.programs.get<CandyGuardProgram>('mplCandyGuard');
+  program ??= context.programs.get<CandyGuardProgram>('tplCandyGuard');
   return mapSerializer(
     struct<any>(
       [
@@ -172,7 +172,7 @@ export function getCandyGuardGpaBuilder<D extends GuardSet = DefaultGuardSet>(
   program?: CandyGuardProgram
 ) {
   const programId = context.programs.getPublicKey(
-    'mplCandyGuard',
+    'tplCandyGuard',
     'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'
   );
   return gpaBuilder(context, programId)

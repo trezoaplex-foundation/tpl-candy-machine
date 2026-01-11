@@ -13,7 +13,7 @@ const idlHook = (idl) => {
 }
 
 module.exports = {
-    idlGenerator: 'anchor',
+    idlGenerator: 'trezoa',
     programName: 'candy_machine_core',
     programId: 'CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR',
     idlDir,

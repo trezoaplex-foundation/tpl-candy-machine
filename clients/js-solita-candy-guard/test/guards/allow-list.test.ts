@@ -2,8 +2,8 @@ import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
 import { MerkleTree } from 'merkletreejs';
 import { keccak_256 } from '@noble/hashes/sha3';
-import { u32 } from '@metaplex-foundation/beet';
-import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
+import { u32 } from '@trezoaplex-foundation/beet';
+import { PublicKey, SystemProgram, Transaction } from '@trezoa/web3.js';
 import { PROGRAM_ID } from '../../src';
 import {
   createRouteInstruction,

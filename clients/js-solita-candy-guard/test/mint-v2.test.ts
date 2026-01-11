@@ -1,7 +1,7 @@
 import test from 'tape';
 import { amman, newCandyGuardData, InitTransactions, killStuckProcess } from './setup';
 import { CandyMachineHelper } from './utils';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 
 const API = new InitTransactions();
 const HELPER = new CandyMachineHelper();

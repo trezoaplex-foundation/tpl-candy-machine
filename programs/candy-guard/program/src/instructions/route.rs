@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use mpl_candy_machine_core::CandyMachine;
+use tpl_candy_machine_core::CandyMachine;
 
 use crate::state::{CandyGuard, CandyGuardData, GuardSet, GuardType, DATA_OFFSET};
 
@@ -53,7 +53,7 @@ pub fn route<'info>(
     GuardSet::route(ctx, route_context, args)
 }
 
-/// Withdraw the rent SOL from the candy guard account.
+/// Withdraw the rent TRZ from the candy guard account.
 #[derive(Accounts)]
 #[instruction(args: RouteArgs)]
 pub struct Route<'info> {

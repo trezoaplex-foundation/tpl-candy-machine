@@ -4,12 +4,12 @@ use crate::{
     errors::CandyGuardError,
     state::GuardType,
     utils::{
-        assert_initialized, assert_is_token_account, assert_keys_equal, spl_token_transfer,
+        assert_initialized, assert_is_token_account, assert_keys_equal, tpl_token_transfer,
         TokenTransferParams,
     },
 };
 
-/// Guard that charges an amount in a specified spl-token as payment for the mint.
+/// Guard that charges an amount in a specified tpl-token as payment for the mint.
 ///
 /// List of accounts required:
 ///
@@ -22,7 +22,7 @@ pub struct TokenPayment {
     pub destination_ata: Pubkey,
 }
 
-impl Guard for TokenPayment {
+itpl Guard for TokenPayment {
     fn size() -> usize {
         8    // amount
         + 32 // token mint
@@ -34,7 +34,7 @@ impl Guard for TokenPayment {
     }
 }
 
-impl Condition for TokenPayment {
+itpl Condition for TokenPayment {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -49,7 +49,7 @@ impl Condition for TokenPayment {
         ctx.account_cursor += 2;
 
         assert_keys_equal(destination_ata.key, &self.destination_ata)?;
-        let ata_account: spl_token::state::Account = assert_initialized(destination_ata)?;
+        let ata_account: tpl_token::state::Account = assert_initialized(destination_ata)?;
         assert_keys_equal(&ata_account.mint, &self.mint)?;
 
         let token_account =
@@ -76,12 +76,12 @@ impl Condition for TokenPayment {
         let token_account_info = try_get_account_info(ctx.accounts.remaining, index)?;
         let destination_ata = try_get_account_info(ctx.accounts.remaining, index + 1)?;
 
-        spl_token_transfer(TokenTransferParams {
+        tpl_token_transfer(TokenTransferParams {
             source: token_account_info.to_account_info(),
             destination: destination_ata.to_account_info(),
             authority: ctx.accounts.minter.to_account_info(),
             authority_signer_seeds: &[],
-            token_program: ctx.accounts.spl_token_program.to_account_info(),
+            token_program: ctx.accounts.tpl_token_program.to_account_info(),
             amount: self.amount,
         })?;
 

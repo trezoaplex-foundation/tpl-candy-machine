@@ -2,12 +2,12 @@ import {
   generateSigner,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   findCollectionAuthorityRecordPda,
   updateV1,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   AccountVersion,
   CandyMachine,
@@ -17,7 +17,7 @@ import {
   setCollectionV2,
 } from '../src';
 import { createCollectionNft, createUmi, createV1, createV2 } from './_setup';
-import { setComputeUnitLimit } from '@metaplex-foundation/mpl-toolbox';
+import { setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 
 test('it can update the collection of a candy machine v2', async (t) => {
   // Given a Candy Machine associated with Collection A.
@@ -108,8 +108,8 @@ test('it cannot update the collection of a candy machine when mint is in progres
     collectionMint: collectionA.publicKey,
     collectionUpdateAuthority: collectionUpdateAuthorityA,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
 
@@ -158,8 +158,8 @@ test.only('it can set the same collection of a candy machine when mint is in pro
     collectionMint: collectionA.publicKey,
     collectionUpdateAuthority: collectionUpdateAuthorityA,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
 

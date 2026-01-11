@@ -181,7 +181,7 @@ pub fn derive(input: TokenStream) -> TokenStream {
     });
 
     let expanded = quote! {
-        impl #name {
+        itpl #name {
             pub fn from_data(data: &[u8]) -> anchor_lang::Result<(Self, u64)> {
                 let mut cursor = 0;
 

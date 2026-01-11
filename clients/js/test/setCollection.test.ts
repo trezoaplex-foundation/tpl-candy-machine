@@ -2,7 +2,7 @@ import {
   generateSigner,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { CandyMachine, fetchCandyMachine, setCollection } from '../src';
 import { createV1, createCollectionNft, createUmi, createV2 } from './_setup';

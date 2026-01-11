@@ -1,11 +1,11 @@
-import { createMintWithAssociatedToken } from '@metaplex-foundation/mpl-toolbox';
+import { createMintWithAssociatedToken } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   isEqualToAmount,
   sol,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
-import { generateSignerWithSol } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { generateSignerWithSol } from '@trezoaplex-foundation/umi-bundle-tests';
 import test from 'ava';
 import { CandyMachine, fetchCandyMachine, mint as mintV1 } from '../src';
 import {
@@ -23,7 +23,7 @@ test('it can mint from a candy guard with no guards', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const candyMachineSigner = await createV1(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
     groups: [],
   });
@@ -59,7 +59,7 @@ test('it can mint from a candy guard with guards', async (t) => {
   const destination = generateSigner(umi).publicKey;
   const candyMachineSigner = await createV1(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       botTax: { lamports: sol(0.01), lastInstruction: true },
       solPayment: { lamports: sol(2), destination },
@@ -106,7 +106,7 @@ test('it can mint from a candy guard with groups', async (t) => {
   const destination = generateSigner(umi).publicKey;
   const candyMachineSigner = await createV1(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       botTax: { lamports: sol(0.01), lastInstruction: true },
       solPayment: { lamports: sol(2), destination },

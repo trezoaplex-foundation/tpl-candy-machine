@@ -5,7 +5,7 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
+import * as beet from '@trezoaplex-foundation/beet';
 import { BotTax, botTaxBeet } from './BotTax';
 import { SolPayment, solPaymentBeet } from './SolPayment';
 import { TokenPayment, tokenPaymentBeet } from './TokenPayment';

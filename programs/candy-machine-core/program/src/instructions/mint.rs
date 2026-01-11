@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use solana_program::sysvar;
+use trezoa_program::sysvar;
 
 use super::mint_v2::{process_mint, MintAccounts};
 use crate::{constants::AUTHORITY_SEED, utils::*, AccountVersion, CandyError, CandyMachine};
@@ -30,7 +30,7 @@ pub fn mint<'info>(ctx: Context<'_, '_, '_, 'info, Mint<'info>>) -> Result<()> {
         sysvar_instructions: None,
         token: None,
         token_metadata_program: ctx.accounts.token_metadata_program.to_account_info(),
-        spl_token_program: ctx.accounts.token_program.to_account_info(),
+        tpl_token_program: ctx.accounts.token_program.to_account_info(),
         token_record: None,
     };
 
@@ -114,10 +114,10 @@ pub struct Mint<'info> {
     /// Token Metadata program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = mpl_token_metadata::ID)]
+    #[account(address = tpl_token_metadata::ID)]
     token_metadata_program: UncheckedAccount<'info>,
 
-    /// SPL Token program.
+    /// TPL Token program.
     token_program: Program<'info, Token>,
 
     /// System program.

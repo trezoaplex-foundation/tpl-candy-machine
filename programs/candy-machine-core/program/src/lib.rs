@@ -98,7 +98,7 @@ pub mod candy_machine_core {
     ///   11. `[]` Collection master edition
     ///   12. `[]` Collection update authority
     ///   13. `[]` Token Metadata program
-    ///   14. `[]` SPL Token program
+    ///   14. `[]` TPL Token program
     ///   15. `[]` System program
     ///   16. `[]` SlotHashes sysvar cluster data.
     pub fn mint<'info>(ctx: Context<'_, '_, '_, 'info, Mint<'info>>) -> Result<()> {
@@ -128,8 +128,8 @@ pub mod candy_machine_core {
     ///   13. `[]` Collection master edition
     ///   14. `[]` Collection update authority
     ///   15. `[]` Token Metadata program
-    ///   16. `[]` SPL Token program
-    ///   17. `[optional]` SPL Associated Token program
+    ///   16. `[]` TPL Token program
+    ///   17. `[optional]` TPL Associated Token program
     ///   18. `[]` System program
     ///   19. `[optional]` Instructions sysvar account
     ///   20. `[]` SlotHashes sysvar cluster data.

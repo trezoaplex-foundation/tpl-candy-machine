@@ -3,7 +3,7 @@ import spok from 'spok';
 import { InitTransactions, killStuckProcess, METAPLEX_RULE_SET } from './setup';
 import { AccountVersion, CandyMachine, CandyMachineData } from '../src/generated';
 import { spokSameBignum, spokSamePubkey } from './utils';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 
 killStuckProcess();
 

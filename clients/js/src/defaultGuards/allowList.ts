@@ -1,6 +1,6 @@
-import { getSplSystemProgramId } from '@metaplex-foundation/mpl-toolbox';
-import { PublicKey, Signer, publicKey } from '@metaplex-foundation/umi';
-import { array, bytes } from '@metaplex-foundation/umi/serializers';
+import { getSplSystemProgramId } from '@trezoaplex-foundation/tpl-toolbox';
+import { PublicKey, Signer, publicKey } from '@trezoaplex-foundation/umi';
+import { array, bytes } from '@trezoaplex-foundation/umi/serializers';
 import {
   AllowList,
   AllowListArgs,
@@ -22,10 +22,10 @@ import { GuardManifest } from '../guards';
  *
  * You may use the `getMerkleRoot` and `getMerkleProof` helper
  * functions provided by the SDK to help you set up this guard.
- * Here is an example.
+ * Here is an exatple.
  *
  * ```ts
- * import { getMerkleProof, getMerkleRoot } from '@metaplex-foundation/mpl-candy-machine';
+ * import { getMerkleProof, getMerkleRoot } from '@trezoaplex-foundation/tpl-candy-machine';
  * const allowList = [
  *   'Ur1CbWSGsXCdedknRbJsEk7urwAvu1uddmQv51nAnXB',
  *   'GjwcWFQYzemBtpUoN5fMAP2FZviTtMRWCmrppGuTthJS',

@@ -10,8 +10,8 @@ import {
   TokenStandard,
   TokenStandardArgs,
   getTokenStandardSerializer,
-} from '@metaplex-foundation/mpl-token-metadata';
-import { PublicKey } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-token-metadata';
+import { PublicKey } from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -20,7 +20,7 @@ import {
   struct,
   u64,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   AccountVersion,
   AccountVersionArgs,

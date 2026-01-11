@@ -1,15 +1,15 @@
-# Metaplex Candy Machine Core (a.k.a. Candy Machine V3)
+# Trezoaplex Candy Machine Core (a.k.a. Candy Machine V3)
 
 ## Overview
 
-The Metaplex Protocol's `Candy Machine` is the leading minting and distribution program for fair NFT
-collection launches on Solana. It allows creators to bring their asset metadata on-chain and
+The Trezoaplex Protocol's `Candy Machine` is the leading minting and distribution program for fair NFT
+collection launches on Trezoa. It allows creators to bring their asset metadata on-chain and
 provides a mechanism to create (mint) NFTs from the on-chain configuration &mdash; in both
 deterministic and non-deterministic (random) way, like a traditional candy machine.
 
 The latest iteration of the `Candy Machine` program retains the core functionality of minting an NFT
 only, while any access control configuration is now done by the new
-[`Candy Guard`](https://github.com/metaplex-foundation/mpl-candy-guard) program.
+[`Candy Guard`](https://github.com/trezoaplex-foundation/tpl-candy-guard) program.
 
 The `Candy Machine` program is responsible for:
 
@@ -23,11 +23,11 @@ The `Candy Machine` program is responsible for:
 Previous versions of the `Candy Machine` included access controls to limit who can mint, when
 minting is allowed and other settings related to the mint (e.g., price) as part of its minting
 procedure. While the combination of the _mint logic_ with _access controls_ works, this design makes
-it complex to add more features or to remove undesired ones.
+it cotplex to add more features or to remove undesired ones.
 
 Creating a clear separation provides a modular and flexible architechture to add and remove access
-control settings, whithout the risks and complexities of breaking the minting logic. Each access
-control logic can be implemented in isolation and users can choose to enable/disable individual
+control settings, whithout the risks and cotplexities of breaking the minting logic. Each access
+control logic can be itplemented in isolation and users can choose to enable/disable individual
 ones.
 
 ### Who can mint from a Candy Machine?
@@ -41,8 +41,8 @@ The `mint_authority` is the only address that is able to mint from a candy machi
 requirement being that there are NFTs to be minted from it. The `authority` of the candy machine can
 delegate the `mint_authority` to another address, either a wallet or PDA. This separation allows
 maximum flexibility and enables composability, since other programs can be set as `mint_authority`
-and provide additional features on top of the candy machine. An example of this is the
-[`Candy Guard`](https://github.com/metaplex-foundation/mpl-candy-guard) program, which provides
+and provide additional features on top of the candy machine. An exatple of this is the
+[`Candy Guard`](https://github.com/trezoaplex-foundation/tpl-candy-guard) program, which provides
 access control guards for the candy machine.
 
 ## Account
@@ -50,40 +50,40 @@ access control guards for the candy machine.
 The `Candy Machine` configuration is stored in a single account, which includes settings that
 control the behaviour of the candy machine and metadata information for the NFTs minted through it.
 The account data is represented by the
-[`CandyMachine`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine.rs)
+[`CandyMachine`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine.rs)
 struct, which include references to auxiliary structs
-[`Creator`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs),
-[`ConfigLineSettings`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs)
+[`Creator`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs),
+[`ConfigLineSettings`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs)
 and
-[`HiddenSettings`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs).
+[`HiddenSettings`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs).
 
 | Field                       | Offset | Size | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | --------------------------- | ------ | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| &mdash;                     | 0      | 8    | Anchor account discriminator.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `account_version`                  | 8      | 1    | [`AccountVersion`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine.rs)
+| &mdash;                     | 0      | 8    | Trezoa account discriminator.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `account_version`                  | 8      | 1    | [`AccountVersion`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine.rs)
 | `token_standard`                  | 9      | 1    | `u8` indicating the token standard of minted NFTs (`0 = NFT` and `4 = pNFT`)
 | `features`                  | 10      | 6    | `[u8; 6]` field to be used as a binary flag to support future features while maintaing backwards compatibility.                                                                                                                                                                                                                                                                                                                                                                            |
 | `authority`                 | 16     | 32   | `PubKey` of the authority address that controls the candy machine.                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `mint_authority`            | 48     | 32   | `PubKey` of the address allowed to mint from the candy machine.                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `collection_mint`           | 80     | 32   | `PubKey` of the collection NFT; each NFT minted from the candy machine will be part of this collection.                                                                                                                                                                                                                                                                                                                                                                                |
 | `items_redeemed`            | 112    | 8    | Number of NFTs minted.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `data`                      |        |      | [`CandyMachineData`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs)                                                                                                                                                                                                                                                                                                          |
+| `data`                      |        |      | [`CandyMachineData`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs)                                                                                                                                                                                                                                                                                                          |
 | - `items_available`         | 120    | 8    | Total number of NFTs available.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | - `symbol`                  | 128    | 14   | `string` representing the token symbol: `length` (4 bytes) + `symbol` (10 bytes).                                                                                                                                                                                                                                                                                                                                                                                                      |
 | - `seller_fee_basis_points` | 142    | 2    | Royalties percentage awarded to creators (value between 0 and 1000).                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | - `max_supply`              | 144    | 8    | Indicates how many copies (editions) of an NFT can be created after it is minted; this is usually set to `0`.                                                                                                                                                                                                                                                                                                                                                                          |
 | - `is_mutable`              | 152    | 1    | Indicates whether the minted NFT is mutable or not.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| - `creators`                | 153    | ~    | An array of [`Creator`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs#L29) and their share of the royalties; this array is limited to 5 creators. **Note:** since the `creators` field is an array of variable length, we cannot guarantee the byte position of any field that follows (Notice the tilde ~ in the fields below). Each creator contains the following fields: |
+| - `creators`                | 153    | ~    | An array of [`Creator`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs#L29) and their share of the royalties; this array is limited to 5 creators. **Note:** since the `creators` field is an array of variable length, we cannot guarantee the byte position of any field that follows (Notice the tilde ~ in the fields below). Each creator contains the following fields: |
 | -- `address`                | ~      | 32   | The public key of the creator                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | -- `verified`               | ~      | 1    | The public key of the creator                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | -- `share`                  | ~      | 1    | The public key of the creator                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| - `config_line_settings`    | ~      | 1    | (optional) [`ConfigLineSettings`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs#L51)                                                                                                                                                                                                                                                                                         |
+| - `config_line_settings`    | ~      | 1    | (optional) [`ConfigLineSettings`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs#L51)                                                                                                                                                                                                                                                                                         |
 | -- `prefix_name`            | ~      | 36   | `string` representing the common part of the name of NFTs.                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | -- `name_length`            | ~      | 4    | `u32` specifying the number of bytes for the remaining part of the name.                                                                                                                                                                                                                                                                                                                                                                                                               |
 | -- `prefix_uri`             | ~      | 204  | `string` representing the common part of the URI of NFTs.                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | -- `uri_length`             | ~      | 4    | `u32` specifying the number of bytes for the remaining part of the URI.                                                                                                                                                                                                                                                                                                                                                                                                                |
 | -- `is_sequential`          | ~      | 1    | Indicates whether the mint index generation is sequential or not.                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| - `hidden_settings`         | ~      | 1    | (optional) [`HiddenSettings`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs#L40)                                                                                                                                                                                                                                                                                             |
+| - `hidden_settings`         | ~      | 1    | (optional) [`HiddenSettings`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine_data.rs#L40)                                                                                                                                                                                                                                                                                             |
 | -- `name`                   | ~      | 36   | `string` representing the name of NFTs.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | -- `uri`                    | ~      | 204  | `uri` for the metadata of NFTs.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | -- `hash`                   | ~      | 32   | `string` representing the hash value of the file that contain the mapping of (mint index, NFT metadata).                                                                                                                                                                                                                                                                                                                                                                               |
@@ -98,7 +98,7 @@ and
 ## Instructions
 
 > **Note**
-> The instructions make use of Anchor v0.26 support for positional optional accounts.
+> The instructions make use of Trezoa v0.26 support for positional optional accounts.
 
 ### 📄 `add_config_lines`
 
@@ -121,7 +121,7 @@ the candy machine has `config_line_settings`.
 | Argument                      | Offset | Size | Description               |
 | ----------------------------- | ------ | ---- | ------------------------- |
 | `index`                       | 0      | 4    | Index from which the lines will be added. |
-| `config_lines`                | 4      | ~    | Array of [`ConfigLine`](https://github.com/metaplex-foundation/metaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine.rs#L33) objects representing the lines to be added. |
+| `config_lines`                | 4      | ~    | Array of [`ConfigLine`](https://github.com/trezoaplex-foundation/trezoaplex-program-library/blob/febo/candy-machine-core/candy-machine-core/program/src/state/candy_machine.rs#L33) objects representing the lines to be added. |
 </details>
 
 ### 📄 `initialize` (deprecated)
@@ -143,7 +143,7 @@ CandyMachine account has been created with the expected size before executing th
 | `collection_master_edition`   |          |        | Master Edition account of the collection.                            |
 | `collection_update_authority` |    ✅    |   ✅   | Update authority of the collection.                                  |
 | `collection_authority_record` |    ✅    |        | Authority Record PDA of the collection.                              |
-| `token_metadata_program`      |          |        | Metaplex `TokenMetadata` program ID.                                 |
+| `token_metadata_program`      |          |        | Trezoaplex `TokenMetadata` program ID.                                 |
 | `system_program`              |          |        | `SystemProgram` account.                                             |
 
 </details>
@@ -177,7 +177,7 @@ instruction will have its `AccountVersion` set to `V2`.
 | `collection_master_edition`   |          |        | Master Edition account of the collection.                            |
 | `collection_update_authority` |    ✅    |   ✅   | Update authority of the collection.                                  |
 | `collection_delegate_record`  |    ✅    |        | Token Metadata collection delegate record                            |
-| `token_metadata_program`      |          |        | Metaplex `TokenMetadata` program ID.                                 |
+| `token_metadata_program`      |          |        | Trezoaplex `TokenMetadata` program ID.                                 |
 | `system_program`              |          |        | `SystemProgram` account.                                             |
 | `sysvar_instructions`         |          |        | `sysvar::instructions` account.                                      |
 | `authorization_rules_program` |          |        | Token Authorization Rules program.                                   |
@@ -217,8 +217,8 @@ the Candy Machine.
 | `collection_metadata`         |    ✅    |        | Metadata account of the collection.                                                       |
 | `collection_master_edition`   |          |        | Master Edition account of the collection.                                                 |
 | `collection_update_authority` |          |        | Update authority of the collection.                                                       |
-| `token_metadata_program`      |          |        | Metaplex `TokenMetadata` program ID.                                                      |
-| `token_program`               |          |        | `spl-token` program ID.                                                                   |
+| `token_metadata_program`      |          |        | Trezoaplex `TokenMetadata` program ID.                                                      |
+| `token_program`               |          |        | `tpl-token` program ID.                                                                   |
 | `system_program`              |          |        | `SystemProgram` account.                                                                  |
 | `recent_slothashes`           |          |        | SlotHashes sysvar cluster data.                                   |account.                                                                           |
 
@@ -256,9 +256,9 @@ the Candy Machine.
 | `collection_metadata`         |    ✅    |        | Metadata account of the collection.                                                       |
 | `collection_master_edition`   |          |        | Master Edition account of the collection.                                                 |
 | `collection_update_authority` |          |        | Update authority of the collection.                                                       |
-| `token_metadata_program`      |          |        | Metaplex `TokenMetadata` program ID.                                                      |
-| `spl_token_program`           |          |        | `spl-token` program.                                                                   |
-| `spl_ata_program`             |          |        | (optional) `spl` associated token program.            |
+| `token_metadata_program`      |          |        | Trezoaplex `TokenMetadata` program ID.                                                      |
+| `tpl_token_program`           |          |        | `tpl-token` program.                                                                   |
+| `spl_ata_program`             |          |        | (optional) `tpl` associated token program.            |
 | `system_program`              |          |        | `SystemProgram` account.                                                                  |
 | `sysvar_instructions`         |          |        | `sysvar::instructions` account.                                      |
 | `recent_slothashes`           |          |        | SlotHashes sysvar cluster data.                                      |
@@ -319,7 +319,7 @@ changed if no NFTs have been minted.
 | `new_collection_mint`             |          |        | Mint account of the new collection.                                  |
 | `new_collection_master_edition`   |          |        | Master Edition account of the new collection.                        |
 | `new_collection_authority_record` |    ✅    |        | Authority Record PDA of the new collection.                          |
-| `token_metadata_program`          |          |        | Metaplex `TokenMetadata` program ID.                                 |
+| `token_metadata_program`          |          |        | Trezoaplex `TokenMetadata` program ID.                                 |
 | `system_program`                  |          |        | `SystemProgram` account.                                             |
 
 </details>
@@ -353,7 +353,7 @@ changed if no (p)NFTs have been minted.
 | `new_collection_metadata`         |          |        | Metadata account of the new collection.                              |
 | `new_collection_master_edition`   |          |        | Master Edition account of the new collection.                        |
 | `new_collection_delegate_record`  |    ✅    |        | Metadata Delegate Record of the new collection.                      |
-| `token_metadata_program`          |          |        | Metaplex `TokenMetadata` program ID.                                 |
+| `token_metadata_program`          |          |        | Trezoaplex `TokenMetadata` program ID.                                 |
 | `system_program`                  |          |        | `SystemProgram` account.                                             |
 | `sysvar_instructions`             |          |        | `sysvar::instructions` account.                                      |
 | `authorization_rules_program`     |          |        | (optional) Token Authorization Rules program.                                   |
@@ -409,7 +409,7 @@ This instruction sets the token standard and (optional) rule set to be used by t
 | `collection_metadata`             |          |        | Metadata account of the current collection.                          |
 | `collection_authority_record`     |    ✅    |        | (optional) Authority Record PDA of the current collection.           |
 | `collection_update_authority`     |          |        | Update authority account of the current collection.                  |
-| `token_metadata_program`          |          |        | Metaplex `TokenMetadata` program ID.                                 |
+| `token_metadata_program`          |          |        | Trezoaplex `TokenMetadata` program ID.                                 |
 | `system_program`                  |          |        | `SystemProgram` account.                                             |
 | `sysvar_instructions`             |          |        | `sysvar::instructions` account.                                      |
 | `authorization_rules_program`     |          |        | (optional) Token Authorization Rules program.                                   |

@@ -2,7 +2,7 @@ import { Test } from 'tape';
 import {
   ConfirmedTransactionAssertablePromise,
   PayerTransactionHandler,
-} from '@metaplex-foundation/amman-client';
+} from '@trezoaplex-foundation/amman-client';
 import {
   Connection,
   Keypair,
@@ -13,7 +13,7 @@ import {
   SYSVAR_SLOT_HASHES_PUBKEY,
   SYSVAR_INSTRUCTIONS_PUBKEY,
   ComputeBudgetProgram,
-} from '@solana/web3.js';
+} from '@trezoa/web3.js';
 import {
   AddConfigLinesInstructionAccounts,
   AddConfigLinesInstructionArgs,
@@ -33,7 +33,7 @@ import {
   MintInstructionAccounts,
   MintV2InstructionAccounts,
   PROGRAM_ID,
-} from '@metaplex-foundation/mpl-candy-machine-core';
+} from '@trezoaplex-foundation/tpl-candy-machine-core';
 import { amman } from '../setup';
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
@@ -42,9 +42,9 @@ import {
   createMintToInstruction,
   MintLayout,
   TOKEN_PROGRAM_ID,
-} from '@solana/spl-token';
-import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoa/tpl-token';
+import { keypairIdentity, Trezoaplex } from '@trezoaplex-foundation/js';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import { COLLECTION_METADATA } from './constants';
 import { getCandyMachineSpace } from '.';
 import { BN } from 'bn.js';
@@ -62,7 +62,7 @@ export class CandyMachineHelper {
     connection: Connection,
   ): Promise<{ tx: ConfirmedTransactionAssertablePromise }> {
     // creates a collection nft
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
     const { nft: collection } = await metaplex.nfts().create({
       uri: COLLECTION_METADATA,
@@ -139,7 +139,7 @@ export class CandyMachineHelper {
     connection: Connection,
   ): Promise<{ tx: ConfirmedTransactionAssertablePromise }> {
     // creates a collection nft
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
     const { nft: collection } = await metaplex.nfts().create({
       uri: COLLECTION_METADATA,
@@ -254,7 +254,7 @@ export class CandyMachineHelper {
 
     // PDAs required for the mint
 
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
     const nftMetadata = metaplex.nfts().pdas().metadata({ mint: mint.publicKey });
     const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });
@@ -334,7 +334,7 @@ export class CandyMachineHelper {
 
     // PDAs required for the mint
 
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
     const nftMetadata = metaplex.nfts().pdas().metadata({ mint: mint.publicKey });
     const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });

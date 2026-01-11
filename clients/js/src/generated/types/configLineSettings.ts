@@ -12,7 +12,7 @@ import {
   string,
   struct,
   u32,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /** Config line settings to allocate space for individual name + URI. */
 export type ConfigLineSettings = {

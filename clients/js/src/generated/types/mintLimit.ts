@@ -11,7 +11,7 @@ import {
   struct,
   u16,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /**
  * Gaurd to set a limit of mints per wallet.

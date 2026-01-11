@@ -8,7 +8,7 @@ pub struct EndDate {
     pub date: i64,
 }
 
-impl Guard for EndDate {
+itpl Guard for EndDate {
     fn size() -> usize {
         8 // date
     }
@@ -18,7 +18,7 @@ impl Guard for EndDate {
     }
 }
 
-impl Condition for EndDate {
+itpl Condition for EndDate {
     fn validate<'info>(
         &self,
         _ctx: &mut EvaluationContext,

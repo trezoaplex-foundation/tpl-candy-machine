@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 
 /**
  * Arguments used to create {@link FreezeEscrow}
@@ -32,7 +32,7 @@ export const freezeEscrowDiscriminator = [227, 186, 40, 152, 7, 174, 131, 184];
  * @category Accounts
  * @category generated
  */
-export class FreezeEscrow implements FreezeEscrowArgs {
+export class FreezeEscrow itplements FreezeEscrowArgs {
   private constructor(
     readonly candyGuard: web3.PublicKey,
     readonly candyMachine: web3.PublicKey,
@@ -96,7 +96,7 @@ export class FreezeEscrow implements FreezeEscrowArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, freezeEscrowBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, freezeEscrowBeet);
   }
 
   /**
@@ -198,13 +198,13 @@ export const freezeEscrowBeet = new beet.FixableBeetStruct<
 >(
   [
     ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['candyGuard', beetSolana.publicKey],
-    ['candyMachine', beetSolana.publicKey],
+    ['candyGuard', beetTrezoa.publicKey],
+    ['candyMachine', beetTrezoa.publicKey],
     ['frozenCount', beet.u64],
     ['firstMintTime', beet.coption(beet.i64)],
     ['freezePeriod', beet.i64],
-    ['destination', beetSolana.publicKey],
-    ['authority', beetSolana.publicKey],
+    ['destination', beetTrezoa.publicKey],
+    ['authority', beetTrezoa.publicKey],
   ],
   FreezeEscrow.fromArgs,
   'FreezeEscrow',

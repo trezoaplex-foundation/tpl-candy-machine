@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 use arrayref::array_ref;
-use mpl_token_metadata::{
+use tpl_token_metadata::{
     accounts::Metadata,
     instructions::{
         ApproveCollectionAuthorityCpiBuilder, DelegateCollectionV1CpiBuilder,
@@ -8,7 +8,7 @@ use mpl_token_metadata::{
     },
     types::TokenStandard,
 };
-use solana_program::{
+use trezoa_program::{
     account_info::AccountInfo,
     program_memory::sol_memcmp,
     program_pack::{IsInitialized, Pack},
@@ -22,21 +22,21 @@ use crate::{
     CandyError,
 };
 
-/// Anchor wrapper for Token program.
+/// Trezoa wrapper for Token program.
 #[derive(Debug, Clone)]
 pub struct Token;
 
-impl anchor_lang::Id for Token {
+itpl anchor_lang::Id for Token {
     fn id() -> Pubkey {
-        spl_token::id()
+        tpl_token::id()
     }
 }
 
-/// Anchor wrapper for Associated Token program.
+/// Trezoa wrapper for Associated Token program.
 #[derive(Debug, Clone)]
 pub struct AssociatedToken;
 
-impl anchor_lang::Id for AssociatedToken {
+itpl anchor_lang::Id for AssociatedToken {
     fn id() -> Pubkey {
         spl_associated_token_account::id()
     }
@@ -221,7 +221,7 @@ pub fn revoke_collection_authority_helper(
 ) -> Result<()> {
     if matches!(token_standard, Some(TokenStandard::ProgrammableNonFungible)) {
         // pNFTs do not have a "legacy" collection authority, so we do not try to revoke
-        // it. This would happen when the migration is completed and the candy machine
+        // it. This would happen when the migration is cotpleted and the candy machine
         // account version is still V1 - in any case, the "legacy" collection authority
         // is invalid since it does not apply to pNFTs and it will be replace by a
         // metadata delegate.

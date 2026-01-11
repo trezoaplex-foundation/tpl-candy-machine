@@ -1,10 +1,10 @@
-import { setComputeUnitLimit } from '@metaplex-foundation/mpl-toolbox';
+import { setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   sol,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { mintV2 } from '../../src';
 import {
@@ -22,8 +22,8 @@ test('it allows minting until a threshold of NFTs have been redeemed', async (t)
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
     ],
     guards: {
       redeemedAmount: some({ maximum: 1 }),
@@ -55,8 +55,8 @@ test('it forbids minting once the redeemed threshold has been reached', async (t
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
     ],
     guards: {
       redeemedAmount: some({ maximum: 1 }),
@@ -104,8 +104,8 @@ test('it charges a bot tax when trying to mint once the threshold has been reach
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
     ],
     guards: {
       botTax: some({ lamports: sol(0.1), lastInstruction: true }),

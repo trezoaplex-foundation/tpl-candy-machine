@@ -11,7 +11,7 @@ import {
   struct,
   u32,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /**
  * Gaurd to specify the maximum number of mints in a guard set.

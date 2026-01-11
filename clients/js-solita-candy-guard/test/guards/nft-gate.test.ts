@@ -1,9 +1,9 @@
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
-import { Metaplex, keypairIdentity } from '@metaplex-foundation/js';
-import { AccountMeta, PublicKey } from '@solana/web3.js';
-import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { CandyMachine } from '@metaplex-foundation/mpl-candy-machine-core';
+import { Trezoaplex, keypairIdentity } from '@trezoaplex-foundation/js';
+import { AccountMeta, PublicKey } from '@trezoa/web3.js';
+import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@trezoa/tpl-token';
+import { CandyMachine } from '@trezoaplex-foundation/tpl-candy-machine-core';
 import spok from 'spok';
 import { spokSamePubkey } from '../utils';
 
@@ -75,7 +75,7 @@ test('nft gate (authority)', async (t) => {
   );
   await minterMintTx.assertError(t, /Missing expected remaining account/i);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nft = await metaplex.nfts().findByMint({ mintAddress: mintForAuthority.publicKey });
   const nftGateAccounts: AccountMeta[] = [];
 
@@ -175,7 +175,7 @@ test('nft gate (minter)', async (t) => {
 
   // mint from the second (gated) candy machine
 
-  const metaplex = Metaplex.make(minterConnection).use(keypairIdentity(minter));
+  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
   const nft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
 
   spok(t, nft.collection?.address, spokSamePubkey(candyMachineObject.collectionMint));

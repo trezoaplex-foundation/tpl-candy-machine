@@ -1,15 +1,15 @@
-# mpl-candy-guard
+# tpl-candy-guard
 
-This package contains the Metaplex Candy Guard contract SDK code.
+This package contains the Trezoaplex Candy Guard contract SDK code.
 
 ## API Docs
 
-Find the [candy-guard API docs published here](https://metaplex-foundation.github.io/mpl-candy-guard/index.html).
+Find the [candy-guard API docs published here](https://metaplex-foundation.github.io/tpl-candy-guard/index.html).
 
 ## Installation
 
 ```shell
-npm install @metaplex-foundation/mpl-candy-guard --save
+npm install @trezoaplex-foundation/tpl-candy-guard --save
 ```
 
 ## Developing

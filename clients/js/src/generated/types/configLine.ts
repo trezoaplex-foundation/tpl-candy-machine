@@ -10,7 +10,7 @@ import {
   Serializer,
   string,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /** Config line struct for storing asset (NFT) data pre-mint. */
 export type ConfigLine = {

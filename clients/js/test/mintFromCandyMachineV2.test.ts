@@ -3,9 +3,9 @@ import {
   createMint,
   createMintWithAssociatedToken,
   setComputeUnitLimit,
-} from '@metaplex-foundation/mpl-toolbox';
-import { findCollectionAuthorityRecordPda } from '@metaplex-foundation/mpl-token-metadata';
-import { generateSigner, transactionBuilder } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-toolbox';
+import { findCollectionAuthorityRecordPda } from '@trezoaplex-foundation/tpl-token-metadata';
+import { generateSigner, transactionBuilder } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   CandyMachine,
@@ -28,8 +28,8 @@ test('it can mint directly from a candy machine as the mint authority', async (t
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -66,8 +66,8 @@ test('it can mint whilst creating the mint and token accounts beforehand', async
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -101,8 +101,8 @@ test('it can mint whilst creating only the mint account beforehand', async (t) =
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -140,8 +140,8 @@ test('it cannot mint directly from a candy machine if we are not the mint author
     collectionMint: collectionMint.publicKey,
     collectionUpdateAuthority: mintAuthorityA,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -181,8 +181,8 @@ test('it can mint from a candy machine v1', async (t) => {
   const candyMachineSigner = await createV1(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;

@@ -1,6 +1,6 @@
-# mpl-candy-machine-core
+# tpl-candy-machine-core
 
-This package contains the Metaplex Candy Machine Core contract SDK code.
+This package contains the Trezoaplex Candy Machine Core contract SDK code.
 
 ## API Docs
 
@@ -9,7 +9,7 @@ Find the [candy-machine-core API docs published here](https://metaplex-foundatio
 ## Installation
 
 ```shell
-npm install @metaplex-foundation/mpl-candy-machine-core --save
+npm install @trezoaplex-foundation/tpl-candy-machine-core --save
 ```
 
 ## Developing

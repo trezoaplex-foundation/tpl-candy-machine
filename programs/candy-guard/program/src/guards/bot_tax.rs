@@ -1,4 +1,4 @@
-use solana_program::{
+use trezoa_program::{
     program::invoke, system_instruction, sysvar::instructions::get_instruction_relative,
 };
 
@@ -21,7 +21,7 @@ pub struct BotTax {
     pub last_instruction: bool,
 }
 
-impl Guard for BotTax {
+itpl Guard for BotTax {
     fn size() -> usize {
         8 + 1 // u64 + bool
     }
@@ -31,7 +31,7 @@ impl Guard for BotTax {
     }
 }
 
-impl Condition for BotTax {
+itpl Condition for BotTax {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -55,7 +55,7 @@ impl Condition for BotTax {
     }
 }
 
-impl BotTax {
+itpl BotTax {
     pub fn punish_bots(&self, ctx: &EvaluationContext, error: Error) -> Result<()> {
         let bot_account = ctx.accounts.payer.to_account_info();
         let payment_account = ctx.accounts.candy_machine.to_account_info();

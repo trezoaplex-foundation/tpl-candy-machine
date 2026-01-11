@@ -4,7 +4,7 @@ import {
   percentAmount,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { CandyMachine, fetchCandyMachine, updateCandyMachine } from '../src';
 import { createV2, createUmi } from './_setup';

@@ -6,8 +6,8 @@ import {
   some,
   subtractAmounts,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
-import { generateSignerWithSol } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { generateSignerWithSol } from '@trezoaplex-foundation/umi-bundle-tests';
 import test from 'ava';
 import {
   CandyGuard,

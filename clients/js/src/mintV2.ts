@@ -3,12 +3,12 @@ import {
   findTokenRecordPda,
   getTokenRecordSize,
   isProgrammable,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   findAssociatedTokenPda,
   getMintSize,
   getTokenSize,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   ACCOUNT_HEADER_SIZE,
   Option,
@@ -18,7 +18,7 @@ import {
   none,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { MASTER_EDITION_SIZE, METADATA_SIZE } from './constants';
 import { DefaultGuardSetMintArgs } from './defaultGuards';
 import {
@@ -62,7 +62,7 @@ export function mintV2<MA extends GuardSetMintArgs = DefaultGuardSetMintArgs>(
   const { mintArgs = {}, group = none(), ...rest } = input;
 
   // Parsing mint data.
-  const program = context.programs.get<CandyGuardProgram>('mplCandyGuard');
+  const program = context.programs.get<CandyGuardProgram>('tplCandyGuard');
   const candyMachine = publicKey(input.candyMachine, false);
   const mintContext: MintContext = {
     minter: input.minter ?? context.identity,

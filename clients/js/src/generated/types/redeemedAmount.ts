@@ -6,7 +6,7 @@
  * @see https://github.com/metaplex-foundation/kinobi
  */
 
-import { Serializer, struct, u64 } from '@metaplex-foundation/umi/serializers';
+import { Serializer, struct, u64 } from '@trezoaplex-foundation/umi/serializers';
 
 /**
  * Guard that stop the mint once the specified amount of items

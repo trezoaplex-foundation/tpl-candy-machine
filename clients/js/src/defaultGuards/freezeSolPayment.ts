@@ -5,16 +5,16 @@ import {
   findTokenRecordPda,
   getMplTokenMetadataProgramId,
   isProgrammable,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   findAssociatedTokenPda,
   getSplAssociatedTokenProgramId,
   getSplSystemProgramId,
   getSplTokenProgramId,
   getSysvar,
-} from '@metaplex-foundation/mpl-toolbox';
-import { PublicKey, Signer } from '@metaplex-foundation/umi';
-import { tuple, u64 } from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/tpl-toolbox';
+import { PublicKey, Signer } from '@trezoaplex-foundation/umi';
+import { tuple, u64 } from '@trezoaplex-foundation/umi/serializers';
 import { UnrecognizePathForRouteInstructionError } from '../errors';
 import {
   FreezeInstruction,
@@ -29,7 +29,7 @@ import { getMplTokenAuthRulesProgramId } from '../programs';
 
 /**
  * The freezeSolPayment guard allows minting frozen NFTs by charging
- * the payer an amount in SOL. Frozen NFTs cannot be transferred
+ * the payer an amount in TRZ. Frozen NFTs cannot be transferred
  * or listed on any marketplaces until thawed.
  *
  * The funds are transferred to a freeze escrow until all NFTs are thaw,

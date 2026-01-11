@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use mpl_token_metadata::accounts::Metadata;
+use tpl_token_metadata::accounts::Metadata;
 
 use crate::{
     approve_collection_authority_helper, cmp_pubkeys, constants::AUTHORITY_SEED,
@@ -128,7 +128,7 @@ pub struct SetCollection<'info> {
     /// Token Metadata program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = mpl_token_metadata::ID)]
+    #[account(address = tpl_token_metadata::ID)]
     token_metadata_program: UncheckedAccount<'info>,
 
     /// System program.

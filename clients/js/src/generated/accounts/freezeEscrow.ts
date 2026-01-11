@@ -20,7 +20,7 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -32,7 +32,7 @@ import {
   struct,
   u64,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /** PDA to store the frozen funds. */
 export type FreezeEscrow = Account<FreezeEscrowAccountData>;
@@ -183,7 +183,7 @@ export function getFreezeEscrowGpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplCandyGuard',
+    'tplCandyGuard',
     'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'
   );
   return gpaBuilder(context, programId)
@@ -224,7 +224,7 @@ export function findFreezeEscrowPda(
   }
 ): Pda {
   const programId = context.programs.getPublicKey(
-    'mplCandyGuard',
+    'tplCandyGuard',
     'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'
   );
   return context.eddsa.findPda(programId, [

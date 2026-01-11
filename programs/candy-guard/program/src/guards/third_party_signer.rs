@@ -11,7 +11,7 @@ pub struct ThirdPartySigner {
     pub signer_key: Pubkey,
 }
 
-impl Guard for ThirdPartySigner {
+itpl Guard for ThirdPartySigner {
     fn size() -> usize {
         32 // Pubkey
     }
@@ -21,7 +21,7 @@ impl Guard for ThirdPartySigner {
     }
 }
 
-impl Condition for ThirdPartySigner {
+itpl Condition for ThirdPartySigner {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,

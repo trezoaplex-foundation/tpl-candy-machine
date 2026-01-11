@@ -1,5 +1,5 @@
-import { isProgrammable } from '@metaplex-foundation/mpl-token-metadata';
-import { isNone, none, Option, PublicKey } from '@metaplex-foundation/umi';
+import { isProgrammable } from '@trezoaplex-foundation/tpl-token-metadata';
+import { isNone, none, Option, PublicKey } from '@trezoaplex-foundation/umi';
 import {
   array,
   bitArray,
@@ -10,7 +10,7 @@ import {
   string,
   struct,
   u32,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { CANDY_MACHINE_HIDDEN_SECTION } from '../constants';
 import {
   CandyMachineAccountData as BaseCandyMachineAccountData,

@@ -90,5 +90,5 @@ test('Sol Payment: insufficient funds', async (t) => {
     ],
   );
 
-  await minterMintTx.assertError(t, /Not enough SOL/i);
+  await minterMintTx.assertError(t, /Not enough TRZ/i);
 });

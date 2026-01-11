@@ -11,19 +11,19 @@ import {
   Context,
   Program,
   PublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   getMplCandyMachineCoreErrorFromCode,
   getMplCandyMachineCoreErrorFromName,
 } from '../errors';
 
-export const MPL_CANDY_MACHINE_CORE_PROGRAM_ID =
+export const TPL_CANDY_MACHINE_CORE_PROGRAM_ID =
   'CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR' as PublicKey<'CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR'>;
 
 export function createMplCandyMachineCoreProgram(): Program {
   return {
-    name: 'mplCandyMachineCore',
-    publicKey: MPL_CANDY_MACHINE_CORE_PROGRAM_ID,
+    name: 'tplCandyMachineCore',
+    publicKey: TPL_CANDY_MACHINE_CORE_PROGRAM_ID,
     getErrorFromCode(code: number, cause?: Error) {
       return getMplCandyMachineCoreErrorFromCode(code, this, cause);
     },
@@ -40,7 +40,7 @@ export function getMplCandyMachineCoreProgram<T extends Program = Program>(
   context: Pick<Context, 'programs'>,
   clusterFilter?: ClusterFilter
 ): T {
-  return context.programs.get<T>('mplCandyMachineCore', clusterFilter);
+  return context.programs.get<T>('tplCandyMachineCore', clusterFilter);
 }
 
 export function getMplCandyMachineCoreProgramId(
@@ -48,8 +48,8 @@ export function getMplCandyMachineCoreProgramId(
   clusterFilter?: ClusterFilter
 ): PublicKey {
   return context.programs.getPublicKey(
-    'mplCandyMachineCore',
-    MPL_CANDY_MACHINE_CORE_PROGRAM_ID,
+    'tplCandyMachineCore',
+    TPL_CANDY_MACHINE_CORE_PROGRAM_ID,
     clusterFilter
   );
 }

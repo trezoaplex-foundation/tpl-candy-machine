@@ -11,7 +11,7 @@ import {
   Option,
   OptionOrNullable,
   mapAmountSerializer,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -21,7 +21,7 @@ import {
   struct,
   u16,
   u64,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   ConfigLineSettings,
   ConfigLineSettingsArgs,

@@ -4,16 +4,16 @@ import {
   Program,
   PublicKey,
   publicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 
-export const MPL_TOKEN_AUTH_RULES_PROGRAM_ID = publicKey(
+export const TPL_TOKEN_AUTH_RULES_PROGRAM_ID = publicKey(
   'auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg'
 );
 
 export function createMplTokenAuthRulesProgram(): Program {
   return {
-    name: 'mplTokenAuthRules',
-    publicKey: MPL_TOKEN_AUTH_RULES_PROGRAM_ID,
+    name: 'tplTokenAuthRules',
+    publicKey: TPL_TOKEN_AUTH_RULES_PROGRAM_ID,
     getErrorFromCode: () => null,
     getErrorFromName: () => null,
     isOnCluster: () => true,
@@ -24,7 +24,7 @@ export function getMplTokenAuthRulesProgram<T extends Program = Program>(
   context: Pick<Context, 'programs'>,
   clusterFilter?: ClusterFilter
 ): T {
-  return context.programs.get<T>('mplTokenAuthRules', clusterFilter);
+  return context.programs.get<T>('tplTokenAuthRules', clusterFilter);
 }
 
 export function getMplTokenAuthRulesProgramId(
@@ -32,8 +32,8 @@ export function getMplTokenAuthRulesProgramId(
   clusterFilter?: ClusterFilter
 ): PublicKey {
   return context.programs.getPublicKey(
-    'mplTokenAuthRules',
-    MPL_TOKEN_AUTH_RULES_PROGRAM_ID,
+    'tplTokenAuthRules',
+    TPL_TOKEN_AUTH_RULES_PROGRAM_ID,
     clusterFilter
   );
 }

@@ -1,10 +1,10 @@
 use super::*;
 
-use solana_program::{program::invoke, system_instruction};
+use trezoa_program::{program::invoke, system_instruction};
 
 use crate::{errors::CandyGuardError, state::GuardType, utils::assert_keys_equal};
 
-/// Guard that charges an amount in SOL (lamports) for the mint.
+/// Guard that charges an amount in TRZ (lamports) for the mint.
 ///
 /// List of accounts required:
 ///
@@ -15,7 +15,7 @@ pub struct SolPayment {
     pub destination: Pubkey,
 }
 
-impl Guard for SolPayment {
+itpl Guard for SolPayment {
     fn size() -> usize {
         8    // lamports
         + 32 // destination
@@ -26,7 +26,7 @@ impl Guard for SolPayment {
     }
 }
 
-impl Condition for SolPayment {
+itpl Condition for SolPayment {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -48,7 +48,7 @@ impl Condition for SolPayment {
                 self.lamports,
                 ctx.accounts.payer.lamports(),
             );
-            return err!(CandyGuardError::NotEnoughSOL);
+            return err!(CandyGuardError::NotEnoughTRZ);
         }
 
         Ok(())

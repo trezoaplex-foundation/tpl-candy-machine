@@ -1,4 +1,4 @@
-import { StakeProgram } from '@solana/web3.js';
+import { StakeProgram } from '@trezoa/web3.js';
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
 

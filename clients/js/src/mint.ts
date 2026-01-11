@@ -6,7 +6,7 @@ import {
   none,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { MASTER_EDITION_SIZE, METADATA_SIZE } from './constants';
 import { DefaultGuardSetMintArgs } from './defaultGuards';
 import {
@@ -44,7 +44,7 @@ export function mint<MA extends GuardSetMintArgs = DefaultGuardSetMintArgs>(
     MintInstructionDataArgs<MA extends undefined ? DefaultGuardSetMintArgs : MA>
 ): TransactionBuilder {
   const { mintArgs = {}, group = none(), ...rest } = input;
-  const program = context.programs.get<CandyGuardProgram>('mplCandyGuard');
+  const program = context.programs.get<CandyGuardProgram>('tplCandyGuard');
   const candyMachine = publicKey(input.candyMachine, false);
   const mintContext: MintContext = {
     minter: input.payer ?? context.payer,

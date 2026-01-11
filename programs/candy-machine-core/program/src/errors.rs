@@ -86,7 +86,7 @@ pub enum CandyError {
     #[msg("Missing instructions sysvar account")]
     MissingInstructionsSysvar,
 
-    #[msg("Missing SPL ATA program")]
+    #[msg("Missing TPL ATA program")]
     MissingSplAtaProgram,
 
     #[msg("Invalid account version")]

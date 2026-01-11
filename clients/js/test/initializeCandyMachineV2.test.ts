@@ -1,5 +1,5 @@
-import { createAccountWithRent } from '@metaplex-foundation/mpl-toolbox';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { createAccountWithRent } from '@trezoaplex-foundation/tpl-toolbox';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   generateSigner,
   none,
@@ -7,7 +7,7 @@ import {
   publicKey,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   AccountVersion,
@@ -32,7 +32,7 @@ test('it can initialize a new candy machine account', async (t) => {
       createAccountWithRent(umi, {
         newAccount: candyMachine,
         space: 5000,
-        programId: umi.programs.get('mplCandyMachineCore').publicKey,
+        programId: umi.programs.get('tplCandyMachineCore').publicKey,
       })
     )
     .sendAndConfirm(umi);
@@ -57,7 +57,7 @@ test('it can initialize a new candy machine account', async (t) => {
         configLineSettings: some({
           prefixName: 'My NFT #',
           nameLength: 8,
-          prefixUri: 'https://example.com/',
+          prefixUri: 'https://exatple.com/',
           uriLength: 20,
           isSequential: false,
         }),
@@ -94,7 +94,7 @@ test('it can initialize a new candy machine account', async (t) => {
       configLineSettings: some({
         prefixName: 'My NFT #',
         nameLength: 8,
-        prefixUri: 'https://example.com/',
+        prefixUri: 'https://exatple.com/',
         uriLength: 20,
         isSequential: false,
       }),

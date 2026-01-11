@@ -1,7 +1,7 @@
 import {
   fixSerializer,
   mapSerializer,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { MaximumOfFiveAdditionalProgramsError } from '../errors';
 import {
   ProgramGate,
@@ -22,13 +22,13 @@ import { GuardManifest, noopParser } from '../guards';
  * array is equivalent to only authorising the mandatory programs.
  *
  * The mandatory programs are:
- * - The SPL System Program
- * - The SPL Token Program
- * - The SPL Associated Token Program
- * - The SPL Compute Budget Program
- * - The MPL Candy Machine Core Program
- * - The MPL Candy Guard Program
- * - The MPL System Extras Program
+ * - The TPL System Program
+ * - The TPL Token Program
+ * - The TPL Associated Token Program
+ * - The TPL Compute Budget Program
+ * - The TPL Candy Machine Core Program
+ * - The TPL Candy Guard Program
+ * - The TPL System Extras Program
  */
 export const programGateGuardManifest: GuardManifest<
   ProgramGateArgs,

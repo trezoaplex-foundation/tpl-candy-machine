@@ -1,5 +1,5 @@
-import { Context, PublicKey, Signer } from '@metaplex-foundation/umi';
-import { Serializer } from '@metaplex-foundation/umi/serializers';
+import { Context, PublicKey, Signer } from '@trezoaplex-foundation/umi';
+import { Serializer } from '@trezoaplex-foundation/umi/serializers';
 
 export type GuardManifest<
   DA extends object = {},
@@ -31,9 +31,9 @@ export const noopParser: MintParser<{}> & RouteParser<{}> = () => ({
 });
 
 export type MintContext = {
-  /** The wallet to use for validation and non-SOL fees, this is typically the payer. */
+  /** The wallet to use for validation and non-TRZ fees, this is typically the payer. */
   minter: Signer;
-  /** The wallet to use for SOL fees. */
+  /** The wallet to use for TRZ fees. */
   payer: Signer;
   /** The mint account of the NFT being minted. */
   mint: PublicKey;

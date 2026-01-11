@@ -1,10 +1,10 @@
-use anchor_lang::{prelude::*, solana_program::sysvar};
-use mpl_token_metadata::{accounts::Metadata, types::TokenStandard};
-use mpl_utils::resize_or_reallocate_account_raw;
+use anchor_lang::{prelude::*, trezoa_program::sysvar};
+use tpl_token_metadata::{accounts::Metadata, types::TokenStandard};
+use tpl_utils::resize_or_reallocate_account_raw;
 
 use crate::{
     approve_metadata_delegate, assert_token_standard, cmp_pubkeys,
-    constants::{AUTHORITY_SEED, MPL_TOKEN_AUTH_RULES_PROGRAM, RULE_SET_LENGTH, SET, UNSET},
+    constants::{AUTHORITY_SEED, TPL_TOKEN_AUTH_RULES_PROGRAM, RULE_SET_LENGTH, SET, UNSET},
     revoke_collection_authority_helper, AccountVersion, ApproveMetadataDelegateHelperAccounts,
     CandyError, CandyMachine, RevokeCollectionAuthorityHelperAccounts,
 };
@@ -152,8 +152,8 @@ pub struct SetTokenStandard<'info> {
 
     /// Authorization rule set to be used by minted NFTs.
     ///
-    /// CHECK: must be ownwed by mpl_token_auth_rules
-    #[account(owner = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    /// CHECK: must be ownwed by tpl_token_auth_rules
+    #[account(owner = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     rule_set: Option<UncheckedAccount<'info>>,
 
     /// Collection metadata delegate record.
@@ -185,7 +185,7 @@ pub struct SetTokenStandard<'info> {
     /// Token Metadata program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = mpl_token_metadata::ID)]
+    #[account(address = tpl_token_metadata::ID)]
     token_metadata_program: UncheckedAccount<'info>,
 
     /// System program.
@@ -200,12 +200,12 @@ pub struct SetTokenStandard<'info> {
     /// Token Authorization Rules program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(address = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules_program: Option<UncheckedAccount<'info>>,
 
     /// Token Authorization rules account for the collection metadata (if any).
     ///
     /// CHECK: account constraints checked in account trait
-    #[account(owner = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(owner = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules: Option<UncheckedAccount<'info>>,
 }

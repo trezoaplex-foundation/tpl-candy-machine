@@ -370,7 +370,7 @@
         "11. `[]` Collection master edition",
         "12. `[]` Collection update authority",
         "13. `[]` Token Metadata program",
-        "14. `[]` SPL Token program",
+        "14. `[]` TPL Token program",
         "15. `[]` System program",
         "16. `[]` SlotHashes sysvar cluster data."
       ],
@@ -505,7 +505,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token program."
+            "TPL Token program."
           ]
         },
         {
@@ -554,8 +554,8 @@
         "13. `[]` Collection master edition",
         "14. `[]` Collection update authority",
         "15. `[]` Token Metadata program",
-        "16. `[]` SPL Token program",
-        "17. `[optional]` SPL Associated Token program",
+        "16. `[]` TPL Token program",
+        "17. `[optional]` TPL Associated Token program",
         "18. `[]` System program",
         "19. `[optional]` Instructions sysvar account",
         "20. `[]` SlotHashes sysvar cluster data."
@@ -718,7 +718,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token program."
+            "TPL Token program."
           ]
         },
         {
@@ -727,7 +727,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Associated Token program."
+            "TPL Associated Token program."
           ]
         },
         {
@@ -1877,7 +1877,7 @@
     {
       "code": 6028,
       "name": "MissingSplAtaProgram",
-      "msg": "Missing SPL ATA program"
+      "msg": "Missing TPL ATA program"
     },
     {
       "code": 6029,
@@ -1887,7 +1887,7 @@
   ],
   "metadata": {
     "address": "CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR",
-    "origin": "anchor",
+    "origin": "trezoa",
     "binaryVersion": "0.27.0",
     "libVersion": "0.28.0"
   }

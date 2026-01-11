@@ -1,11 +1,11 @@
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData, sleep } from '../setup';
-import { Metaplex, keypairIdentity } from '@metaplex-foundation/js';
-import { AccountMeta, AddressLookupTableAccount, PublicKey } from '@solana/web3.js';
-import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { Trezoaplex, keypairIdentity } from '@trezoaplex-foundation/js';
+import { AccountMeta, AddressLookupTableAccount, PublicKey } from '@trezoa/web3.js';
+import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@trezoa/tpl-token';
 import { METAPLEX_PROGRAM_ID, spokSamePubkey } from '../utils';
-import { CandyMachine } from '@metaplex-foundation/mpl-candy-machine-core';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { CandyMachine } from '@trezoaplex-foundation/tpl-candy-machine-core';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import spok from 'spok';
 import { addAddressesToTable, createAndSendV0Tx, createLookupTable } from '../setup/lut';
 
@@ -77,7 +77,7 @@ test('nft burn (authority)', async (t) => {
   );
   await minterMintTx.assertError(t, /Missing expected remaining account/i);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nft = await metaplex.nfts().findByMint({ mintAddress: mintForAuthority.publicKey });
   const collection = await metaplex
     .nfts()
@@ -207,7 +207,7 @@ test('nft burn (minter)', async (t) => {
 
   // mint from the second (gated) candy machine
 
-  const metaplex = Metaplex.make(minterConnection).use(keypairIdentity(minter));
+  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
   const nft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
   const collection = await metaplex
     .nfts()
@@ -370,7 +370,7 @@ test('nft burn: Programmable NonFungible', async (t) => {
 
   // mint from the second (gated) candy machine
 
-  const metaplex = Metaplex.make(minterConnection).use(keypairIdentity(minter));
+  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
   const nft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
   const collection = await metaplex
     .nfts()

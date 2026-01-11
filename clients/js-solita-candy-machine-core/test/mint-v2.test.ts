@@ -2,9 +2,9 @@ import test from 'tape';
 import { InitTransactions, killStuckProcess, METAPLEX_RULE_SET } from './setup';
 import spok from 'spok';
 import { AccountVersion, CandyMachine, CandyMachineData, ConfigLine } from '../src/generated';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
-import { keypairIdentity, Metaplex, Nft } from '@metaplex-foundation/js';
-import { getAccount } from '@solana/spl-token';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
+import { keypairIdentity, Trezoaplex, Nft } from '@trezoaplex-foundation/js';
+import { getAccount } from '@trezoa/tpl-token';
 import { spokSamePubkey } from './utils';
 
 killStuckProcess();
@@ -87,7 +87,7 @@ test('mintV2: Programmable NFT', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nftTokenAccount = metaplex
     .tokens()
     .pdas()
@@ -179,7 +179,7 @@ test('mintV2: Programmable NFT with rule set', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nftTokenAccount = metaplex
     .tokens()
     .pdas()
@@ -269,7 +269,7 @@ test('mintV2: NFT', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nftTokenAccount = metaplex
     .tokens()
     .pdas()
@@ -356,7 +356,7 @@ test('mintV2: mint from existing candy machine', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nft = await metaplex.nfts().findByMint({ mintAddress: nftMint });
 
   spok(t, nft, {

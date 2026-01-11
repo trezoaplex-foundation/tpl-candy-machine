@@ -1,18 +1,18 @@
-# Metaplex Candy Guard
+# Trezoaplex Candy Guard
 ---
 
 ### 💡 Update:
 From Candy Guard v0.2.0, the serialization logic for the arguments of the `initialize` and `update` instructions expect a `[u8]` represeting the custom serialized struct. This is to ensure adding new guards in the future does not affect clients.
 
-If you are using the `mpl-candy-guard` npm package, you can serialize the `CandyMachineData` object using:
+If you are using the `tpl-candy-guard` npm package, you can serialize the `CandyMachineData` object using:
 ```typescript
-import { serialize } from '@metaplex-foundation/mpl-candy-guard';
+import { serialize } from '@trezoaplex-foundation/tpl-candy-guard';
 
 const data = { ... };
 const serializedData = serialize(data);
 ```
 
-If you are using the `mpl-candy-guard` Rust crate, you can serialize the `CandyMachineData` struct using:
+If you are using the `tpl-candy-guard` Rust crate, you can serialize the `CandyMachineData` struct using:
 ```rust
 let data = CandyGuardData { ... };
 let mut serialized_data = vec![0; data.size()];
@@ -24,7 +24,7 @@ data.save(&mut serialized_data)?;
 
 The new `Candy Guard` program is designed to take away the **access control** logic from the `Candy Machine` to handle the additional mint features, while the Candy Machine program retains its core mint functionality &mdash; the creation of the NFT. This not only provides a clear separation between **access controls** and **mint logic**, it also provides a modular and flexible architecture to add or remove mint features without having to modify the Candy Machine program.
 
-The access control on a Candy Guard is encapsulated in individuals guards representing a specific rule that needs to be satisfied, which can be enabled or disabled. For example, the live date of the mint is represented as the `LiveDate` guard. This guard is satisfied only if the transaction time is on or after the configured start time on the guard. Other guards can validate different aspects of the access control – e.g., ensuring that the user holds a specific token (token gating).
+The access control on a Candy Guard is encapsulated in individuals guards representing a specific rule that needs to be satisfied, which can be enabled or disabled. For exatple, the live date of the mint is represented as the `LiveDate` guard. This guard is satisfied only if the transaction time is on or after the configured start time on the guard. Other guards can validate different aspects of the access control – e.g., ensuring that the user holds a specific token (token gating).
 
 > **Note**
 > The Candy Guard program can only be used in combination with `Candy Machine Core` (`Candy Machine V3`) accounts. When a Candy Guard is used in combination with a Candy Machine, it becomes its mint authority and minting is only possible through the Candy Guard.
@@ -43,7 +43,7 @@ When a mint transaction is received, the program performs the following steps:
 3. Then the transaction is forwarded to the Candy Machine program to mint the NFT.
 4. Finally, it invokes the `post_actions` function on each enabled guard. This function is responsible to perform any action **after** the mint (e.g., freeze the NFT, change the update authority).
 
-A **guard** is a modular piece of code that can be easily added to the Candy Guard program, providing great flexibility and simplicity to support specific features without having to modify directly the Candy Machine program. Adding new guards is supported by conforming to specific interfaces, with changes isolated to the individual guard – e.g., each guard can be created and modified in isolation. This architecture also provides the flexibility to enable/disable guards without requiring code changes, as each guard has an enable/disable "switch".
+A **guard** is a modular piece of code that can be easily added to the Candy Guard program, providing great flexibility and sitplicity to support specific features without having to modify directly the Candy Machine program. Adding new guards is supported by conforming to specific interfaces, with changes isolated to the individual guard – e.g., each guard can be created and modified in isolation. This architecture also provides the flexibility to enable/disable guards without requiring code changes, as each guard has an enable/disable "switch".
 
 The Candy Guard program contains a set of core access control guards that can be enabled/disabled:
 
@@ -52,8 +52,8 @@ The Candy Guard program contains a set of core access control guards that can be
 - `AllowList`: uses a wallet address list to determine who is allowed to mint
 - `BotTax`: configurable tax (amount) to charge invalid transactions
 - `EndDate`: determines a date to end the mint
-- `FreezeSolPayment`: set the price of the mint in SOL with a freeze period.
-- `FreezeTokenPayment`: set the price of the mint in spl-token amount with a freeze period.
+- `FreezeSolPayment`: set the price of the mint in TRZ with a freeze period.
+- `FreezeTokenPayment`: set the price of the mint in tpl-token amount with a freeze period.
 - `Gatekeeper`: captcha integration
 - `MintLimit`: specified a limit on the number of mints per wallet
 - `NftBurn`: restricts the mint to holders of a specified collection, requiring a burn of the NFT
@@ -61,12 +61,12 @@ The Candy Guard program contains a set of core access control guards that can be
 - `NftPayment`: set the price of the mint as an NFT of a specified collection
 - `ProgramGate`: restricts the programs that can be in a mint transaction
 - `RedeemedAmount`: determines the end of the mint based on a total amount minted
-- `SolPayment`: set the price of the mint in SOL
+- `SolPayment`: set the price of the mint in TRZ
 - `StartDate`: determines the start date of the mint
 - `ThirdPartySigner`: requires an additional signer on the transaction
-- `TokenBurn`: restricts the mint to holders of a specified spl-token, requiring a burn of the tokens
-- `TokenGate`: restricts the mint to holders of a specified spl-token
-- `TokenPayment`: set the price of the mint in spl-token amount
+- `TokenBurn`: restricts the mint to holders of a specified tpl-token, requiring a burn of the tokens
+- `TokenGate`: restricts the mint to holders of a specified tpl-token
+- `TokenPayment`: set the price of the mint in tpl-token amount
 
 Along with those guads, amazing teams in the community are making guard programs with new and cool checks. Here are a few teams who have created guards:
 
@@ -79,7 +79,7 @@ The Candy Guard configuration is stored in a single account. The information reg
 
 | Field             | Offset | Size | Description                                                                                                                 |
 | ----------------- | ------ | ---- | --------------------------------------------------------------------------------------------------------------------------- |
-| &mdash;           | 0      | 8    | Anchor account discriminator.                                                                                               |
+| &mdash;           | 0      | 8    | Trezoa account discriminator.                                                                                               |
 | `base`            | 8      | 32   | `PubKey` to derive the PDA key. The seed is defined by `["candy_guard", base pubkey]`.                                      |
 | `bump`            | 40     | 1    | `u8` representing the bump of the derivation.                                                                               |
 | `authority`       | 41     | 32   | `PubKey` of the authority address that controls the Candy Guard.                                                            |
@@ -120,7 +120,7 @@ This instruction creates and initializes a new `CandyGuard` account.
 | ----------------------------- | ------ | ---- | ------------------------- |
 | `data`                        | 0      | ~    | Serialized `CandyGuardData` object as `[u8]`. |
 
-The instruction uses a [custom serialization](https://docs.rs/mpl-candy-guard/0.1.1/mpl_candy_guard/state/candy_guard/struct.CandyGuardData.html#method.save) in order to maintain backwards compatibility with previous versions of the `CandyGuardData` struct.
+The instruction uses a [custom serialization](https://docs.rs/tpl-candy-guard/0.1.1/tpl_candy_guard/state/candy_guard/struct.CandyGuardData.html#method.save) in order to maintain backwards compatibility with previous versions of the `CandyGuardData` struct.
 </details>
 
 ### 📄 `mint` (deprecated)
@@ -146,8 +146,8 @@ This instruction mints an NFT from a Candy Machine "wrapped" by a Candy Guard. O
 | `collection_metadata`         |    ✅    |        | Metadata account of the collection.                                                                 |
 | `collection_master_edition`   |          |        | Master Edition account of the collection.                                                           |
 | `collection_update_authority` |          |        | Update authority of the collection.                                                                 |
-| `token_metadata_program`      |          |        | Metaplex `TokenMetadata` program ID.                                                                |
-| `token_program`               |          |        | `spl-token` program ID.                                                                             |
+| `token_metadata_program`      |          |        | Trezoaplex `TokenMetadata` program ID.                                                                |
+| `token_program`               |          |        | `tpl-token` program ID.                                                                             |
 | `system_program`              |          |        | `SystemProgram` account.                                                                            |
 | `rent`                        |          |        | `Rent` account.                                                                                     |
 | `recent_slothashes`           |          |        | `SlotHashes` account.                                                                               |
@@ -191,9 +191,9 @@ This instruction mints both `NFT` or `pNFT` from a Candy Machine "wrapped" by a 
 | `collection_metadata`         |    ✅    |        | Metadata account of the collection.                                                                 |
 | `collection_master_edition`   |          |        | Master Edition account of the collection.                                                           |
 | `collection_update_authority` |          |        | Update authority of the collection.                                                                 |
-| `token_metadata_program`      |          |        | Metaplex `TokenMetadata` program ID.                                                                |
-| `spl_token_program`           |          |        | `spl-token` program ID.                                                                             |
-| `spl_ata_program`             |          |        | (optional) `spl` associated token program.            |
+| `token_metadata_program`      |          |        | Trezoaplex `TokenMetadata` program ID.                                                                |
+| `tpl_token_program`           |          |        | `tpl-token` program ID.                                                                             |
+| `spl_ata_program`             |          |        | (optional) `tpl` associated token program.            |
 | `system_program`              |          |        | `SystemProgram` account.                                                                            |
 | `sysvar_instructions`         |          |        | `sysvar::instructions` account.                                      |
 | `recent_slothashes`           |          |        | SlotHashes sysvar cluster data.                                      |
@@ -285,7 +285,7 @@ This instruction updates the Candy Guard configuration. Given that there is a fl
 | ----------------------------- | ------ | ---- | ------------------------- |
 | `data`                        | 0      | ~    | Serialized `CandyGuardData` object as `[u8]`. |
 
-The instruction uses a [custom serialization](https://docs.rs/mpl-candy-guard/0.1.1/mpl_candy_guard/state/candy_guard/struct.CandyGuardData.html#method.save) in order to maintain backwards compatibility with previous versions of the `CandyGuardData` struct.
+The instruction uses a [custom serialization](https://docs.rs/tpl-candy-guard/0.1.1/tpl_candy_guard/state/candy_guard/struct.CandyGuardData.html#method.save) in order to maintain backwards compatibility with previous versions of the `CandyGuardData` struct.
 </details>
 
 ### 📄 `withdraw`
@@ -408,7 +408,7 @@ The `AllowList` guard validates the payer's address against a merkle tree-based 
 
 #### Route Instruction
 
-The merkle proof validation needs to be completed before the mint transaction. This is done by a `route` instruction with the following accounts and `RouteArgs`:
+The merkle proof validation needs to be cotpleted before the mint transaction. This is done by a `route` instruction with the following accounts and `RouteArgs`:
 
 <details>
   <summary>Accounts</summary>
@@ -465,7 +465,7 @@ pub struct FreezeSolPayment {
 }
 ```
 
-The `FreezeSolPayment` guard is used to charge an amount in SOL (lamports) for the mint with a freeze period. The funds are transferred a freeze escrow until all NFTs are thawed, which at this point, can be transferred (unlock) to the destination account.
+The `FreezeSolPayment` guard is used to charge an amount in TRZ (lamports) for the mint with a freeze period. The funds are transferred a freeze escrow until all NFTs are thawed, which at this point, can be transferred (unlock) to the destination account.
 
 **Note:** The freeze functionality must be initialized using the `initialize` route instruction before mint starts.
 
@@ -518,14 +518,14 @@ The `FreezeSolPayment` guard is used to charge an amount in SOL (lamports) for t
 | `owner`                   |          |        | Address of the owner of the NFT. |
 | `nft_ata`                 |    ✅    |        | Associate token account of the NFT (seeds `[owner pubkey, token program pubkey, nft mint pubkey]`). |
 | `nft_master_edition`      |          |        | Master Edition account of the NFT. |
-| `token_program`           |          |        | `spl-token` program ID.                                                                             |
-| `token_metadata_program`  |          |        | Metaplex `TokenMetadata` program.  |
+| `token_program`           |          |        | `tpl-token` program ID.                                                                             |
+| `token_metadata_program`  |          |        | Trezoaplex `TokenMetadata` program.  |
 |                           |          |        | _Below are accounts required for pNFTs:_  |
 | `nft_metadata`            |    ✅    |        | Metadata account of the NFT.  |
 | `freeze_pda_ata`          |    ✅    |        | Freeze PDA associated token account of the NFT.  |
 | `system_program`          |          |        | System program.  |
 | `sysvar_instructions`     |          |        | Sysvar instructions account.  |
-| `spl_ata_program`         |          |        | SPL Associated Token Account program.  |
+| `spl_ata_program`         |          |        | TPL Associated Token Account program.  |
 | `owner_token_record`      |    ✅    |        | Owner token record account.  |
 | `freeze_pda_token_record` |    ✅    |        | Freeze PDA token record account.  |
 | `authorization_rules_program` |      |        | (optional) Token Authorization Rules program.  |
@@ -579,7 +579,7 @@ pub struct FreezeTokenPayment {
 }
 ```
 
-The `FreezeTokenPayment` guard is used to charge an amount in a specified spl-token as payment for the mint with a freeze period. The funds are transferred a freeze escrow until all NFTs are thaw, which at this point, can be transferred (unlock) to the destination account.
+The `FreezeTokenPayment` guard is used to charge an amount in a specified tpl-token as payment for the mint with a freeze period. The funds are transferred a freeze escrow until all NFTs are thaw, which at this point, can be transferred (unlock) to the destination account.
 
 **Note:** The freeze functionality must be initialized using the `initialize` route instruction before mint starts.
 
@@ -610,7 +610,7 @@ The `FreezeTokenPayment` guard is used to charge an amount in a specified spl-to
 | `system_program`          |          |        | System program account. |
 | `freeze_ata`              |    ✅    |        | Associate token account of the Freeze PDA (seeds `[freeze PDA pubkey, token program pubkey, nft mint pubkey]`). |
 | `token_mint`              |          |        | Token mint account (must match the `mint` address of the guard configuration). |
-| `token_program`           |          |        | `spl-token` program ID. |
+| `token_program`           |          |        | `tpl-token` program ID. |
 | `associate_token_program` |          |        | Associate token program account. |
 | `destination_ata`         |    ✅    |        | Address to receive the funds (must match the `destination_ata` address of the guard configuration). |
 
@@ -639,14 +639,14 @@ The `FreezeTokenPayment` guard is used to charge an amount in a specified spl-to
 | `owner`              |          |        | Address of the owner of the NFT. |
 | `nft_ata`            |    ✅    |        | Associate token account of the NFT (seeds `[owner pubkey, token program pubkey, nft mint pubkey]`). |
 | `nft_master_edition` |          |        | Master Edition account of the NFT. |
-| `token_program`      |          |        | `spl-token` program ID.                                                                             |
+| `token_program`      |          |        | `tpl-token` program ID.                                                                             |
 | `system_program`     |          |        | `SystemProgram` account.                                                                            |
 |                           |          |        | _Below are accounts required for pNFTs:_  |
 | `nft_metadata`            |    ✅    |        | Metadata account of the NFT.  |
 | `freeze_pda_ata`          |    ✅    |        | Freeze PDA associated token account of the NFT.  |
 | `system_program`          |          |        | System program.  |
 | `sysvar_instructions`     |          |        | Sysvar instructions account.  |
-| `spl_ata_program`         |          |        | SPL Associated Token Account program.  |
+| `spl_ata_program`         |          |        | TPL Associated Token Account program.  |
 | `owner_token_record`      |    ✅    |        | Owner token record account.  |
 | `freeze_pda_token_record` |    ✅    |        | Freeze PDA token record account.  |
 | `authorization_rules_program` |      |        | (optional) Token Authorization Rules program.  |
@@ -676,7 +676,7 @@ Unlock funds is only enabled after all frozen NFTs are thaw.
 | `authority`       |          |   ✅   | Candy Guard authority. |
 | `freeze_ata`      |    ✅    |        | Associate token account of the Freeze PDA (seeds `[freeze PDA pubkey, token program pubkey, nft mint pubkey]`). |
 | `destination_ata` |    ✅    |        | Address to receive the funds (must match the `destination_ata` address of the guard configuration). |
-| `token_program`   |          |        | `spl-token` program ID. |
+| `token_program`   |          |        | `tpl-token` program ID. |
 | `system_program`  |          |        | `SystemProgram` account.                                                                            |
 
 </details>
@@ -700,7 +700,7 @@ pub struct Gatekeeper {
 }
 ```
 
-The `Gatekeeper` guard validates if the payer of the transaction has a _token_ from a specified gateway network &mdash; in most cases, a _token_ after completing a captcha challenge. The `expire_on_use` configuration is used to indicate whether or not the token should expire after minting.
+The `Gatekeeper` guard validates if the payer of the transaction has a _token_ from a specified gateway network &mdash; in most cases, a _token_ after cotpleting a captcha challenge. The `expire_on_use` configuration is used to indicate whether or not the token should expire after minting.
 
 <details>
   <summary>Accounts</summary>
@@ -798,7 +798,7 @@ The `NftPayment` guard is a payment guard that charges another NFT (token) from 
 | `nft_mint_account` |          |        | Mint account of the NFT.                                                               |
 | `destination`      |          |        | Account to receive the NFT.                                                            |
 | `destination_ata`  |    ✅    |        | Destination PDA key (seeds `[destination pubkey, token program id, nft_mint pubkey]`). |
-| `atoken_progam`    |          |        | `spl-associate-token` program.                  |
+| `atoken_progam`    |          |        | `tpl-associate-token` program.                  |
 | `owner_token_record`       |    ✅    |        | (optional) Owner token record account (pNFT).  |
 | `destination_token_record` |    ✅    |        | (optional) Freeze PDA token record account (pNFT).  |
 | `authorization_rules_program` |      |        | (optional) Token Authorization Rules program (pNFT).  |
@@ -835,7 +835,7 @@ pub struct SolPayment {
 }
 ```
 
-The `SolPayment` guard is used to charge an amount in SOL (lamports) for the mint. The funds are transferred to the configured `destination` address.
+The `SolPayment` guard is used to charge an amount in TRZ (lamports) for the mint. The funds are transferred to the configured `destination` address.
 
 <details>
   <summary>Accounts</summary>
@@ -884,7 +884,7 @@ pub struct TokenBurn {
 }
 ```
 
-The `TokenBurn` restrict the mint to holder of a specified spl-token and required the burn of the tokens. The `amount` determines how many tokens are required.
+The `TokenBurn` restrict the mint to holder of a specified tpl-token and required the burn of the tokens. The `amount` determines how many tokens are required.
 
 <details>
   <summary>Accounts</summary>
@@ -905,7 +905,7 @@ pub struct TokenGate {
 }
 ```
 
-The `TokenGate` restrict the mint to holder of a specified spl-token. The `amount` determines how many tokens are required.
+The `TokenGate` restrict the mint to holder of a specified tpl-token. The `amount` determines how many tokens are required.
 
 <details>
   <summary>Accounts</summary>
@@ -926,7 +926,7 @@ pub struct TokenPayment {
 }
 ```
 
-The `TokenPayment` restrict the mint to holder of a specified spl-token, transferring the required amount to the `destination_ata` address. The `amount` determines how many tokens are required.
+The `TokenPayment` restrict the mint to holder of a specified tpl-token, transferring the required amount to the `destination_ata` address. The `amount` determines how many tokens are required.
 
 <details>
   <summary>Accounts</summary>

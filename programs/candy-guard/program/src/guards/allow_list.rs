@@ -1,5 +1,5 @@
 use anchor_lang::system_program;
-use solana_program::{program::invoke_signed, system_instruction};
+use trezoa_program::{program::invoke_signed, system_instruction};
 
 use crate::{
     instructions::Route,
@@ -21,7 +21,7 @@ pub struct AllowList {
     pub merkle_root: [u8; 32],
 }
 
-impl AllowList {
+itpl AllowList {
     /// Returns true if a `leaf` can be proved to be a part of a Merkle tree
     /// defined by `root`. For this, a `proof` must be provided, containing
     /// sibling hashes on the branch from the leaf to the root of the tree. Each
@@ -31,10 +31,10 @@ impl AllowList {
         for proof_element in proof.iter() {
             if computed_hash <= *proof_element {
                 // hash (current computed hash + current element of the proof)
-                computed_hash = solana_program::keccak::hashv(&[&computed_hash, proof_element]).0
+                computed_hash = trezoa_program::keccak::hashv(&[&computed_hash, proof_element]).0
             } else {
                 // hash (current element of the proof + current computed hash)
-                computed_hash = solana_program::keccak::hashv(&[proof_element, &computed_hash]).0;
+                computed_hash = trezoa_program::keccak::hashv(&[proof_element, &computed_hash]).0;
             }
         }
         // check if the computed hash (root) is equal to the provided root
@@ -42,7 +42,7 @@ impl AllowList {
     }
 }
 
-impl Guard for AllowList {
+itpl Guard for AllowList {
     fn size() -> usize {
         32 // merkle_root
     }
@@ -99,7 +99,7 @@ impl Guard for AllowList {
             return err!(CandyGuardError::MissingAllowedListProof);
         };
 
-        let leaf = solana_program::keccak::hashv(&[minter.to_string().as_bytes()]);
+        let leaf = trezoa_program::keccak::hashv(&[minter.to_string().as_bytes()]);
 
         let guard_set = if let Some(guard_set) = route_context.guard_set {
             guard_set
@@ -174,7 +174,7 @@ impl Guard for AllowList {
     }
 }
 
-impl Condition for AllowList {
+itpl Condition for AllowList {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -217,7 +217,7 @@ pub struct AllowListProof {
     pub timestamp: i64,
 }
 
-impl AllowListProof {
+itpl AllowListProof {
     /// Prefix used as seed.
     pub const PREFIX_SEED: &'static [u8] = b"allow_list";
 }

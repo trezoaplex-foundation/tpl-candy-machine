@@ -9,7 +9,7 @@
 import {
   TokenStandardArgs,
   getTokenStandardSerializer,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   Account,
   Context,
@@ -22,13 +22,13 @@ import {
   deserializeAccount,
   gpaBuilder,
   publicKey as toPublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   array,
   publicKey as publicKeySerializer,
   u64,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   CandyMachineAccountData,
   getCandyMachineAccountDataSerializer,
@@ -105,7 +105,7 @@ export function getCandyMachineGpaBuilder(
   context: Pick<Context, 'rpc' | 'programs'>
 ) {
   const programId = context.programs.getPublicKey(
-    'mplCandyMachineCore',
+    'tplCandyMachineCore',
     'CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR'
   );
   return gpaBuilder(context, programId)

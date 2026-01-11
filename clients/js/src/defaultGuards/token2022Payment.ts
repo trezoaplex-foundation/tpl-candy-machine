@@ -1,5 +1,5 @@
-import { publicKey } from '@metaplex-foundation/umi';
-import { publicKey as publicKeySerializer } from '@metaplex-foundation/umi/serializers';
+import { publicKey } from '@trezoaplex-foundation/umi';
+import { publicKey as publicKeySerializer } from '@trezoaplex-foundation/umi/serializers';
 import {
   getToken2022PaymentSerializer,
   Token2022Payment,

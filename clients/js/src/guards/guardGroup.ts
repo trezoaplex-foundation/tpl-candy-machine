@@ -3,7 +3,7 @@ import {
   Serializer,
   string,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { GuardGroupLabelTooLongError } from '../errors';
 import { CANDY_GUARD_LABEL_SIZE } from '../constants';
 import { CandyGuardProgram, GuardRepository } from './guardRepository';

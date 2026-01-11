@@ -1,5 +1,5 @@
-import { PublicKey } from '@metaplex-foundation/umi';
-import { publicKey, string } from '@metaplex-foundation/umi/serializers';
+import { PublicKey } from '@trezoaplex-foundation/umi';
+import { publicKey, string } from '@trezoaplex-foundation/umi/serializers';
 import {
   Gatekeeper,
   GatekeeperArgs,
@@ -11,7 +11,7 @@ import { GuardManifest, GuardRemainingAccount, noopParser } from '../guards';
  * The gatekeeper guard checks whether the minting wallet
  * has a valid Gateway Token from a specified Gateway Network.
  *
- * In most cases, this token will be obtain after completing a
+ * In most cases, this token will be obtain after cotpleting a
  * captcha challenge but any Gateway Network may be used.
  *
  * The `network` argument specifies the public key of the Gatekeeper

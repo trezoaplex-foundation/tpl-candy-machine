@@ -1,7 +1,7 @@
 import test from 'tape';
 import { amman, newCandyGuardData, newGuardSet, InitTransactions, killStuckProcess } from './setup';
 import { CandyMachineHelper } from './utils';
-import { AccountMeta } from '@solana/web3.js';
+import { AccountMeta } from '@trezoa/web3.js';
 import { BN } from 'bn.js';
 
 const API = new InitTransactions();

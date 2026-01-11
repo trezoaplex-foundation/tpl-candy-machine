@@ -1,4 +1,4 @@
-import { none, some, transactionBuilder } from '@metaplex-foundation/umi';
+import { none, some, transactionBuilder } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { addConfigLines, CandyMachine, fetchCandyMachine } from '../src';
 import { createV2, createUmi } from './_setup';
@@ -15,8 +15,8 @@ test('it can add items to a candy machine', async (t) => {
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-          { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+          { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
         ],
       })
     )
@@ -34,13 +34,13 @@ test('it can add items to a candy machine', async (t) => {
         index: 0,
         minted: false,
         name: 'Degen #1',
-        uri: 'https://example.com/degen/1',
+        uri: 'https://exatple.com/degen/1',
       },
       {
         index: 1,
         minted: false,
         name: 'Degen #2',
-        uri: 'https://example.com/degen/2',
+        uri: 'https://exatple.com/degen/2',
       },
     ],
   });
@@ -55,7 +55,7 @@ test('it uses the names and URIs as suffixes when adding items to a candy machin
       type: 'configLines',
       prefixName: 'Degen #',
       nameLength: 1, // E.g. "1".
-      prefixUri: 'https://example.com/degen/',
+      prefixUri: 'https://exatple.com/degen/',
       uriLength: 6, // E.g. "1.json".
       isSequential: false,
     }),
@@ -87,13 +87,13 @@ test('it uses the names and URIs as suffixes when adding items to a candy machin
         index: 0,
         minted: false,
         name: 'Degen #1',
-        uri: 'https://example.com/degen/1.json',
+        uri: 'https://exatple.com/degen/1.json',
       },
       {
         index: 1,
         minted: false,
         name: 'Degen #2',
-        uri: 'https://example.com/degen/2.json',
+        uri: 'https://exatple.com/degen/2.json',
       },
     ],
   });
@@ -107,7 +107,7 @@ test('it cannot add items to a candy machine with hidden settings', async (t) =>
     configLineSettings: none(),
     hiddenSettings: some({
       name: 'Degen #$ID+1$',
-      uri: 'https://example.com/degen/$ID+1$.json',
+      uri: 'https://exatple.com/degen/$ID+1$.json',
       hash: new Uint8Array(32),
     }),
   });
@@ -144,9 +144,9 @@ test('it cannot add items that would make the candy machine exceed the maximum c
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-          { name: 'Degen #2', uri: 'https://example.com/degen/2' },
-          { name: 'Degen #3', uri: 'https://example.com/degen/3' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+          { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
+          { name: 'Degen #3', uri: 'https://exatple.com/degen/3' },
         ],
       })
     )
@@ -168,8 +168,8 @@ test('it cannot add items once the candy machine is fully loaded', async (t) => 
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-          { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+          { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
         ],
       })
     )
@@ -181,7 +181,7 @@ test('it cannot add items once the candy machine is fully loaded', async (t) => 
       addConfigLines(umi, {
         candyMachine: candyMachine.publicKey,
         index: 2,
-        configLines: [{ name: 'Degen #3', uri: 'https://example.com/degen/3' }],
+        configLines: [{ name: 'Degen #3', uri: 'https://exatple.com/degen/3' }],
       })
     )
     .sendAndConfirm(umi);
@@ -213,8 +213,8 @@ test('it cannot add items if either of them have a name or URI that is too long'
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-          { name: 'x'.repeat(11), uri: 'https://example.com/degen/2' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+          { name: 'x'.repeat(11), uri: 'https://exatple.com/degen/2' },
         ],
       })
     )
@@ -232,7 +232,7 @@ test('it cannot add items if either of them have a name or URI that is too long'
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
           { name: 'Degen #2', uri: 'x'.repeat(51) },
         ],
       })
@@ -255,8 +255,8 @@ test('it can add items to a custom offset and override existing items', async (t
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-          { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+          { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
         ],
       })
     )
@@ -269,8 +269,8 @@ test('it can add items to a custom offset and override existing items', async (t
         candyMachine: candyMachine.publicKey,
         index: 1,
         configLines: [
-          { name: 'Degen #3', uri: 'https://example.com/degen/3' },
-          { name: 'Degen #4', uri: 'https://example.com/degen/4' },
+          { name: 'Degen #3', uri: 'https://exatple.com/degen/3' },
+          { name: 'Degen #4', uri: 'https://exatple.com/degen/4' },
         ],
       })
     )
@@ -288,19 +288,19 @@ test('it can add items to a custom offset and override existing items', async (t
         index: 0,
         minted: false,
         name: 'Degen #1',
-        uri: 'https://example.com/degen/1',
+        uri: 'https://exatple.com/degen/1',
       },
       {
         index: 1,
         minted: false,
         name: 'Degen #3',
-        uri: 'https://example.com/degen/3',
+        uri: 'https://exatple.com/degen/3',
       },
       {
         index: 2,
         minted: false,
         name: 'Degen #4',
-        uri: 'https://example.com/degen/4',
+        uri: 'https://exatple.com/degen/4',
       },
     ],
   });
@@ -316,8 +316,8 @@ test('it can override all items of a candy machine', async (t) => {
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-          { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+          { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
         ],
       })
     )
@@ -330,8 +330,8 @@ test('it can override all items of a candy machine', async (t) => {
         candyMachine: candyMachine.publicKey,
         index: 0,
         configLines: [
-          { name: 'Degen #3', uri: 'https://example.com/degen/3' },
-          { name: 'Degen #4', uri: 'https://example.com/degen/4' },
+          { name: 'Degen #3', uri: 'https://exatple.com/degen/3' },
+          { name: 'Degen #4', uri: 'https://exatple.com/degen/4' },
         ],
       })
     )
@@ -349,13 +349,13 @@ test('it can override all items of a candy machine', async (t) => {
         index: 0,
         minted: false,
         name: 'Degen #3',
-        uri: 'https://example.com/degen/3',
+        uri: 'https://exatple.com/degen/3',
       },
       {
         index: 1,
         minted: false,
         name: 'Degen #4',
-        uri: 'https://example.com/degen/4',
+        uri: 'https://exatple.com/degen/4',
       },
     ],
   });

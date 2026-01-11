@@ -5,16 +5,16 @@ import {
   findTokenRecordPda,
   getMplTokenMetadataProgramId,
   isProgrammable,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   findAssociatedTokenPda,
   getSplAssociatedTokenProgramId,
   getSplSystemProgramId,
   getSplTokenProgramId,
   getSysvar,
-} from '@metaplex-foundation/mpl-toolbox';
-import { PublicKey, Signer } from '@metaplex-foundation/umi';
-import { tuple, u64 } from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/tpl-toolbox';
+import { PublicKey, Signer } from '@trezoaplex-foundation/umi';
+import { tuple, u64 } from '@trezoaplex-foundation/umi/serializers';
 import { UnrecognizePathForRouteInstructionError } from '../errors';
 import {
   FreezeInstruction,

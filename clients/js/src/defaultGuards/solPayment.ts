@@ -7,7 +7,7 @@ import { GuardManifest, noopParser } from '../guards';
 
 /**
  * The solPayment guard is used to charge an
- * amount in SOL for the minted NFT.
+ * amount in TRZ for the minted NFT.
  */
 export const solPaymentGuardManifest: GuardManifest<
   SolPaymentArgs,

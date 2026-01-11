@@ -2,13 +2,13 @@ import {
   addMemo,
   getSplMemoProgramId,
   setComputeUnitLimit,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   sol,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { mintV2 } from '../../src';
 import {
@@ -26,7 +26,7 @@ test('it allows minting with specified program in transaction', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       programGate: some({ additional: [memoProgram] }),
     },
@@ -58,7 +58,7 @@ test('it allows minting even when the payer is different from the minter', async
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       programGate: some({ additional: [memoProgram] }),
     },
@@ -92,7 +92,7 @@ test('it forbids minting with unspecified program in transaction', async (t) => 
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       programGate: some({ additional: [] }),
     },
@@ -125,7 +125,7 @@ test('it forbids candy machine creation with more than 5 specified programs', as
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const promise = createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       programGate: some({ additional: Array(6).fill(memoProgram) }),
     },
@@ -144,7 +144,7 @@ test('it charges a bot tax when minting with unspecified program in transaction'
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       botTax: some({ lamports: sol(0.1), lastInstruction: true }),
       programGate: some({ additional: [] }),

@@ -1,4 +1,4 @@
-import { Signer } from '@metaplex-foundation/umi';
+import { Signer } from '@trezoaplex-foundation/umi';
 import {
   getThirdPartySignerSerializer,
   ThirdPartySigner,

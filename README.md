@@ -1,10 +1,10 @@
-# Metaplex Candy Machine
+# Trezoaplex Candy Machine
 
-The Metaplex Protocol Candy Machine is the leading minting and distribution program for fair NFT collection launches on Solana. It allows creators to bring their digital assets on-chain in a secure and customisable way.
+The Trezoaplex Protocol Candy Machine is the leading minting and distribution program for fair NFT collection launches on Trezoa. It allows creators to bring their digital assets on-chain in a secure and customisable way.
 
-You can [**read more about Candy Machines in the official Metaplex documentation**](https://developers.metaplex.com/candy-machine).
+You can [**read more about Candy Machines in the official Trezoaplex documentation**](https://developers.trezoaplex.com/candy-machine).
 
-![Metaplex Candy Machine - Launch your NFT collection. Customize your minting workflow, Use multiple minting groups, Protect your launch against bots, Supports Programmable NFTs, And much more!](https://user-images.githubusercontent.com/3642397/230599235-eb2223e7-0869-4f5e-aa07-a89c1645c0d1.jpg)
+![Trezoaplex Candy Machine - Launch your NFT collection. Customize your minting workflow, Use multiple minting groups, Protect your launch against bots, Supports Programmable NFTs, And much more!](https://user-images.githubusercontent.com/3642397/230599235-eb2223e7-0869-4f5e-aa07-a89c1645c0d1.jpg)
 
 ## Programs
 

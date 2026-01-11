@@ -1,13 +1,13 @@
 import {
   isProgrammable,
   TokenStandard,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   isNone,
   isOption,
   OptionOrNullable,
   wrapNullable,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { CANDY_MACHINE_HIDDEN_SECTION } from '../constants';
 import { ConfigLineSettingsArgs } from '../generated/types/configLineSettings';
 

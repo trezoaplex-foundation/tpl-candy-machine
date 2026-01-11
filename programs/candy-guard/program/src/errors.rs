@@ -56,8 +56,8 @@ pub enum CandyGuardError {
     #[msg("Mint is not live")]
     MintNotLive,
 
-    #[msg("Not enough SOL to pay for the mint")]
-    NotEnoughSOL,
+    #[msg("Not enough TRZ to pay for the mint")]
+    NotEnoughTRZ,
 
     #[msg("Token burn failed")]
     TokenBurnFailed,

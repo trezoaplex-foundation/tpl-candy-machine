@@ -1,5 +1,5 @@
-import { mplTokenMetadata } from '@metaplex-foundation/mpl-token-metadata';
-import { UmiPlugin } from '@metaplex-foundation/umi';
+import { tplTokenMetadata } from '@trezoaplex-foundation/tpl-token-metadata';
+import { UmiPlugin } from '@trezoaplex-foundation/umi';
 import {
   addressGateGuardManifest,
   allowListGuardManifest,
@@ -38,9 +38,9 @@ import {
   createMplTokenAuthRulesProgram,
 } from './programs';
 
-export const mplCandyMachine = (): UmiPlugin => ({
+export const tplCandyMachine = (): UmiPlugin => ({
   install(umi) {
-    umi.use(mplTokenMetadata());
+    umi.use(tplTokenMetadata());
 
     // Programs.
     umi.programs.add(createMplCandyMachineCoreProgram(), false);
@@ -82,7 +82,7 @@ export const mplCandyMachine = (): UmiPlugin => ({
   },
 });
 
-declare module '@metaplex-foundation/umi' {
+declare module '@trezoaplex-foundation/umi' {
   interface Umi {
     guards: GuardRepository;
   }

@@ -1,4 +1,4 @@
-import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { LAMPORTS_PER_TRZ } from '@trezoa/web3.js';
 import test from 'tape';
 import { multiple } from '../utils';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
@@ -68,7 +68,7 @@ test('redeemed amount: sold out (bot tax)', async (t) => {
     maximum: 10,
   };
   data.default.botTax = {
-    lamports: LAMPORTS_PER_SOL,
+    lamports: LAMPORTS_PER_TRZ,
     lastInstruction: false,
   };
 
@@ -120,7 +120,7 @@ test('redeemed amount: sold out (transaction fail)', async (t) => {
 
   const data = newCandyGuardData();
   data.default.botTax = {
-    lamports: LAMPORTS_PER_SOL,
+    lamports: LAMPORTS_PER_TRZ,
     lastInstruction: false,
   };
 

@@ -1,4 +1,4 @@
-use solana_program::{program::invoke_signed, system_instruction};
+use trezoa_program::{program::invoke_signed, system_instruction};
 
 use super::*;
 use crate::{
@@ -27,7 +27,7 @@ pub struct AllocationTracker {
     pub count: u32,
 }
 
-impl Guard for Allocation {
+itpl Guard for Allocation {
     fn size() -> usize {
         1   // id
         + 4 // count
@@ -140,7 +140,7 @@ impl Guard for Allocation {
     }
 }
 
-impl Condition for Allocation {
+itpl Condition for Allocation {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,

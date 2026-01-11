@@ -11,7 +11,7 @@ import {
   findMasterEditionPda,
   findMetadataDelegateRecordPda,
   findMetadataPda,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   Context,
   Pda,
@@ -20,14 +20,14 @@ import {
   TransactionBuilder,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
   mapSerializer,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { findCandyMachineAuthorityPda } from '../../hooked';
 import {
   ResolvedAccount,
@@ -160,7 +160,7 @@ export function setCollectionV2(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplCandyMachineCore',
+    'tplCandyMachineCore',
     'CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR'
   );
 
@@ -303,7 +303,7 @@ export function setCollectionV2(
   }
   if (!resolvedAccounts.tokenMetadataProgram.value) {
     resolvedAccounts.tokenMetadataProgram.value = context.programs.getPublicKey(
-      'mplTokenMetadata',
+      'tplTokenMetadata',
       'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
     );
     resolvedAccounts.tokenMetadataProgram.isWritable = false;

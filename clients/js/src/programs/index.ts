@@ -1,2 +1,2 @@
 export * from './civicGateway';
-export * from './mplTokenAuthRules';
+export * from './tplTokenAuthRules';

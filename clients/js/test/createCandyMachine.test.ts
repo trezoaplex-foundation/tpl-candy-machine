@@ -1,4 +1,4 @@
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   generateSigner,
   none,
@@ -6,7 +6,7 @@ import {
   publicKey,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   AccountVersion,
@@ -39,7 +39,7 @@ test('it can create a candy machine for regular NFTs', async (t) => {
         configLineSettings: some({
           prefixName: 'My NFT #',
           nameLength: 8,
-          prefixUri: 'https://example.com/',
+          prefixUri: 'https://exatple.com/',
           uriLength: 20,
           isSequential: false,
         }),
@@ -76,7 +76,7 @@ test('it can create a candy machine for regular NFTs', async (t) => {
       configLineSettings: some({
         prefixName: 'My NFT #',
         nameLength: 8,
-        prefixUri: 'https://example.com/',
+        prefixUri: 'https://exatple.com/',
         uriLength: 20,
         isSequential: false,
       }),

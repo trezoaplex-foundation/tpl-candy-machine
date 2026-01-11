@@ -1,10 +1,10 @@
-import { setComputeUnitLimit } from '@metaplex-foundation/mpl-toolbox';
+import { setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   sol,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   fetchAllocationTracker,
@@ -28,8 +28,8 @@ test('it allows minting when the allocation limit is not reached', async (t) => 
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
       allocation: some({ id: 1, limit: 5 }),
@@ -85,8 +85,8 @@ test('it forbids minting when the allocation limit is reached', async (t) => {
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
       allocation: some({ id: 1, limit: 1 }),
@@ -147,8 +147,8 @@ test('the allocation limit is local to each id', async (t) => {
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {},
     groups: [
@@ -241,8 +241,8 @@ test('it charges a bot tax when trying to mint after the limit', async (t) => {
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
       botTax: some({ lamports: sol(0.1), lastInstruction: true }),

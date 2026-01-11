@@ -1,4 +1,4 @@
-import { Program } from '@metaplex-foundation/umi';
+import { Program } from '@trezoaplex-foundation/umi';
 import { UnregisteredCandyGuardError, VariableSizeGuardError } from '../errors';
 import { GuardManifest } from './guardManifest';
 
@@ -28,7 +28,7 @@ export interface GuardRepository {
   forProgram(program: CandyGuardProgram): AnyGuardManifest[];
 }
 
-export class DefaultGuardRepository implements GuardRepository {
+export class DefaultGuardRepository itplements GuardRepository {
   protected readonly manifests = new Map<string, AnyGuardManifest>();
 
   add(...manifests: AnyGuardManifest[]): void {

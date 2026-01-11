@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use solana_program::{program::invoke_signed, system_instruction};
+use trezoa_program::{program::invoke_signed, system_instruction};
 
 use super::*;
 use crate::{
@@ -23,7 +23,7 @@ pub struct MintLimit {
     pub limit: u16,
 }
 
-impl Guard for MintLimit {
+itpl Guard for MintLimit {
     fn size() -> usize {
         1   // id
         + 2 // limit
@@ -56,7 +56,7 @@ impl Guard for MintLimit {
     }
 }
 
-impl Condition for MintLimit {
+itpl Condition for MintLimit {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -168,7 +168,7 @@ pub struct MintCounter {
     pub count: u16,
 }
 
-impl MintCounter {
+itpl MintCounter {
     /// Prefix used as seed.
     pub const PREFIX_SEED: &'static [u8] = b"mint_limit";
 }

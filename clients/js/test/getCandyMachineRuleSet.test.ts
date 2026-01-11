@@ -1,5 +1,5 @@
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
-import { generateSigner, isNone, none, some } from '@metaplex-foundation/umi';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
+import { generateSigner, isNone, none, some } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { getCandyMachineRuleSet } from '../src';
 import {

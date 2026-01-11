@@ -1,6 +1,6 @@
-import { findAssociatedTokenPda } from '@metaplex-foundation/mpl-toolbox';
-import { findMetadataPda } from '@metaplex-foundation/mpl-token-metadata';
-import { PublicKey } from '@metaplex-foundation/umi';
+import { findAssociatedTokenPda } from '@trezoaplex-foundation/tpl-toolbox';
+import { findMetadataPda } from '@trezoaplex-foundation/tpl-token-metadata';
+import { PublicKey } from '@trezoaplex-foundation/umi';
 import { getNftGateSerializer, NftGate, NftGateArgs } from '../generated';
 import { GuardManifest, noopParser } from '../guards';
 

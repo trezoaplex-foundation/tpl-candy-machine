@@ -5,7 +5,7 @@ import {
   publicKey,
   TransactionBuilder,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { DefaultGuardSetRouteArgs } from './defaultGuards';
 import {
   route as baseRoute,
@@ -56,7 +56,7 @@ export function route<
     >
 ): TransactionBuilder {
   const { routeArgs = {}, group = none(), ...rest } = input;
-  const program = context.programs.get<CandyGuardProgram>('mplCandyGuard');
+  const program = context.programs.get<CandyGuardProgram>('tplCandyGuard');
   const candyMachine = publicKey(input.candyMachine, false);
   const routeContext: RouteContext = {
     payer: input.payer ?? context.payer,

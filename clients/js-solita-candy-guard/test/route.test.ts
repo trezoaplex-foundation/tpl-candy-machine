@@ -1,7 +1,7 @@
 import test from 'tape';
 import { newCandyGuardData, InitTransactions, killStuckProcess, amman } from './setup';
 import { CandyMachineHelper } from './utils';
-import { Transaction } from '@solana/web3.js';
+import { Transaction } from '@trezoa/web3.js';
 import {
   createRouteInstruction,
   RouteInstructionAccounts,

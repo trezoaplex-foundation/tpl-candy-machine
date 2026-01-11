@@ -6,14 +6,14 @@ import {
   findMetadataDelegateRecordPda,
   findMetadataPda,
   getMplTokenMetadataProgramId,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   getSplAssociatedTokenProgramId,
   getSplTokenProgramId,
   getSysvar,
   setComputeUnitLimit,
-} from '@metaplex-foundation/mpl-toolbox';
-import { generateSigner, transactionBuilder } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-toolbox';
+import { generateSigner, transactionBuilder } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   createLutForCandyMachine,
@@ -37,7 +37,7 @@ test('it can create a LUT for a candy machine v2', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
 
@@ -116,7 +116,7 @@ test('it can create a LUT for a candy machine v1', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV1(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
 
@@ -141,7 +141,7 @@ test('it can create a LUT for a candy machine with no candy guard', async (t) =>
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
   });
 
   // And a custom mint authority.

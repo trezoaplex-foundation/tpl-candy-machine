@@ -2,7 +2,7 @@ use super::*;
 
 use crate::{state::GuardType, utils::*};
 
-/// Guard that restricts access to addresses that hold the specified spl-token.
+/// Guard that restricts access to addresses that hold the specified tpl-token.
 ///
 /// List of accounts required:
 ///
@@ -13,7 +13,7 @@ pub struct TokenGate {
     pub mint: Pubkey,
 }
 
-impl Guard for TokenGate {
+itpl Guard for TokenGate {
     fn size() -> usize {
         8    // amount
         + 32 // mint
@@ -24,7 +24,7 @@ impl Guard for TokenGate {
     }
 }
 
-impl Condition for TokenGate {
+itpl Condition for TokenGate {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,

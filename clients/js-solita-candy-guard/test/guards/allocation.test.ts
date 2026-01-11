@@ -1,6 +1,6 @@
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
-import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
+import { PublicKey, SystemProgram, Transaction } from '@trezoa/web3.js';
 import {
   createRouteInstruction,
   GuardType,

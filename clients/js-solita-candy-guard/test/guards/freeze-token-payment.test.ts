@@ -7,7 +7,7 @@ import {
   getOrCreateAssociatedTokenAccount,
   mintTo,
   TOKEN_PROGRAM_ID,
-} from '@solana/spl-token';
+} from '@trezoa/tpl-token';
 import { assertIsNotNull, METAPLEX_PROGRAM_ID } from '../utils';
 import {
   createRouteInstruction,
@@ -20,9 +20,9 @@ import {
   FreezeInstruction,
   freezeInstructionBeet,
 } from '../../src/generated/types/FreezeInstruction';
-import { i64 } from '@metaplex-foundation/beet';
-import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
-import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
+import { i64 } from '@trezoaplex-foundation/beet';
+import { PublicKey, SystemProgram, Transaction } from '@trezoa/web3.js';
+import { keypairIdentity, Trezoaplex } from '@trezoaplex-foundation/js';
 
 const API = new InitTransactions();
 
@@ -187,7 +187,7 @@ test('Token Payment', async (t) => {
   );
 
   const [, mintForMinter] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Metaplex.make(minterConnection).use(keypairIdentity(minter));
+  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
   const nftAta = metaplex
     .tokens()
     .pdas()
@@ -464,7 +464,7 @@ test('Token Payment (thaw)', async (t) => {
   );
 
   const [, mintForMinter] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Metaplex.make(minterConnection).use(keypairIdentity(minter));
+  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
   const nftAta = metaplex
     .tokens()
     .pdas()
@@ -759,7 +759,7 @@ test('Token Payment (unlock not allowed)', async (t) => {
   );
 
   const [, mintForMinter] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Metaplex.make(minterConnection).use(keypairIdentity(minter));
+  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
   const nftAta = metaplex
     .tokens()
     .pdas()
@@ -1035,7 +1035,7 @@ test('Token Payment (unlock)', async (t) => {
   );
 
   const [, mintForMinter] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Metaplex.make(minterConnection).use(keypairIdentity(minter));
+  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
   const nftAta = metaplex
     .tokens()
     .pdas()

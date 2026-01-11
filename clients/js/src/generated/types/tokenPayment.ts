@@ -6,16 +6,16 @@
  * @see https://github.com/metaplex-foundation/kinobi
  */
 
-import { PublicKey } from '@metaplex-foundation/umi';
+import { PublicKey } from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   publicKey as publicKeySerializer,
   struct,
   u64,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /**
- * Guard that charges an amount in a specified spl-token as payment for the mint.
+ * Guard that charges an amount in a specified tpl-token as payment for the mint.
  *
  * List of accounts required:
  *

@@ -1,8 +1,8 @@
 use std::collections::BTreeMap;
 
-use anchor_lang::{prelude::*, solana_program::sysvar};
+use anchor_lang::{prelude::*, trezoa_program::sysvar};
 
-use mpl_candy_machine_core::{AccountVersion, CandyMachine};
+use tpl_candy_machine_core::{AccountVersion, CandyMachine};
 
 use crate::{
     guards::{CandyGuardError, EvaluationContext},
@@ -39,7 +39,7 @@ pub fn mint<'info>(
         payer: ctx.accounts.payer.to_account_info(),
         recent_slothashes: ctx.accounts.recent_slothashes.to_account_info(),
         spl_ata_program: None,
-        spl_token_program: ctx.accounts.token_program.to_account_info(),
+        tpl_token_program: ctx.accounts.token_program.to_account_info(),
         system_program: ctx.accounts.system_program.to_account_info(),
         sysvar_instructions: ctx.accounts.instruction_sysvar_account.to_account_info(),
         token: None,
@@ -69,7 +69,7 @@ pub struct Mint<'info> {
     pub candy_guard: Account<'info, CandyGuard>,
 
     /// CHECK: account constraints checked in account trait
-    #[account(address = mpl_candy_machine_core::id())]
+    #[account(address = tpl_candy_machine_core::id())]
     pub candy_machine_program: AccountInfo<'info>,
 
     #[account(mut,constraint = candy_guard.key() == candy_machine.mint_authority)]
@@ -84,7 +84,7 @@ pub struct Mint<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
 
-    // with the following accounts we aren't using anchor macros because they are CPI'd
+    // with the following accounts we aren't using trezoa macros because they are CPI'd
     // through to token-metadata which will do all the validations we need on them.
     /// CHECK: account checked in CPI
     #[account(mut)]
@@ -117,7 +117,7 @@ pub struct Mint<'info> {
     pub collection_update_authority: UncheckedAccount<'info>,
 
     /// CHECK: account checked in CPI
-    #[account(address = mpl_token_metadata::ID)]
+    #[account(address = tpl_token_metadata::ID)]
     pub token_metadata_program: UncheckedAccount<'info>,
 
     pub token_program: Program<'info, Token>,

@@ -2,7 +2,7 @@ import {
   generateSigner,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { CandyGuard, fetchCandyGuard, setCandyGuardAuthority } from '../src';
 import { createCandyGuard, createUmi } from './_setup';

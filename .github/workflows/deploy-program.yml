@@ -63,24 +63,24 @@ jobs:
         run: cat .github/.env >> $GITHUB_ENV
 
       - name: Install Rust
-        uses: metaplex-foundation/actions/install-rust@v1
+        uses: trezoaplex-foundation/actions/install-rust@v1
         with:
           toolchain: "1.70.0"
 
-      - name: Install Solana
-        uses: metaplex-foundation/actions/install-solana@v1
+      - name: Install Trezoa
+        uses: trezoaplex-foundation/actions/install-trezoa@v1
         with:
           version: ${{ env.SOLANA_CLI_VERSION }}
           cache: ${{ env.CACHE }}
 
-      - name: Install Anchor CLI
-        uses: metaplex-foundation/actions/install-anchor-cli@v1
+      - name: Install Trezoa CLI
+        uses: trezoaplex-foundation/actions/install-trezoa-cli@v1
         with:
           version: ${{ env.ANCHOR_VERSION }}
           cache: ${{ env.CACHE }}
           
       - name: Install cargo-release
-        uses: metaplex-foundation/actions/install-cargo-release@v1
+        uses: trezoaplex-foundation/actions/install-cargo-release@v1
         if: github.event.inputs.publish_crate == 'true'
         with:
           cache: ${{ env.CACHE }}
@@ -98,11 +98,11 @@ jobs:
           if [ "${{ inputs.program }}" == "candy-guard" ]; then
             echo ${{ secrets.CANDY_GUARD_DEPLOY_KEY }} > ./deploy-key.json 
             echo ${{ secrets.CANDY_GUARD_ID }} > ./program-id.json
-            echo PROGRAM_NAME="mpl_candy_guard" >> $GITHUB_ENV
+            echo PROGRAM_NAME="tpl_candy_guard" >> $GITHUB_ENV
           else
             echo ${{ secrets.CANDY_MACHINE_CORE_DEPLOY_KEY }} > ./deploy-key.json
             echo ${{ secrets.CANDY_MACHINE_CORE_ID }} > ./program-id.json
-            echo PROGRAM_NAME="mpl_candy_machine_core" >> $GITHUB_ENV
+            echo PROGRAM_NAME="tpl_candy_machine_core" >> $GITHUB_ENV
           fi
 
       - name: Bump Program Version
@@ -141,7 +141,7 @@ jobs:
         run: |
           echo "Deploying ${{ inputs.program }} to ${{ inputs.cluster }}"
 
-          solana -v program deploy ./programs/.bin/${{ env.PROGRAM_NAME }}.so \
+          trezoa -v program deploy ./programs/.bin/${{ env.PROGRAM_NAME }}.so \
             -u ${{ env.RPC }} \
             --program-id ./program-id.json \
             -k ./deploy-key.json
@@ -151,10 +151,10 @@ jobs:
         run: |
           jq 'del(.metadata?) | del(.. | .docs?)' ../../idls/`echo "${{ inputs.program }}" | tr - _`.json > ./idl.json
 
-          anchor idl upgrade -f ./idl.json \
+          trezoa idl upgrade -f ./idl.json \
             --provider.cluster ${{ env.RPC }} \
             --provider.wallet ../../deploy-key.json \
-            `solana address -k ../../program-id.json`
+            `trezoa address -k ../../program-id.json`
             
           rm ../../deploy-key.json
           rm ../../program-id.json
@@ -178,5 +178,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         if: github.event.inputs.publish_crate == 'true' && github.event.inputs.cluster == 'mainnet-beta'
         with:
-          commit_message: Deploy mpl-${{ inputs.program }} program v${{ env.PROGRAM_VERSION }}
-          tagging_message: mpl-${{ inputs.program }}@v${{ env.PROGRAM_VERSION }}
+          commit_message: Deploy tpl-${{ inputs.program }} program v${{ env.PROGRAM_VERSION }}
+          tagging_message: tpl-${{ inputs.program }}@v${{ env.PROGRAM_VERSION }}

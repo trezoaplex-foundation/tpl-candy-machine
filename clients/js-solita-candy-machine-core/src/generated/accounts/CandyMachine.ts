@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beet from '@metaplex-foundation/beet';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as web3 from '@trezoa/web3.js';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 import { AccountVersion, accountVersionBeet } from '../types/AccountVersion';
 import { CandyMachineData, candyMachineDataBeet } from '../types/CandyMachineData';
 
@@ -35,7 +35,7 @@ export const candyMachineDiscriminator = [51, 173, 177, 113, 25, 241, 109, 189];
  * @category Accounts
  * @category generated
  */
-export class CandyMachine implements CandyMachineArgs {
+export class CandyMachine itplements CandyMachineArgs {
   private constructor(
     readonly version: AccountVersion,
     readonly tokenStandard: number,
@@ -101,7 +101,7 @@ export class CandyMachine implements CandyMachineArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, candyMachineBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, candyMachineBeet);
   }
 
   /**
@@ -197,9 +197,9 @@ export const candyMachineBeet = new beet.FixableBeetStruct<
     ['version', accountVersionBeet],
     ['tokenStandard', beet.u8],
     ['features', beet.uniformFixedSizeArray(beet.u8, 6)],
-    ['authority', beetSolana.publicKey],
-    ['mintAuthority', beetSolana.publicKey],
-    ['collectionMint', beetSolana.publicKey],
+    ['authority', beetTrezoa.publicKey],
+    ['mintAuthority', beetTrezoa.publicKey],
+    ['collectionMint', beetTrezoa.publicKey],
     ['itemsRedeemed', beet.u64],
     ['data', candyMachineDataBeet],
   ],

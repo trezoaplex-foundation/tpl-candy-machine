@@ -1,10 +1,10 @@
 use std::collections::HashSet;
 
 use anchor_lang::{prelude::*, AnchorDeserialize};
-use solana_program::program_memory::sol_memcmp;
+use trezoa_program::program_memory::sol_memcmp;
 
 use crate::{errors::CandyGuardError, guards::*, utils::fixed_length_string};
-use mpl_candy_guard_derive::GuardSet;
+use tpl_candy_guard_derive::GuardSet;
 
 // Bytes offset for the start of the data section:
 //     8 (discriminator)
@@ -30,7 +30,7 @@ pub struct CandyGuard {
     pub authority: Pubkey,
     // after this there is a flexible amount of data to serialize
     // data (CandyGuardData struct) of the available guards; the size
-    // of the data is adjustable as new guards are implemented (the
+    // of the data is adjustable as new guards are itplemented (the
     // account is resized using realloc)
     //
     // available guards:
@@ -78,7 +78,7 @@ pub struct GuardSet {
     pub bot_tax: Option<BotTax>,
     /// Sol payment guard (set the price for the mint in lamports).
     pub sol_payment: Option<SolPayment>,
-    /// Token payment guard (set the price for the mint in spl-token amount).
+    /// Token payment guard (set the price for the mint in tpl-token amount).
     pub token_payment: Option<TokenPayment>,
     /// Start data guard (controls when minting is allowed).
     pub start_date: Option<StartDate>,
@@ -104,17 +104,17 @@ pub struct GuardSet {
     pub nft_gate: Option<NftGate>,
     /// NFT burn guard (burn a specified NFT).
     pub nft_burn: Option<NftBurn>,
-    /// Token burn guard (burn a specified amount of spl-token).
+    /// Token burn guard (burn a specified amount of tpl-token).
     pub token_burn: Option<TokenBurn>,
     /// Freeze sol payment guard (set the price for the mint in lamports with a freeze period).
     pub freeze_sol_payment: Option<FreezeSolPayment>,
-    /// Freeze token payment guard (set the price for the mint in spl-token amount with a freeze period).
+    /// Freeze token payment guard (set the price for the mint in tpl-token amount with a freeze period).
     pub freeze_token_payment: Option<FreezeTokenPayment>,
     /// Program gate guard (restricts the programs that can be in a mint transaction).
     pub program_gate: Option<ProgramGate>,
     /// Allocation guard (specify the maximum number of mints in a group).
     pub allocation: Option<Allocation>,
-    /// Token2022 payment guard (set the price for the mint in spl-token-2022 amount).
+    /// Token2022 payment guard (set the price for the mint in tpl-token-2022 amount).
     pub token2022_payment: Option<Token2022Payment>,
 }
 
@@ -144,13 +144,13 @@ pub enum GuardType {
     Token2022Payment,
 }
 
-impl GuardType {
+itpl GuardType {
     pub fn as_mask(guard_type: GuardType) -> u64 {
         0b1u64 << (guard_type as u8)
     }
 }
 
-impl CandyGuardData {
+itpl CandyGuardData {
     /// Serialize the candy guard data into the specified data array.
     pub fn save(&self, data: &mut [u8]) -> Result<()> {
         let mut cursor = 0;

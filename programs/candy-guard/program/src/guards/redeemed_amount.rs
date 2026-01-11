@@ -9,7 +9,7 @@ pub struct RedeemedAmount {
     pub maximum: u64,
 }
 
-impl Guard for RedeemedAmount {
+itpl Guard for RedeemedAmount {
     fn size() -> usize {
         8 // maximum
     }
@@ -19,7 +19,7 @@ impl Guard for RedeemedAmount {
     }
 }
 
-impl Condition for RedeemedAmount {
+itpl Condition for RedeemedAmount {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,

@@ -1,6 +1,6 @@
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from '@trezoa/tpl-token';
 
 const API = new InitTransactions();
 

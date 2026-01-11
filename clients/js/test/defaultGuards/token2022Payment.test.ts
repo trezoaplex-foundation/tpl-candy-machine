@@ -1,12 +1,12 @@
 import {
   fetchToken,
   setComputeUnitLimit,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { mintV2 } from '../../src';
 import {
@@ -18,7 +18,7 @@ import {
 } from '../_setup';
 
 test('it transfers Token2022 tokens from the payer to the destination', async (t) => {
-  // Given a Umi instance using the SPL Token 2022 program.
+  // Given a Umi instance using the TPL Token 2022 program.
   const umi = await createUmi();
   const programsWithToken22 = umi.programs.clone();
   programsWithToken22.bind('splToken', 'splToken2022');
@@ -41,7 +41,7 @@ test('it transfers Token2022 tokens from the payer to the destination', async (t
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       token2022Payment: some({
         mint: tokenMint.publicKey,

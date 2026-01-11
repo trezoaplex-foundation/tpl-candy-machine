@@ -2,7 +2,7 @@ use super::*;
 
 use crate::{state::GuardType, utils::*};
 
-/// Guard that requires addresses that hold an amount of a specified spl-token
+/// Guard that requires addresses that hold an amount of a specified tpl-token
 /// and burns them.
 ///
 /// List of accounts required:
@@ -15,7 +15,7 @@ pub struct TokenBurn {
     pub mint: Pubkey,
 }
 
-impl Guard for TokenBurn {
+itpl Guard for TokenBurn {
     fn size() -> usize {
         8    // amount
         + 32 // mint
@@ -26,7 +26,7 @@ impl Guard for TokenBurn {
     }
 }
 
-impl Condition for TokenBurn {
+itpl Condition for TokenBurn {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -69,13 +69,13 @@ impl Condition for TokenBurn {
         let token_gate_account = try_get_account_info(ctx.accounts.remaining, token_gate_index)?;
         let token_gate_mint = try_get_account_info(ctx.accounts.remaining, token_gate_index + 1)?;
 
-        spl_token_burn(TokenBurnParams {
+        tpl_token_burn(TokenBurnParams {
             mint: token_gate_mint.to_account_info(),
             source: token_gate_account.to_account_info(),
             amount: self.amount,
             authority: ctx.accounts.minter.to_account_info(),
             authority_signer_seeds: None,
-            token_program: ctx.accounts.spl_token_program.to_account_info(),
+            token_program: ctx.accounts.tpl_token_program.to_account_info(),
         })?;
 
         Ok(())

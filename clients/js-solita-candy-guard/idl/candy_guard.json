@@ -203,7 +203,7 @@
           "isMut": true,
           "isSigner": true,
           "docs": [
-            "Payer for the mint (SOL) fees."
+            "Payer for the mint (TRZ) fees."
           ]
         },
         {
@@ -211,7 +211,7 @@
           "isMut": true,
           "isSigner": true,
           "docs": [
-            "Minter account for validation and non-SOL fees."
+            "Minter account for validation and non-TRZ fees."
           ]
         },
         {
@@ -334,7 +334,7 @@
           "isMut": false,
           "isSigner": false,
           "docs": [
-            "SPL Token program."
+            "TPL Token program."
           ]
         },
         {
@@ -343,7 +343,7 @@
           "isSigner": false,
           "isOptional": true,
           "docs": [
-            "SPL Associated Token program."
+            "TPL Associated Token program."
           ]
         },
         {
@@ -544,7 +544,7 @@
     {
       "name": "withdraw",
       "docs": [
-        "Withdraw the rent SOL from the candy guard account."
+        "Withdraw the rent TRZ from the candy guard account."
       ],
       "accounts": [
         {
@@ -834,7 +834,7 @@
     {
       "name": "FreezeSolPayment",
       "docs": [
-        "Guard that charges an amount in SOL (lamports) for the mint with a freeze period.",
+        "Guard that charges an amount in TRZ (lamports) for the mint with a freeze period.",
         "",
         "List of accounts required:",
         "",
@@ -861,7 +861,7 @@
     {
       "name": "FreezeTokenPayment",
       "docs": [
-        "Guard that charges an amount in a specified spl-token as payment for the mint with a freeze period.",
+        "Guard that charges an amount in a specified tpl-token as payment for the mint with a freeze period.",
         "",
         "List of accounts required:",
         "",
@@ -896,7 +896,7 @@
       "name": "Gatekeeper",
       "docs": [
         "Guard that validates if the payer of the transaction has a token from a specified",
-        "gateway network — in most cases, a token after completing a captcha challenge.",
+        "gateway network — in most cases, a token after cotpleting a captcha challenge.",
         "",
         "List of accounts required:",
         "",
@@ -1028,7 +1028,7 @@
         "2. `[]` Mint account of the NFT.",
         "3. `[]` Account to receive the NFT.",
         "4. `[writeable]` Destination PDA key (seeds [destination pubkey, token program id, nft mint pubkey]).",
-        "5. `[]` spl-associate-token program ID.",
+        "5. `[]` tpl-associate-token program ID.",
         "6. `[]` Master edition (pNFT)",
         "7. `[writable]` Owner token record (pNFT)",
         "8. `[writable]` Destination token record (pNFT)",
@@ -1086,7 +1086,7 @@
     {
       "name": "SolPayment",
       "docs": [
-        "Guard that charges an amount in SOL (lamports) for the mint.",
+        "Guard that charges an amount in TRZ (lamports) for the mint.",
         "",
         "List of accounts required:",
         "",
@@ -1143,14 +1143,14 @@
     {
       "name": "Token2022Payment",
       "docs": [
-        "Guard that charges an amount in a specified spl-token as payment for the mint.",
+        "Guard that charges an amount in a specified tpl-token as payment for the mint.",
         "",
         "List of accounts required:",
         "",
         "0. `[writable]` Token account holding the required amount.",
         "1. `[writable]` Address of the ATA to receive the tokens.",
         "2. `[]` Mint account.",
-        "3. `[]` SPL Token-2022 program account."
+        "3. `[]` TPL Token-2022 program account."
       ],
       "type": {
         "kind": "struct",
@@ -1173,7 +1173,7 @@
     {
       "name": "TokenBurn",
       "docs": [
-        "Guard that requires addresses that hold an amount of a specified spl-token",
+        "Guard that requires addresses that hold an amount of a specified tpl-token",
         "and burns them.",
         "",
         "List of accounts required:",
@@ -1198,7 +1198,7 @@
     {
       "name": "TokenGate",
       "docs": [
-        "Guard that restricts access to addresses that hold the specified spl-token.",
+        "Guard that restricts access to addresses that hold the specified tpl-token.",
         "",
         "List of accounts required:",
         "",
@@ -1221,7 +1221,7 @@
     {
       "name": "TokenPayment",
       "docs": [
-        "Guard that charges an amount in a specified spl-token as payment for the mint.",
+        "Guard that charges an amount in a specified tpl-token as payment for the mint.",
         "",
         "List of accounts required:",
         "",
@@ -1352,7 +1352,7 @@
           {
             "name": "tokenPayment",
             "docs": [
-              "Token payment guard (set the price for the mint in spl-token amount)."
+              "Token payment guard (set the price for the mint in tpl-token amount)."
             ],
             "type": {
               "option": {
@@ -1495,7 +1495,7 @@
           {
             "name": "tokenBurn",
             "docs": [
-              "Token burn guard (burn a specified amount of spl-token)."
+              "Token burn guard (burn a specified amount of tpl-token)."
             ],
             "type": {
               "option": {
@@ -1506,7 +1506,7 @@
           {
             "name": "freezeSolPayment",
             "docs": [
-              "Freeze sol payment guard (set the price for the mint in lamports with a freeze period)."
+              "Freeze trz payment guard (set the price for the mint in lamports with a freeze period)."
             ],
             "type": {
               "option": {
@@ -1517,7 +1517,7 @@
           {
             "name": "freezeTokenPayment",
             "docs": [
-              "Freeze token payment guard (set the price for the mint in spl-token amount with a freeze period)."
+              "Freeze token payment guard (set the price for the mint in tpl-token amount with a freeze period)."
             ],
             "type": {
               "option": {
@@ -1550,7 +1550,7 @@
           {
             "name": "token2022Payment",
             "docs": [
-              "Token2022 payment guard (set the price for the mint in spl-token-2022 amount)."
+              "Token2022 payment guard (set the price for the mint in tpl-token-2022 amount)."
             ],
             "type": {
               "option": {
@@ -1746,8 +1746,8 @@
     },
     {
       "code": 6018,
-      "name": "NotEnoughSOL",
-      "msg": "Not enough SOL to pay for the mint"
+      "name": "NotEnoughTRZ",
+      "msg": "Not enough TRZ to pay for the mint"
     },
     {
       "code": 6019,
@@ -1917,7 +1917,7 @@
   ],
   "metadata": {
     "address": "Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g",
-    "origin": "anchor",
+    "origin": "trezoa",
     "binaryVersion": "0.27.0",
     "libVersion": "0.27.0"
   }

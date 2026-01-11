@@ -2,11 +2,11 @@
 seeds = false
 
 [registry]
-url = "https://anchor.projectserum.com"
+url = "https://trezoa.projectserum.com"
 
 [provider]
 cluster = "devnet"
-wallet = "~/.config/solana/devnet.json"
+wallet = "~/.config/trezoa/devnet.json"
 
 [workspace]
 members = [

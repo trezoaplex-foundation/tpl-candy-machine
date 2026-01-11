@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
-import * as beet from '@metaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
+import * as beet from '@trezoaplex-foundation/beet';
 
 /**
  * Arguments used to create {@link CandyGuard}
@@ -28,7 +28,7 @@ export const candyGuardDiscriminator = [44, 207, 199, 184, 112, 103, 34, 181];
  * @category Accounts
  * @category generated
  */
-export class CandyGuard implements CandyGuardArgs {
+export class CandyGuard itplements CandyGuardArgs {
   private constructor(
     readonly base: web3.PublicKey,
     readonly bump: number,
@@ -77,7 +77,7 @@ export class CandyGuard implements CandyGuardArgs {
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey('Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'),
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, candyGuardBeet);
+    return beetTrezoa.GpaBuilder.fromStruct(programId, candyGuardBeet);
   }
 
   /**
@@ -153,9 +153,9 @@ export const candyGuardBeet = new beet.BeetStruct<
 >(
   [
     ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['base', beetSolana.publicKey],
+    ['base', beetTrezoa.publicKey],
     ['bump', beet.u8],
-    ['authority', beetSolana.publicKey],
+    ['authority', beetTrezoa.publicKey],
   ],
   CandyGuard.fromArgs,
   'CandyGuard',

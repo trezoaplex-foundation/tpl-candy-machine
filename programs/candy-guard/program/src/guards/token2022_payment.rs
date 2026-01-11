@@ -1,5 +1,5 @@
-use solana_program::program::invoke;
-use spl_token_2022::{
+use trezoa_program::program::invoke;
+use tpl_token_2022::{
     extension::StateWithExtensions,
     state::{Account, Mint},
 };
@@ -12,14 +12,14 @@ use crate::{
     utils::{assert_keys_equal, assert_owned_by},
 };
 
-/// Guard that charges an amount in a specified spl-token as payment for the mint.
+/// Guard that charges an amount in a specified tpl-token as payment for the mint.
 ///
 /// List of accounts required:
 ///
 ///   0. `[writable]` Token account holding the required amount.
 ///   1. `[writable]` Address of the ATA to receive the tokens.
 ///   2. `[]` Mint account.
-///   3. `[]` SPL Token-2022 program account.
+///   3. `[]` TPL Token-2022 program account.
 #[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
 pub struct Token2022Payment {
     pub amount: u64,
@@ -27,7 +27,7 @@ pub struct Token2022Payment {
     pub destination_ata: Pubkey,
 }
 
-impl Guard for Token2022Payment {
+itpl Guard for Token2022Payment {
     fn size() -> usize {
         8    // amount
         + 32 // token mint
@@ -39,7 +39,7 @@ impl Guard for Token2022Payment {
     }
 }
 
-impl Condition for Token2022Payment {
+itpl Condition for Token2022Payment {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -52,7 +52,7 @@ impl Condition for Token2022Payment {
         let destination_ata =
             try_get_account_info(ctx.accounts.remaining, token_account_index + 1)?;
         let mint_info = try_get_account_info(ctx.accounts.remaining, token_account_index + 2)?;
-        let spl_token_2022_program =
+        let tpl_token_2022_program =
             try_get_account_info(ctx.accounts.remaining, token_account_index + 3)?;
         ctx.account_cursor += 3;
 
@@ -63,7 +63,7 @@ impl Condition for Token2022Payment {
         assert_keys_equal(&ata_account.base.mint, &self.mint)?;
 
         // token
-        assert_owned_by(token_account_info, &spl_token_2022::ID)?;
+        assert_owned_by(token_account_info, &tpl_token_2022::ID)?;
         let data = token_account_info.data.borrow();
         let token_account = StateWithExtensions::<Account>::unpack(&data)?;
         assert_keys_equal(&token_account.base.owner, ctx.accounts.minter.key)?;
@@ -77,7 +77,7 @@ impl Condition for Token2022Payment {
         assert_keys_equal(mint_info.key, &self.mint)?;
 
         // program
-        assert_keys_equal(spl_token_2022_program.key, &spl_token_2022::ID)?;
+        assert_keys_equal(tpl_token_2022_program.key, &tpl_token_2022::ID)?;
 
         ctx.indices
             .insert("token2022_payment_index", token_account_index);
@@ -96,14 +96,14 @@ impl Condition for Token2022Payment {
         let token_account_info = try_get_account_info(ctx.accounts.remaining, index)?;
         let destination_ata = try_get_account_info(ctx.accounts.remaining, index + 1)?;
         let mint_info = try_get_account_info(ctx.accounts.remaining, index + 2)?;
-        let spl_token_2022_program = try_get_account_info(ctx.accounts.remaining, index + 3)?;
+        let tpl_token_2022_program = try_get_account_info(ctx.accounts.remaining, index + 3)?;
 
         let data = mint_info.data.borrow();
         let mint = StateWithExtensions::<Mint>::unpack(&data)?;
 
         invoke(
-            &spl_token_2022::instruction::transfer_checked(
-                spl_token_2022_program.key,
+            &tpl_token_2022::instruction::transfer_checked(
+                tpl_token_2022_program.key,
                 token_account_info.key,
                 &self.mint,
                 destination_ata.key,
@@ -116,7 +116,7 @@ impl Condition for Token2022Payment {
                 token_account_info.clone(),
                 destination_ata.clone(),
                 ctx.accounts.minter.clone(),
-                spl_token_2022_program.clone(),
+                tpl_token_2022_program.clone(),
                 mint_info.clone(),
             ],
         )?;

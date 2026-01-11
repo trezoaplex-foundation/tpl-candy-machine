@@ -1,4 +1,4 @@
-import { publicKey, transactionBuilder } from '@metaplex-foundation/umi';
+import { publicKey, transactionBuilder } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { CandyMachine, fetchCandyMachine, wrap } from '../src';
 import { createCandyGuard, createUmi, createV1, createV2 } from './_setup';

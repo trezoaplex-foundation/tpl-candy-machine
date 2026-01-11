@@ -1,9 +1,9 @@
-import { Connection, Keypair, PublicKey } from '@solana/web3.js';
+import { Connection, Keypair, PublicKey } from '@trezoa/web3.js';
 import { Test } from 'tape';
-import { PayerTransactionHandler } from '@metaplex-foundation/amman-client';
+import { PayerTransactionHandler } from '@trezoaplex-foundation/amman-client';
 import { CandyMachine } from '../../src';
 import { BN } from 'bn.js';
-import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
+import { keypairIdentity, Trezoaplex } from '@trezoaplex-foundation/js';
 import { InitTransactions } from '../setup';
 
 export async function drain(
@@ -31,7 +31,7 @@ export async function drain(
     );
     await mintTransaction.assertNone();
 
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
     const nft = await metaplex.nfts().findByMint({ mintAddress });
     indices.push(parseInt(nft.name));
   }

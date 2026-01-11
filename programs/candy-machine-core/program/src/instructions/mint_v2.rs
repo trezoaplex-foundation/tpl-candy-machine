@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 use arrayref::array_ref;
-use mpl_token_metadata::{
+use tpl_token_metadata::{
     accounts::Metadata,
     instructions::{
         CreateMasterEditionV3CpiBuilder, CreateMetadataAccountV3CpiBuilder, CreateV1CpiBuilder,
@@ -10,11 +10,11 @@ use mpl_token_metadata::{
     },
     types::{Collection, DataV2, PrintSupply, RuleSetToggle, TokenStandard},
 };
-use solana_program::sysvar;
+use trezoa_program::sysvar;
 
 use crate::{
     constants::{
-        AUTHORITY_SEED, EMPTY_STR, HIDDEN_SECTION, MPL_TOKEN_AUTH_RULES_PROGRAM, NULL_STRING,
+        AUTHORITY_SEED, EMPTY_STR, HIDDEN_SECTION, TPL_TOKEN_AUTH_RULES_PROGRAM, NULL_STRING,
     },
     utils::*,
     AccountVersion, CandyError, CandyMachine, ConfigLine,
@@ -37,7 +37,7 @@ pub(crate) struct MintAccounts<'info> {
     pub collection_master_edition: AccountInfo<'info>,
     pub collection_update_authority: AccountInfo<'info>,
     pub token_metadata_program: AccountInfo<'info>,
-    pub spl_token_program: AccountInfo<'info>,
+    pub tpl_token_program: AccountInfo<'info>,
     pub spl_ata_program: Option<AccountInfo<'info>>,
     pub system_program: AccountInfo<'info>,
     pub sysvar_instructions: Option<AccountInfo<'info>>,
@@ -72,7 +72,7 @@ pub fn mint_v2<'info>(ctx: Context<'_, '_, '_, 'info, MintV2<'info>>) -> Result<
             .as_ref()
             .map(|token| token.to_account_info()),
         token_metadata_program: ctx.accounts.token_metadata_program.to_account_info(),
-        spl_token_program: ctx.accounts.spl_token_program.to_account_info(),
+        tpl_token_program: ctx.accounts.tpl_token_program.to_account_info(),
         token_record: ctx
             .accounts
             .token_record
@@ -115,7 +115,7 @@ pub(crate) fn process_mint(
     }
 
     // collection metadata must be owner by token metadata
-    if !cmp_pubkeys(accounts.collection_metadata.owner, &mpl_token_metadata::ID) {
+    if !cmp_pubkeys(accounts.collection_metadata.owner, &tpl_token_metadata::ID) {
         return err!(CandyError::IncorrectOwner);
     }
 
@@ -155,15 +155,15 @@ pub(crate) fn process_mint(
 
     // (3) minting
 
-    let mut creators: Vec<mpl_token_metadata::types::Creator> =
-        vec![mpl_token_metadata::types::Creator {
+    let mut creators: Vec<tpl_token_metadata::types::Creator> =
+        vec![tpl_token_metadata::types::Creator {
             address: accounts.authority_pda.key(),
             verified: true,
             share: 0,
         }];
 
     for c in &candy_machine.data.creators {
-        creators.push(mpl_token_metadata::types::Creator {
+        creators.push(tpl_token_metadata::types::Creator {
             address: c.address,
             verified: false,
             share: c.percentage_share,
@@ -271,12 +271,12 @@ pub fn get_config_line(
         EMPTY_STR.to_string()
     };
 
-    let complete_name = replace_patterns(settings.prefix_name.clone(), value_to_use) + &name;
-    let complete_uri = replace_patterns(settings.prefix_uri.clone(), value_to_use) + &uri;
+    let cotplete_name = replace_patterns(settings.prefix_name.clone(), value_to_use) + &name;
+    let cotplete_uri = replace_patterns(settings.prefix_uri.clone(), value_to_use) + &uri;
 
     Ok(ConfigLine {
-        name: complete_name,
-        uri: complete_uri,
+        name: cotplete_name,
+        uri: cotplete_uri,
     })
 }
 
@@ -286,7 +286,7 @@ fn create_and_mint(
     accounts: MintAccounts,
     bump: u8,
     config_line: ConfigLine,
-    creators: Vec<mpl_token_metadata::types::Creator>,
+    creators: Vec<tpl_token_metadata::types::Creator>,
     collection_metadata: Metadata,
 ) -> Result<()> {
     let candy_machine_key = candy_machine.key();
@@ -335,7 +335,7 @@ fn create_and_mint(
         })
         .system_program(&accounts.system_program)
         .sysvar_instructions(sysvar_instructions_info)
-        .spl_token_program(&accounts.spl_token_program)
+        .tpl_token_program(&accounts.tpl_token_program)
         .invoke_signed(&[&authority_seeds])?;
 
     // mints one token
@@ -377,7 +377,7 @@ fn create_and_mint(
         .token_record(token_record_info)
         .system_program(&accounts.system_program)
         .sysvar_instructions(sysvar_instructions_info)
-        .spl_token_program(&accounts.spl_token_program)
+        .tpl_token_program(&accounts.tpl_token_program)
         .spl_ata_program(spl_ata_program_info)
         .amount(1)
         .invoke_signed(&[&authority_seeds])?;
@@ -435,7 +435,7 @@ fn create(
     accounts: MintAccounts,
     bump: u8,
     config_line: ConfigLine,
-    creators: Vec<mpl_token_metadata::types::Creator>,
+    creators: Vec<tpl_token_metadata::types::Creator>,
     collection_metadata: Metadata,
 ) -> Result<()> {
     let cm_key = candy_machine.key();
@@ -472,7 +472,7 @@ fn create(
         .metadata(&accounts.nft_metadata)
         .payer(&accounts.payer)
         .system_program(&accounts.system_program)
-        .token_program(&accounts.spl_token_program)
+        .token_program(&accounts.tpl_token_program)
         .max_supply(candy_machine.data.max_supply)
         .invoke_signed(&[&authority_seeds])?;
 
@@ -602,13 +602,13 @@ pub struct MintV2<'info> {
     /// Token Metadata program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = mpl_token_metadata::ID)]
+    #[account(address = tpl_token_metadata::ID)]
     token_metadata_program: UncheckedAccount<'info>,
 
-    /// SPL Token program.
-    spl_token_program: Program<'info, Token>,
+    /// TPL Token program.
+    tpl_token_program: Program<'info, Token>,
 
-    /// SPL Associated Token program.
+    /// TPL Associated Token program.
     spl_ata_program: Option<Program<'info, AssociatedToken>>,
 
     /// System program.
@@ -629,12 +629,12 @@ pub struct MintV2<'info> {
     /// Token Authorization Rules program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(address = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules_program: Option<UncheckedAccount<'info>>,
 
     /// Token Authorization rules account for the collection metadata (if any).
     ///
     /// CHECK: account constraints checked in account trait
-    #[account(owner = MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(owner = TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules: Option<UncheckedAccount<'info>>,
 }

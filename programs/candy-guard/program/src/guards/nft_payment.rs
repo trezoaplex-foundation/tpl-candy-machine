@@ -1,16 +1,16 @@
-use mpl_candy_machine_core::{constants::MPL_TOKEN_AUTH_RULES_PROGRAM, AccountVersion};
-use mpl_token_metadata::{
+use tpl_candy_machine_core::{constants::TPL_TOKEN_AUTH_RULES_PROGRAM, AccountVersion};
+use tpl_token_metadata::{
     accounts::{MasterEdition, Metadata, TokenRecord},
     instructions::TransferV1CpiBuilder,
     types::{ProgrammableConfig, TokenStandard},
 };
-use solana_program::program::invoke;
+use trezoa_program::program::invoke;
 use spl_associated_token_account::instruction::create_associated_token_account;
 
 use super::*;
 use crate::{
     state::GuardType,
-    utils::{assert_keys_equal, spl_token_transfer, TokenTransferParams},
+    utils::{assert_keys_equal, tpl_token_transfer, TokenTransferParams},
 };
 
 /// Guard that charges another NFT (token) from a specific collection as payment
@@ -35,7 +35,7 @@ pub struct NftPayment {
     pub destination: Pubkey,
 }
 
-impl Guard for NftPayment {
+itpl Guard for NftPayment {
     fn size() -> usize {
         32   // required_collection
         + 32 // destination
@@ -46,7 +46,7 @@ impl Guard for NftPayment {
     }
 }
 
-impl Condition for NftPayment {
+itpl Condition for NftPayment {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -85,7 +85,7 @@ impl Condition for NftPayment {
         let (ata, _) = Pubkey::find_program_address(
             &[
                 destination.key.as_ref(),
-                spl_token::ID.as_ref(),
+                tpl_token::ID.as_ref(),
                 nft_mint.key.as_ref(),
             ],
             &spl_associated_token_account::ID,
@@ -117,7 +117,7 @@ impl Condition for NftPayment {
             }) = metadata.programmable_config
             {
                 let auth_rules_program = try_get_account_info(ctx.accounts.remaining, index + 9)?;
-                assert_keys_equal(auth_rules_program.key, &MPL_TOKEN_AUTH_RULES_PROGRAM)?;
+                assert_keys_equal(auth_rules_program.key, &TPL_TOKEN_AUTH_RULES_PROGRAM)?;
 
                 let auth_rules = try_get_account_info(ctx.accounts.remaining, index + 10)?;
                 assert_keys_equal(&rule_set, auth_rules.key)?;
@@ -158,7 +158,7 @@ impl Condition for NftPayment {
                 .payer(&ctx.accounts.payer)
                 .system_program(&ctx.accounts.system_program)
                 .sysvar_instructions(&ctx.accounts.sysvar_instructions)
-                .spl_token_program(&ctx.accounts.spl_token_program)
+                .tpl_token_program(&ctx.accounts.tpl_token_program)
                 .spl_ata_program(spl_ata_program)
                 .amount(1);
 
@@ -200,7 +200,7 @@ impl Condition for NftPayment {
                     ctx.accounts.payer.key,
                     &self.destination,
                     nft_mint.key,
-                    &spl_token::ID,
+                    &tpl_token::ID,
                 ),
                 &[
                     ctx.accounts.payer.to_account_info(),
@@ -213,12 +213,12 @@ impl Condition for NftPayment {
 
             // transfers the NFT
 
-            spl_token_transfer(TokenTransferParams {
+            tpl_token_transfer(TokenTransferParams {
                 source: nft_account.to_account_info(),
                 destination: destination_ata.to_account_info(),
                 authority: ctx.accounts.payer.to_account_info(),
                 authority_signer_seeds: &[],
-                token_program: ctx.accounts.spl_token_program.to_account_info(),
+                token_program: ctx.accounts.tpl_token_program.to_account_info(),
                 // fixed to always require 1 NFT
                 amount: 1,
             })?;

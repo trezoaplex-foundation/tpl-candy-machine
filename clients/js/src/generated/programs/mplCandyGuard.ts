@@ -11,19 +11,19 @@ import {
   Context,
   Program,
   PublicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   getMplCandyGuardErrorFromCode,
   getMplCandyGuardErrorFromName,
 } from '../errors';
 
-export const MPL_CANDY_GUARD_PROGRAM_ID =
+export const TPL_CANDY_GUARD_PROGRAM_ID =
   'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g' as PublicKey<'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'>;
 
 export function createMplCandyGuardProgram(): Program {
   return {
-    name: 'mplCandyGuard',
-    publicKey: MPL_CANDY_GUARD_PROGRAM_ID,
+    name: 'tplCandyGuard',
+    publicKey: TPL_CANDY_GUARD_PROGRAM_ID,
     getErrorFromCode(code: number, cause?: Error) {
       return getMplCandyGuardErrorFromCode(code, this, cause);
     },
@@ -40,7 +40,7 @@ export function getMplCandyGuardProgram<T extends Program = Program>(
   context: Pick<Context, 'programs'>,
   clusterFilter?: ClusterFilter
 ): T {
-  return context.programs.get<T>('mplCandyGuard', clusterFilter);
+  return context.programs.get<T>('tplCandyGuard', clusterFilter);
 }
 
 export function getMplCandyGuardProgramId(
@@ -48,8 +48,8 @@ export function getMplCandyGuardProgramId(
   clusterFilter?: ClusterFilter
 ): PublicKey {
   return context.programs.getPublicKey(
-    'mplCandyGuard',
-    MPL_CANDY_GUARD_PROGRAM_ID,
+    'tplCandyGuard',
+    TPL_CANDY_GUARD_PROGRAM_ID,
     clusterFilter
   );
 }

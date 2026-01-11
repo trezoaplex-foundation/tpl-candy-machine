@@ -5,13 +5,13 @@ import {
   setComputeUnitLimit,
   Token,
   TokenState,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   fetchTokenRecord,
   findTokenRecordPda,
   TokenStandard,
   TokenState as MetadataTokenState,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   generateSigner,
   isSome,
@@ -24,7 +24,7 @@ import {
   some,
   transactionBuilder,
   Umi,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import test, { Assertions } from 'ava';
 import {
   addConfigLines,
@@ -63,8 +63,8 @@ test('it transfers tokens to an escrow account and freezes the NFT', async (t) =
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
       freezeTokenPayment: some({
@@ -167,8 +167,8 @@ test('it allows minting even when the payer is different from the minter', async
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
       freezeTokenPayment: some({
@@ -223,8 +223,8 @@ test('it allows minting when the mint and token accounts are created beforehand'
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
       freezeTokenPayment: some({
@@ -285,7 +285,7 @@ test('it can thaw an NFT once all NFTs are minted', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       freezeTokenPayment: some({
         mint: tokenMint.publicKey,
@@ -328,7 +328,7 @@ test('it can unlock funds once all NFTs have been thawed', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       freezeTokenPayment: some({
         mint: tokenMint.publicKey,
@@ -396,7 +396,7 @@ test('it cannot unlock funds if not all NFTs have been thawed', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       freezeTokenPayment: some({
         mint: tokenMint.publicKey,
@@ -520,10 +520,10 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
         candyMachine,
         index: 0,
         configLines: [
-          { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-          { name: 'Degen #2', uri: 'https://example.com/degen/2' },
-          { name: 'Degen #3', uri: 'https://example.com/degen/3' },
-          { name: 'Degen #4', uri: 'https://example.com/degen/4' },
+          { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+          { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
+          { name: 'Degen #3', uri: 'https://exatple.com/degen/3' },
+          { name: 'Degen #4', uri: 'https://exatple.com/degen/4' },
         ],
       })
     )
@@ -666,7 +666,7 @@ test('it fails to mint if the freeze escrow was not initialized', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       freezeTokenPayment: some({
         mint: tokenMint.publicKey,
@@ -722,7 +722,7 @@ test('it fails to mint if the payer does not have enough tokens', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       freezeTokenPayment: some({
         mint: tokenMint.publicKey,
@@ -778,7 +778,7 @@ test('it charges a bot tax if something goes wrong', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       botTax: some({ lamports: sol(0.1), lastInstruction: true }),
       freezeTokenPayment: some({
@@ -837,8 +837,8 @@ test('it transfers tokens to an escrow account and locks the Programmable NFT', 
     ruleSet: METAPLEX_DEFAULT_RULESET,
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
       freezeTokenPayment: some({
@@ -944,7 +944,7 @@ test('it can thaw a Programmable NFT once all NFTs are minted', async (t) => {
     collectionMint,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     ruleSet: METAPLEX_DEFAULT_RULESET,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
       freezeTokenPayment: some({
         mint: tokenMint.publicKey,

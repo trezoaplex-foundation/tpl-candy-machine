@@ -4,7 +4,7 @@ import {
   LoadOrGenKeypair,
   LOCALHOST,
   PayerTransactionHandler,
-} from '@metaplex-foundation/amman-client';
+} from '@trezoaplex-foundation/amman-client';
 import {
   Connection,
   Keypair,
@@ -18,7 +18,7 @@ import {
   StakeProgram,
   Authorized,
   ComputeBudgetProgram,
-} from '@solana/web3.js';
+} from '@trezoa/web3.js';
 import { Test } from 'tape';
 import { amman } from '.';
 import {
@@ -52,7 +52,7 @@ import {
   WithdrawInstructionAccounts,
   WrapInstructionAccounts,
 } from '../../src/generated';
-import { AccountVersion, CandyMachine } from '@metaplex-foundation/mpl-candy-machine-core';
+import { AccountVersion, CandyMachine } from '@trezoaplex-foundation/tpl-candy-machine-core';
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountInstruction,
@@ -60,9 +60,9 @@ import {
   createMintToInstruction,
   MintLayout,
   TOKEN_PROGRAM_ID,
-} from '@solana/spl-token';
-import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoa/tpl-token';
+import { keypairIdentity, Trezoaplex } from '@trezoaplex-foundation/js';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import { serialize } from '../../src';
 import { BN } from 'bn.js';
 
@@ -593,7 +593,7 @@ export class InitTransactions {
 
     // PDAs required for the mint
 
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
     const nftMetadata = metaplex.nfts().pdas().metadata({ mint: mint.publicKey });
     const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });
@@ -692,7 +692,7 @@ export class InitTransactions {
 
     // PDAs required for the mint
 
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
     const nftMetadata = metaplex.nfts().pdas().metadata({ mint: mint.publicKey });
     const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });

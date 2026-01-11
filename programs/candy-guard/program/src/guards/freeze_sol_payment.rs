@@ -1,8 +1,8 @@
 use super::*;
 
 use anchor_lang::AccountsClose;
-use mpl_candy_machine_core::{AccountVersion, CandyMachine};
-use mpl_token_metadata::{
+use tpl_candy_machine_core::{AccountVersion, CandyMachine};
+use tpl_token_metadata::{
     accounts::{Metadata, TokenRecord},
     instructions::{
         DelegateCpiBuilder, FreezeDelegatedAccountCpiBuilder, LockCpiBuilder,
@@ -11,12 +11,12 @@ use mpl_token_metadata::{
     types::{DelegateArgs, LockArgs, TokenStandard, TokenState},
     utils::assert_edition_is_programmable,
 };
-use solana_program::{
+use trezoa_program::{
     program::{invoke, invoke_signed},
     program_pack::Pack,
     system_instruction, system_program,
 };
-use spl_token::{
+use tpl_token::{
     instruction::{approve, revoke},
     state::Account as TokenAccount,
 };
@@ -29,7 +29,7 @@ use crate::{
 
 pub const FREEZE_SOL_FEE: u64 = 10_000;
 
-/// Guard that charges an amount in SOL (lamports) for the mint with a freeze period.
+/// Guard that charges an amount in TRZ (lamports) for the mint with a freeze period.
 ///
 /// List of accounts required:
 ///
@@ -44,13 +44,13 @@ pub struct FreezeSolPayment {
     pub destination: Pubkey,
 }
 
-impl FreezeSolPayment {
+itpl FreezeSolPayment {
     const fn total_lamports(&self) -> u64 {
         self.lamports + FREEZE_SOL_FEE
     }
 }
 
-impl Guard for FreezeSolPayment {
+itpl Guard for FreezeSolPayment {
     fn size() -> usize {
         8    // lamports
         + 32 // destination
@@ -116,8 +116,8 @@ impl Guard for FreezeSolPayment {
             //   2. `[]` Address of the owner of the NFT.
             //   3. `[writable]` Associate token account of the NFT.
             //   4. `[]` Master Edition account of the NFT.
-            //   5. `[]` SPL Token program.
-            //   6. `[]` Metaplex Token Metadata program ID.
+            //   5. `[]` TPL Token program.
+            //   6. `[]` Trezoaplex Token Metadata program ID.
             //
             // Remaining accounts required for Programmable NFTs:
             //
@@ -125,7 +125,7 @@ impl Guard for FreezeSolPayment {
             //   8. `[writable]` Freeze PDA associated token account of the NFT.
             //   9. `[]` System program.
             //   10. `[]` Sysvar instructions account.
-            //   11. `[]` SPL Associated Token Account program.
+            //   11. `[]` TPL Associated Token Account program.
             //   12. `[optional, writable]` Owner token record account.
             //   13. `[optional, writable]` Freeze PDA token record account.
             //   14. `[optional]` Token Authorization Rules program.
@@ -152,7 +152,7 @@ impl Guard for FreezeSolPayment {
     }
 }
 
-impl Condition for FreezeSolPayment {
+itpl Condition for FreezeSolPayment {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -192,7 +192,7 @@ impl Condition for FreezeSolPayment {
             let (derivation, _) = Pubkey::find_program_address(
                 &[
                     ctx.accounts.minter.key.as_ref(),
-                    spl_token::id().as_ref(),
+                    tpl_token::id().as_ref(),
                     ctx.accounts.nft_mint.key.as_ref(),
                 ],
                 &spl_associated_token_account::id(),
@@ -234,7 +234,7 @@ impl Condition for FreezeSolPayment {
                 self.total_lamports(),
                 ctx.accounts.payer.lamports(),
             );
-            return err!(CandyGuardError::NotEnoughSOL);
+            return err!(CandyGuardError::NotEnoughTRZ);
         }
 
         Ok(())
@@ -306,7 +306,7 @@ pub struct FreezeEscrow {
     pub authority: Pubkey,
 }
 
-impl FreezeEscrow {
+itpl FreezeEscrow {
     /// Maximum account size.
     pub const SIZE: usize = 8 // discriminator
         + 32    // candy guard
@@ -405,7 +405,7 @@ pub fn freeze_nft(
     if matches!(ctx.accounts.candy_machine.version, AccountVersion::V1) {
         invoke(
             &approve(
-                &spl_token::ID,
+                &tpl_token::ID,
                 &nft_ata.key(),
                 &freeze_pda.key(),
                 &owner.key(),
@@ -424,7 +424,7 @@ pub fn freeze_nft(
             .token_account(nft_ata)
             .edition(&ctx.accounts.nft_master_edition)
             .mint(&ctx.accounts.nft_mint)
-            .token_program(&ctx.accounts.spl_token_program)
+            .token_program(&ctx.accounts.tpl_token_program)
             .invoke_signed(&[&signer])?;
     } else {
         let token_record = ctx
@@ -453,7 +453,7 @@ pub fn freeze_nft(
             .payer(&ctx.accounts.payer)
             .system_program(&ctx.accounts.system_program)
             .sysvar_instructions(&ctx.accounts.sysvar_instructions)
-            .spl_token_program(Some(&ctx.accounts.spl_token_program))
+            .tpl_token_program(Some(&ctx.accounts.tpl_token_program))
             .authorization_rules_program(ctx.accounts.authorization_rules_program.as_ref())
             .authorization_rules(authorization_rules)
             .delegate_args(
@@ -484,7 +484,7 @@ pub fn freeze_nft(
             .payer(&ctx.accounts.payer)
             .system_program(&ctx.accounts.system_program)
             .sysvar_instructions(&ctx.accounts.sysvar_instructions)
-            .spl_token_program(Some(&ctx.accounts.spl_token_program))
+            .tpl_token_program(Some(&ctx.accounts.tpl_token_program))
             .lock_args(LockArgs::V1 {
                 authorization_data: None,
             })
@@ -629,7 +629,7 @@ pub fn thaw_nft<'info>(
 
     let token_program = try_get_account_info(ctx.remaining_accounts, 5)?;
     let token_metadata_program = try_get_account_info(ctx.remaining_accounts, 6)?;
-    assert_keys_equal(token_metadata_program.key, &mpl_token_metadata::ID)?;
+    assert_keys_equal(token_metadata_program.key, &tpl_token_metadata::ID)?;
 
     let candy_guard_key = &ctx.accounts.candy_guard.key();
     let candy_machine_key = &ctx.accounts.candy_machine.key();
@@ -661,7 +661,7 @@ pub fn thaw_nft<'info>(
         let (escrow_ata_key, _) = Pubkey::find_program_address(
             &[
                 freeze_escrow.key().as_ref(),
-                spl_token::id().as_ref(),
+                tpl_token::id().as_ref(),
                 nft_mint.key.as_ref(),
             ],
             &spl_associated_token_account::id(),
@@ -702,7 +702,7 @@ pub fn thaw_nft<'info>(
                 .payer(&ctx.accounts.payer)
                 .system_program(system_program_info)
                 .sysvar_instructions(sysvar_instructions_info)
-                .spl_token_program(Some(token_program))
+                .tpl_token_program(Some(token_program))
                 .invoke_signed(&[&signer])?;
 
             let freeze_escrow_info = freeze_escrow.to_account_info();
@@ -723,7 +723,7 @@ pub fn thaw_nft<'info>(
                 .payer(&ctx.accounts.payer)
                 .system_program(system_program_info)
                 .sysvar_instructions(sysvar_instructions_info)
-                .spl_token_program(token_program)
+                .tpl_token_program(token_program)
                 .spl_ata_program(spl_ata_program)
                 .authorization_rules(authorization_rules)
                 .authorization_rules_program(authorization_rules_program)
@@ -745,7 +745,7 @@ pub fn thaw_nft<'info>(
                 .payer(&ctx.accounts.payer)
                 .system_program(system_program_info)
                 .sysvar_instructions(sysvar_instructions_info)
-                .spl_token_program(token_program)
+                .tpl_token_program(token_program)
                 .spl_ata_program(spl_ata_program)
                 .authorization_rules(authorization_rules)
                 .authorization_rules_program(authorization_rules_program)
@@ -754,7 +754,7 @@ pub fn thaw_nft<'info>(
             // closes the freeze escrow ATA
 
             invoke_signed(
-                &spl_token::instruction::close_account(
+                &tpl_token::instruction::close_account(
                     token_program.key,
                     escrow_ata.key,
                     ctx.accounts.payer.key,
@@ -796,7 +796,7 @@ pub fn thaw_nft<'info>(
         if cmp_pubkeys(&payer.key(), &nft_owner.key()) {
             msg!("Revoking authority");
             invoke(
-                &revoke(&spl_token::ID, &nft_ata.key(), &payer.key(), &[])?,
+                &revoke(&tpl_token::ID, &nft_ata.key(), &payer.key(), &[])?,
                 &[nft_ata.to_account_info(), payer.to_account_info()],
             )?;
         } else {

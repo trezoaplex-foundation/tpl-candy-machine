@@ -1,7 +1,7 @@
 import {
   transactionBuilder,
   TransactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   createCandyGuard,
   CreateCandyGuardInstructionDataArgs,

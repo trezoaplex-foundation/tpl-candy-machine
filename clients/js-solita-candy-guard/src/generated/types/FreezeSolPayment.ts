@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as beet from '@metaplex-foundation/beet';
-import * as web3 from '@solana/web3.js';
-import * as beetSolana from '@metaplex-foundation/beet-solana';
+import * as beet from '@trezoaplex-foundation/beet';
+import * as web3 from '@trezoa/web3.js';
+import * as beetTrezoa from '@trezoaplex-foundation/beet-trezoa';
 export type FreezeSolPayment = {
   lamports: beet.bignum;
   destination: web3.PublicKey;
@@ -20,7 +20,7 @@ export type FreezeSolPayment = {
 export const freezeSolPaymentBeet = new beet.BeetArgsStruct<FreezeSolPayment>(
   [
     ['lamports', beet.u64],
-    ['destination', beetSolana.publicKey],
+    ['destination', beetTrezoa.publicKey],
   ],
   'FreezeSolPayment',
 );

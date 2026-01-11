@@ -1,8 +1,8 @@
 use std::collections::BTreeMap;
 
-use anchor_lang::{prelude::*, solana_program::sysvar, Discriminator};
-use mpl_candy_machine_core::CandyMachine;
-use solana_program::{instruction::Instruction, program::invoke_signed};
+use anchor_lang::{prelude::*, trezoa_program::sysvar, Discriminator};
+use tpl_candy_machine_core::CandyMachine;
+use trezoa_program::{instruction::Instruction, program::invoke_signed};
 
 use crate::{
     guards::{CandyGuardError, EvaluationContext},
@@ -39,7 +39,7 @@ pub fn mint_v2<'info>(
             .spl_ata_program
             .as_ref()
             .map(|spl_ata_program| spl_ata_program.to_account_info()),
-        spl_token_program: ctx.accounts.spl_token_program.to_account_info(),
+        tpl_token_program: ctx.accounts.tpl_token_program.to_account_info(),
         system_program: ctx.accounts.system_program.to_account_info(),
         sysvar_instructions: ctx.accounts.sysvar_instructions.to_account_info(),
         token: ctx
@@ -147,7 +147,7 @@ fn validate(ctx: &EvaluationContext) -> Result<()> {
     }
     if !cmp_pubkeys(
         ctx.accounts.collection_metadata.owner,
-        &mpl_token_metadata::ID,
+        &tpl_token_metadata::ID,
     ) {
         return err!(CandyGuardError::IncorrectOwner);
     }
@@ -160,7 +160,7 @@ fn cpi_mint(ctx: &EvaluationContext) -> Result<()> {
     let candy_guard = &ctx.accounts.candy_guard;
 
     // candy machine mint instruction accounts
-    let mint_accounts = Box::new(mpl_candy_machine_core::cpi::accounts::MintV2 {
+    let mint_accounts = Box::new(tpl_candy_machine_core::cpi::accounts::MintV2 {
         candy_machine: ctx.accounts.candy_machine.to_account_info(),
         authority_pda: ctx.accounts.candy_machine_authority_pda.clone(),
         mint_authority: candy_guard.to_account_info(),
@@ -178,7 +178,7 @@ fn cpi_mint(ctx: &EvaluationContext) -> Result<()> {
         collection_master_edition: ctx.accounts.collection_master_edition.clone(),
         collection_update_authority: ctx.accounts.collection_update_authority.clone(),
         token_metadata_program: ctx.accounts.token_metadata_program.clone(),
-        spl_token_program: ctx.accounts.spl_token_program.clone(),
+        tpl_token_program: ctx.accounts.tpl_token_program.clone(),
         spl_ata_program: ctx.accounts.spl_ata_program.clone(),
         system_program: ctx.accounts.system_program.clone(),
         sysvar_instructions: ctx.accounts.sysvar_instructions.clone(),
@@ -197,9 +197,9 @@ fn cpi_mint(ctx: &EvaluationContext) -> Result<()> {
     });
 
     let mint_ix = Instruction {
-        program_id: mpl_candy_machine_core::ID,
+        program_id: tpl_candy_machine_core::ID,
         accounts: mint_metas,
-        data: mpl_candy_machine_core::instruction::MintV2::DISCRIMINATOR.to_vec(),
+        data: tpl_candy_machine_core::instruction::MintV2::DISCRIMINATOR.to_vec(),
     };
 
     // PDA signer for the transaction
@@ -221,7 +221,7 @@ pub struct MintV2<'info> {
     /// Candy Machine program account.
     ///
     /// CHECK: account constraints checked in account trait
-    #[account(address = mpl_candy_machine_core::id())]
+    #[account(address = tpl_candy_machine_core::id())]
     candy_machine_program: AccountInfo<'info>,
 
     /// Candy machine account.
@@ -234,11 +234,11 @@ pub struct MintV2<'info> {
     #[account(mut)]
     candy_machine_authority_pda: UncheckedAccount<'info>,
 
-    /// Payer for the mint (SOL) fees.
+    /// Payer for the mint (TRZ) fees.
     #[account(mut)]
     payer: Signer<'info>,
 
-    /// Minter account for validation and non-SOL fees.
+    /// Minter account for validation and non-TRZ fees.
     #[account(mut)]
     minter: Signer<'info>,
 
@@ -310,13 +310,13 @@ pub struct MintV2<'info> {
     /// Token Metadata program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = mpl_token_metadata::ID)]
+    #[account(address = tpl_token_metadata::ID)]
     token_metadata_program: UncheckedAccount<'info>,
 
-    /// SPL Token program.
-    spl_token_program: Program<'info, Token>,
+    /// TPL Token program.
+    tpl_token_program: Program<'info, Token>,
 
-    /// SPL Associated Token program.
+    /// TPL Associated Token program.
     spl_ata_program: Option<Program<'info, AssociatedToken>>,
 
     /// System program.
@@ -337,12 +337,12 @@ pub struct MintV2<'info> {
     /// Token Authorization Rules program.
     ///
     /// CHECK: account checked in CPI
-    #[account(address = mpl_candy_machine_core::constants::MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(address = tpl_candy_machine_core::constants::TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules_program: Option<UncheckedAccount<'info>>,
 
     /// Token Authorization rules account for the collection metadata (if any).
     ///
     /// CHECK: account constraints checked in account trait
-    #[account(owner = mpl_candy_machine_core::constants::MPL_TOKEN_AUTH_RULES_PROGRAM)]
+    #[account(owner = tpl_candy_machine_core::constants::TPL_TOKEN_AUTH_RULES_PROGRAM)]
     authorization_rules: Option<UncheckedAccount<'info>>,
 }

@@ -4,7 +4,7 @@ import {
   Program,
   PublicKey,
   publicKey,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 
 export const CIVIC_GATEWAY_PROGRAM_ID = publicKey(
   'gatem74V238djXdzWnJf94Wo1DcnuGkfijbf3AuBhfs'

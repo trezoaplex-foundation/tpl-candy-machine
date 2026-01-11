@@ -1,11 +1,11 @@
-import { createAccount } from '@metaplex-foundation/mpl-toolbox';
+import { createAccount } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   Context,
   none,
   Signer,
   transactionBuilder,
   TransactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import { initializeCandyMachine } from './generated';
 import { getCandyMachineSize } from './hooked';
 
@@ -31,7 +31,7 @@ export const createCandyMachine = async (
         newAccount: input.candyMachine,
         lamports,
         space,
-        programId: context.programs.get('mplCandyMachineCore').publicKey,
+        programId: context.programs.get('tplCandyMachineCore').publicKey,
       })
     )
     .add(

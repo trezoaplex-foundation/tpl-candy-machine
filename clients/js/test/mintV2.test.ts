@@ -3,24 +3,24 @@ import {
   TokenStandard,
   fetchDigitalAsset,
   findCollectionAuthorityRecordPda,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   createAssociatedToken,
   createMint,
   createMintWithAssociatedToken,
   findAssociatedTokenPda,
   setComputeUnitLimit,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   PublicKey,
   Umi,
   generateSigner,
   isEqualToAmount,
   none,
-  sol,
+  trz,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
-import { generateSignerWithSol } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { generateSignerWithSol } from '@trezoaplex-foundation/umi-bundle-tests';
 import test from 'ava';
 import {
   CandyMachine,
@@ -44,7 +44,7 @@ test('it can mint from a candy guard with no guards', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
     groups: [],
   });
@@ -80,7 +80,7 @@ test('it can mint whilst creating the mint and token accounts beforehand', async
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -121,7 +121,7 @@ test('it can mint whilst creating only the mint account beforehand', async (t) =
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -156,7 +156,7 @@ test('it can mint to an explicit public key that is not the payer nor the minter
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
     tokenStandard: TokenStandard.ProgrammableNonFungible,
   });
@@ -192,7 +192,7 @@ test('it can mint from a candy guard attached to a candy machine v1', async (t) 
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const candyMachineSigner = await createV1(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -242,10 +242,10 @@ test('it can mint from a candy guard with guards', async (t) => {
   const destination = generateSigner(umi).publicKey;
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: { lamports: sol(0.01), lastInstruction: true },
-      solPayment: { lamports: sol(2), destination },
+      botTax: { lamports: trz(0.01), lastInstruction: true },
+      solPayment: { lamports: trz(2), destination },
     },
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -253,7 +253,7 @@ test('it can mint from a candy guard with guards', async (t) => {
   // When we mint from the candy guard.
   const mint = generateSigner(umi);
   const minter = generateSigner(umi);
-  const payer = await generateSignerWithSol(umi, sol(10));
+  const payer = await generateSignerWithSol(umi, trz(10));
   await transactionBuilder()
     .add(setComputeUnitLimit(umi, { units: 600_000 }))
     .add(
@@ -276,7 +276,7 @@ test('it can mint from a candy guard with guards', async (t) => {
 
   // And the payer was charged.
   const payerBalance = await umi.rpc.getBalance(payer.publicKey);
-  t.true(isEqualToAmount(payerBalance, sol(8), sol(0.1)));
+  t.true(isEqualToAmount(payerBalance, trz(8), trz(0.1)));
 
   // And the candy machine was updated.
   const candyMachineAccount = await fetchCandyMachine(umi, candyMachine);
@@ -290,10 +290,10 @@ test('it can mint from a candy guard with groups', async (t) => {
   const destination = generateSigner(umi).publicKey;
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: { lamports: sol(0.01), lastInstruction: true },
-      solPayment: { lamports: sol(2), destination },
+      botTax: { lamports: trz(0.01), lastInstruction: true },
+      solPayment: { lamports: trz(2), destination },
     },
     groups: [
       { label: 'GROUP1', guards: { startDate: { date: yesterday() } } },
@@ -331,8 +331,8 @@ test('it cannot mint using the default guards if the candy guard has groups', as
   const destination = generateSigner(umi).publicKey;
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
-    guards: { solPayment: { lamports: sol(2), destination } },
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
+    guards: { solPayment: { lamports: trz(2), destination } },
     groups: [
       { label: 'GROUP1', guards: { startDate: { date: yesterday() } } },
       { label: 'GROUP2', guards: { startDate: { date: tomorrow() } } },
@@ -369,8 +369,8 @@ test('it cannot mint from a group if the provided group label does not exist', a
   const destination = generateSigner(umi).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
-    guards: { solPayment: { lamports: sol(2), destination } },
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
+    guards: { solPayment: { lamports: trz(2), destination } },
     groups: [{ label: 'GROUP1', guards: { startDate: { date: yesterday() } } }],
   });
 
@@ -403,12 +403,12 @@ test('it can mint using an explicit payer', async (t) => {
   const destination = generateSigner(umi).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
-    guards: { solPayment: { lamports: sol(2), destination } },
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
+    guards: { solPayment: { lamports: trz(2), destination } },
   });
 
-  // And an explicit payer with 10 SOL.
-  const payer = await generateSignerWithSol(umi, sol(10));
+  // And an explicit payer with 10 TRZ.
+  const payer = await generateSignerWithSol(umi, trz(10));
 
   // When we mint from it using that payer.
   const mint = generateSigner(umi);
@@ -433,7 +433,7 @@ test('it can mint using an explicit payer', async (t) => {
 
   // And the payer was charged.
   const payerBalance = await umi.rpc.getBalance(payer.publicKey);
-  t.true(isEqualToAmount(payerBalance, sol(8), sol(0.1)));
+  t.true(isEqualToAmount(payerBalance, trz(8), trz(0.1)));
 });
 
 test('it cannot mint from an empty candy machine', async (t) => {
@@ -473,7 +473,7 @@ test('it cannot mint from a candy machine that is not fully loaded', async (t) =
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     itemsAvailable: 2,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
 
@@ -503,7 +503,7 @@ test('it cannot mint from a candy machine that has been fully minted', async (t)
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
   const mint = generateSigner(umi);
@@ -547,7 +547,7 @@ test('it can mint from a candy machine using hidden settings', async (t) => {
     configLineSettings: none(),
     hiddenSettings: {
       name: 'Degen #$ID+1$',
-      uri: 'https://example.com/degen/$ID+1$',
+      uri: 'https://exatple.com/degen/$ID+1$',
       hash: new Uint8Array(32),
     },
     guards: {},
@@ -574,7 +574,7 @@ test('it can mint from a candy machine using hidden settings', async (t) => {
     mint,
     owner: minter,
     name: 'Degen #1',
-    uri: 'https://example.com/degen/1',
+    uri: 'https://exatple.com/degen/1',
   });
 });
 
@@ -585,7 +585,7 @@ test('it can mint from a candy machine sequentially', async (t) => {
   const indices = Array.from({ length: 10 }, (x, i) => i + 1);
   const configLines = indices.map((index) => ({
     name: `${index}`,
-    uri: `https://example.com/degen/${index}`,
+    uri: `https://exatple.com/degen/${index}`,
   }));
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
@@ -614,7 +614,7 @@ test('it can mint from a candy machine in a random order', async (t) => {
   const indices = Array.from({ length: 10 }, (x, i) => i + 1);
   const configLines = indices.map((index) => ({
     name: `${index}`,
-    uri: `https://example.com/degen/${index}`,
+    uri: `https://exatple.com/degen/${index}`,
   }));
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
@@ -647,7 +647,7 @@ test('it can mint a programmable NFT', async (t) => {
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {},
   });
 

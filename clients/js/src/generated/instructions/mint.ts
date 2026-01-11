@@ -10,7 +10,7 @@ import {
   findCollectionAuthorityRecordPda,
   findMasterEditionPda,
   findMetadataPda,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   Context,
   Option,
@@ -21,7 +21,7 @@ import {
   TransactionBuilder,
   publicKey,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
@@ -32,7 +32,7 @@ import {
   struct,
   u32,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import { findCandyGuardPda, findCandyMachineAuthorityPda } from '../../hooked';
 import {
   ResolvedAccount,
@@ -106,7 +106,7 @@ export function mint(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplCandyGuard',
+    'tplCandyGuard',
     'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'
   );
 
@@ -212,7 +212,7 @@ export function mint(
   }
   if (!resolvedAccounts.candyMachineProgram.value) {
     resolvedAccounts.candyMachineProgram.value = context.programs.getPublicKey(
-      'mplCandyMachine',
+      'tplCandyMachine',
       'CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR'
     );
     resolvedAccounts.candyMachineProgram.isWritable = false;
@@ -261,7 +261,7 @@ export function mint(
   }
   if (!resolvedAccounts.tokenMetadataProgram.value) {
     resolvedAccounts.tokenMetadataProgram.value = context.programs.getPublicKey(
-      'mplTokenMetadata',
+      'tplTokenMetadata',
       'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
     );
     resolvedAccounts.tokenMetadataProgram.isWritable = false;

@@ -11,7 +11,7 @@ import {
   bytes,
   string,
   struct,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /** Hidden settings for large mints used with off-chain data. */
 export type HiddenSettings = {

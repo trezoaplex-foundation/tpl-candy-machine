@@ -6,16 +6,16 @@
  * @see https://github.com/metaplex-foundation/kinobi
  */
 
-import { PublicKey } from '@metaplex-foundation/umi';
+import { PublicKey } from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   publicKey as publicKeySerializer,
   struct,
   u64,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 
 /**
- * Guard that requires addresses that hold an amount of a specified spl-token
+ * Guard that requires addresses that hold an amount of a specified tpl-token
  * and burns them.
  *
  * List of accounts required:

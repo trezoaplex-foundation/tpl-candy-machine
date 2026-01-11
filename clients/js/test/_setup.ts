@@ -8,13 +8,13 @@ import {
   findMasterEditionPda,
   findMetadataPda,
   verifyCollectionV1,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   createAssociatedToken,
   createMint,
   findAssociatedTokenPda,
   mintTokensTo,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   Context,
   DateTime,
@@ -30,8 +30,8 @@ import {
   publicKey,
   some,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
-import { createUmi as basecreateUmi } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { createUmi as basecreateUmi } from '@trezoaplex-foundation/umi-bundle-tests';
 import { Assertions } from 'ava';
 import {
   CandyGuardDataArgs,
@@ -45,7 +45,7 @@ import {
   createCandyMachine as baseCreateCandyMachine,
   createCandyMachineV2 as baseCreateCandyMachineV2,
   findCandyGuardPda,
-  mplCandyMachine,
+  tplCandyMachine,
   wrap,
 } from '../src';
 
@@ -54,7 +54,7 @@ export const METAPLEX_DEFAULT_RULESET = publicKey(
 );
 
 export const createUmi = async () =>
-  (await basecreateUmi()).use(mplCandyMachine());
+  (await basecreateUmi()).use(tplCandyMachine());
 
 export const createNft = async (
   umi: Umi,
@@ -271,7 +271,7 @@ export const createV2 = async <DA extends GuardSetArgs = DefaultGuardSetArgs>(
 export const defaultAssetData = () => ({
   name: 'My Asset',
   sellerFeeBasisPoints: percentAmount(10, 2),
-  uri: 'https://example.com/my-asset.json',
+  uri: 'https://exatple.com/my-asset.json',
 });
 
 export const defaultCandyMachineData = (

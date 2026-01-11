@@ -4,8 +4,8 @@ export * from './errors';
 export * from './helper';
 export * from './minter';
 
-import { CandyMachineData } from '@metaplex-foundation/mpl-candy-machine-core';
-import { Keypair, PublicKey } from '@solana/web3.js';
+import { CandyMachineData } from '@trezoaplex-foundation/tpl-candy-machine-core';
+import { Keypair, PublicKey } from '@trezoa/web3.js';
 import { BN } from 'bn.js';
 import { HIDDEN_SECTION } from './constants';
 

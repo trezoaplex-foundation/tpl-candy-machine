@@ -5,13 +5,13 @@ import {
   findMetadataDelegateRecordPda,
   findMetadataPda,
   getMplTokenMetadataProgramId,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   createLut,
   getSysvar,
   getSplAssociatedTokenProgramId,
   getSplTokenProgramId,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   AddressLookupTableInput,
   Context,
@@ -19,7 +19,7 @@ import {
   Signer,
   TransactionBuilder,
   uniquePublicKeys,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   AccountVersion,
   fetchCandyMachine,

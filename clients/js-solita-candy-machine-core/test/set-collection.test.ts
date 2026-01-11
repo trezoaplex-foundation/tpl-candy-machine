@@ -2,7 +2,7 @@ import test from 'tape';
 import { InitTransactions, killStuckProcess } from './setup';
 import { CandyMachine, CandyMachineData } from '../src/generated';
 import { COLLECTION_METADATA } from './utils';
-import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
+import { keypairIdentity, Trezoaplex } from '@trezoaplex-foundation/js';
 
 killStuckProcess();
 
@@ -45,7 +45,7 @@ test('set collection', async (t) => {
   await txInit.assertSuccess(t);
 
   // creates a new collection nft
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
 
   const { nft: newCollection } = await metaplex.nfts().create({
     uri: COLLECTION_METADATA,
@@ -107,7 +107,7 @@ test('set collection: wrong collection mint', async (t) => {
   await txInit.assertSuccess(t);
 
   // creates a new collection nft
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
 
   const { nft: newCollection } = await metaplex.nfts().create({
     uri: COLLECTION_METADATA,

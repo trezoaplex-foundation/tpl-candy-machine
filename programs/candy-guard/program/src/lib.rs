@@ -64,7 +64,7 @@ pub mod candy_guard {
         instructions::update(ctx, data)
     }
 
-    /// Withdraw the rent SOL from the candy guard account.
+    /// Withdraw the rent TRZ from the candy guard account.
     pub fn withdraw(ctx: Context<Withdraw>) -> Result<()> {
         instructions::withdraw(ctx)
     }

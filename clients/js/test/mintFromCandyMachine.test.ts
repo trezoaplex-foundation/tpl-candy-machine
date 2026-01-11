@@ -1,5 +1,5 @@
-import { createMintWithAssociatedToken } from '@metaplex-foundation/mpl-toolbox';
-import { generateSigner, transactionBuilder } from '@metaplex-foundation/umi';
+import { createMintWithAssociatedToken } from '@trezoaplex-foundation/tpl-toolbox';
+import { generateSigner, transactionBuilder } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { CandyMachine, fetchCandyMachine, mintFromCandyMachine } from '../src';
 import {
@@ -17,8 +17,8 @@ test('it can mint directly from a candy machine as the mint authority', async (t
   const candyMachineSigner = await createV1(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -60,8 +60,8 @@ test('it cannot mint directly from a candy machine if we are not the mint author
     collectionMint: collectionMint.publicKey,
     collectionUpdateAuthority: mintAuthorityA,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -101,8 +101,8 @@ test('it cannot mint from a candy machine v2', async (t) => {
   const candyMachineSigner = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
   });
   const candyMachine = candyMachineSigner.publicKey;

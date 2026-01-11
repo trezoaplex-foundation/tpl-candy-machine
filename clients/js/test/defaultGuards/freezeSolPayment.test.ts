@@ -5,13 +5,13 @@ import {
   setComputeUnitLimit,
   Token,
   TokenState,
-} from '@metaplex-foundation/mpl-toolbox';
+} from '@trezoaplex-foundation/tpl-toolbox';
 import {
   fetchTokenRecord,
   findTokenRecordPda,
   TokenStandard,
   TokenState as MetadataTokenState,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   generateSigner,
   isEqualToAmount,
@@ -20,13 +20,13 @@ import {
   publicKey,
   PublicKey,
   Signer,
-  sol,
+  trz,
   some,
   subtractAmounts,
   transactionBuilder,
   Umi,
-} from '@metaplex-foundation/umi';
-import { generateSignerWithSol } from '@metaplex-foundation/umi-bundle-tests';
+} from '@trezoaplex-foundation/umi';
+import { generateSignerWithSol } from '@trezoaplex-foundation/umi-bundle-tests';
 import test, { Assertions } from 'ava';
 import {
   fetchCandyMachine,
@@ -47,7 +47,7 @@ import {
   METAPLEX_DEFAULT_RULESET,
 } from '../_setup';
 
-test('it transfers SOL to an escrow account and freezes the NFT', async (t) => {
+test('it transfers TRZ to an escrow account and freezes the NFT', async (t) => {
   // Given a loaded Candy Machine with a freezeSolPayment guard.
   const umi = await createUmi();
   const destination = generateSigner(umi).publicKey;
@@ -56,11 +56,11 @@ test('it transfers SOL to an escrow account and freezes the NFT', async (t) => {
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
 
@@ -114,7 +114,7 @@ test('it transfers SOL to an escrow account and freezes the NFT', async (t) => {
   const [treasuryEscrow] = getFreezeEscrow(umi, candyMachine, destination);
   const treasuryEscrowBalance = await umi.rpc.getBalance(treasuryEscrow);
   t.true(
-    isEqualToAmount(treasuryEscrowBalance, sol(1), sol(0.1)),
+    isEqualToAmount(treasuryEscrowBalance, trz(1), trz(0.1)),
     'treasury escrow received SOLs'
   );
 
@@ -135,8 +135,8 @@ test('it transfers SOL to an escrow account and freezes the NFT', async (t) => {
   t.true(
     isEqualToAmount(
       newIdentityBalance,
-      subtractAmounts(identityBalance, sol(1)),
-      sol(0.1)
+      subtractAmounts(identityBalance, trz(1)),
+      trz(0.1)
     )
   );
 });
@@ -149,11 +149,11 @@ test('it allows minting even when the payer is different from the minter', async
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
 
@@ -189,11 +189,11 @@ test('it allows minting when the mint and token accounts are created beforehand'
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
 
@@ -234,9 +234,9 @@ test('it can thaw an NFT once all NFTs are minted', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
   await initFreezeEscrow(umi, candyMachine, destination);
@@ -265,9 +265,9 @@ test('it can unlock funds once all NFTs have been thawed', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
   await initFreezeEscrow(umi, candyMachine, destination);
@@ -294,7 +294,7 @@ test('it can unlock funds once all NFTs have been thawed', async (t) => {
   // Then the destination wallet received the funds.
   const treasuryBalance = await umi.rpc.getBalance(destination);
   t.true(
-    isEqualToAmount(treasuryBalance, sol(1), sol(0.1)),
+    isEqualToAmount(treasuryBalance, trz(1), trz(0.1)),
     'treasury received SOLs'
   );
 
@@ -302,7 +302,7 @@ test('it can unlock funds once all NFTs have been thawed', async (t) => {
   const [treasuryEscrow] = getFreezeEscrow(umi, candyMachine, destination);
   const treasuryEscrowBalance = await umi.rpc.getBalance(treasuryEscrow);
   t.true(
-    isEqualToAmount(treasuryEscrowBalance, sol(0)),
+    isEqualToAmount(treasuryEscrowBalance, trz(0)),
     'treasury escrow received SOLs'
   );
 });
@@ -314,9 +314,9 @@ test('it cannot unlock funds if not all NFTs have been thawed', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
   await initFreezeEscrow(umi, candyMachine, destination);
@@ -344,7 +344,7 @@ test('it cannot unlock funds if not all NFTs have been thawed', async (t) => {
 
   // And the destination wallet did not receive any funds.
   const treasuryBalance = await umi.rpc.getBalance(destination);
-  t.true(isEqualToAmount(treasuryBalance, sol(0)), 'treasury received no SOLs');
+  t.true(isEqualToAmount(treasuryBalance, trz(0)), 'treasury received no SOLs');
 });
 
 test('it can have multiple freeze escrow and reuse the same ones', async (t) => {
@@ -365,10 +365,10 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
-      { name: 'Degen #3', uri: 'https://example.com/degen/3' },
-      { name: 'Degen #4', uri: 'https://example.com/degen/4' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
+      { name: 'Degen #3', uri: 'https://exatple.com/degen/3' },
+      { name: 'Degen #4', uri: 'https://exatple.com/degen/4' },
     ],
     guards: {},
     groups: [
@@ -376,7 +376,7 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
         label: 'GROUPA',
         guards: {
           freezeSolPayment: some({
-            lamports: sol(0.5),
+            lamports: trz(0.5),
             destination: destinationAB,
           }),
         },
@@ -385,7 +385,7 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
         label: 'GROUPB',
         guards: {
           freezeSolPayment: some({
-            lamports: sol(1),
+            lamports: trz(1),
             destination: destinationAB,
           }),
         },
@@ -394,7 +394,7 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
         label: 'GROUPC',
         guards: {
           freezeSolPayment: some({
-            lamports: sol(2),
+            lamports: trz(2),
             destination: destinationC,
           }),
         },
@@ -402,7 +402,7 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
       {
         label: 'GROUPD',
         guards: {
-          solPayment: some({ lamports: sol(3), destination: destinationD }),
+          solPayment: some({ lamports: trz(3), destination: destinationD }),
         },
       },
     ],
@@ -421,10 +421,10 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
 
   // When we mint all 4 NFTs via each group.
   const cm = candyMachine;
-  const mintA = await mintNft(umi, cm, destinationAB, collectionMint, 'GROUPA'); // 0.5 SOL
-  const mintB = await mintNft(umi, cm, destinationAB, collectionMint, 'GROUPB'); // 1 SOL
-  const mintC = await mintNft(umi, cm, destinationC, collectionMint, 'GROUPC'); // 2 SOL
-  const mintD = generateSigner(umi); // 3 SOL
+  const mintA = await mintNft(umi, cm, destinationAB, collectionMint, 'GROUPA'); // 0.5 TRZ
+  const mintB = await mintNft(umi, cm, destinationAB, collectionMint, 'GROUPB'); // 1 TRZ
+  const mintC = await mintNft(umi, cm, destinationC, collectionMint, 'GROUPC'); // 2 TRZ
+  const mintD = generateSigner(umi); // 3 TRZ
   await transactionBuilder()
     .add(setComputeUnitLimit(umi, { units: 600_000 }))
     .add(
@@ -462,11 +462,11 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
   const treasuryEscrowBalanceAB = await umi.rpc.getBalance(treasuryEscrowAB);
   const treasuryEscrowBalanceC = await umi.rpc.getBalance(treasuryEscrowC);
   t.true(
-    isEqualToAmount(treasuryEscrowBalanceAB, sol(1.5), sol(0.1)),
+    isEqualToAmount(treasuryEscrowBalanceAB, trz(1.5), trz(0.1)),
     'treasury AB escrow received SOLs'
   );
   t.true(
-    isEqualToAmount(treasuryEscrowBalanceC, sol(2), sol(0.1)),
+    isEqualToAmount(treasuryEscrowBalanceC, trz(2), trz(0.1)),
     'treasury C escrow received SOLs'
   );
 
@@ -475,8 +475,8 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
   t.true(
     isEqualToAmount(
       newIdentityBalance,
-      subtractAmounts(identityBalance, sol(6.5)),
-      sol(0.2)
+      subtractAmounts(identityBalance, trz(6.5)),
+      trz(0.2)
     ),
     'identity lost SOLs'
   );
@@ -518,15 +518,15 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
       umi.rpc.getBalance(destinationD),
     ]);
   t.true(
-    isEqualToAmount(treasuryBalanceAB, sol(1.5), sol(0.1)),
+    isEqualToAmount(treasuryBalanceAB, trz(1.5), trz(0.1)),
     'treasury AB received the funds'
   );
   t.true(
-    isEqualToAmount(treasuryBalanceC, sol(2), sol(0.1)),
+    isEqualToAmount(treasuryBalanceC, trz(2), trz(0.1)),
     'treasury C  received the funds'
   );
   t.true(
-    isEqualToAmount(treasuryBalanceD, sol(3), sol(0.1)),
+    isEqualToAmount(treasuryBalanceD, trz(3), trz(0.1)),
     'treasury D  received the funds'
   );
 
@@ -536,11 +536,11 @@ test('it can have multiple freeze escrow and reuse the same ones', async (t) => 
     await umi.rpc.getBalance(treasuryEscrowC),
   ]);
   t.true(
-    isEqualToAmount(newEscrowBalanceAB, sol(0)),
+    isEqualToAmount(newEscrowBalanceAB, trz(0)),
     'treasury AB escrow is empty'
   );
   t.true(
-    isEqualToAmount(newEscrowBalanceC, sol(0)),
+    isEqualToAmount(newEscrowBalanceC, trz(0)),
     'treasury C escrow is empty'
   );
 });
@@ -552,9 +552,9 @@ test('it fails to mint if the freeze escrow was not initialized', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
 
@@ -585,15 +585,15 @@ test('it fails to mint if the payer does not have enough funds', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      freezeSolPayment: some({ lamports: sol(5), destination }),
+      freezeSolPayment: some({ lamports: trz(5), destination }),
     },
   });
   await initFreezeEscrow(umi, candyMachine, destination);
 
-  // When we mint from it using a payer that only has 4 SOL.
-  const payer = await generateSignerWithSol(umi, sol(4));
+  // When we mint from it using a payer that only has 4 TRZ.
+  const payer = await generateSignerWithSol(umi, trz(4));
   const mint = generateSigner(umi);
   const promise = transactionBuilder()
     .add(setComputeUnitLimit(umi, { units: 600_000 }))
@@ -611,11 +611,11 @@ test('it fails to mint if the payer does not have enough funds', async (t) => {
     .sendAndConfirm(umi);
 
   // Then we expect an error.
-  await t.throwsAsync(promise, { message: /NotEnoughSOL/ });
+  await t.throwsAsync(promise, { message: /NotEnoughTRZ/ });
 
-  // And the payer didn't loose any SOL.
+  // And the payer didn't loose any TRZ.
   const payerBalance = await umi.rpc.getBalance(payer.publicKey);
-  t.true(isEqualToAmount(payerBalance, sol(4)), 'payer did not lose SOLs');
+  t.true(isEqualToAmount(payerBalance, trz(4)), 'payer did not lose SOLs');
 });
 
 test('it charges a bot tax if something goes wrong', async (t) => {
@@ -625,10 +625,10 @@ test('it charges a bot tax if something goes wrong', async (t) => {
   const collectionMint = (await createCollectionNft(umi)).publicKey;
   const { publicKey: candyMachine } = await createV2(umi, {
     collectionMint,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.1), lastInstruction: true }),
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      botTax: some({ lamports: trz(0.1), lastInstruction: true }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
 
@@ -651,7 +651,7 @@ test('it charges a bot tax if something goes wrong', async (t) => {
   await assertBotTax(t, umi, mint, signature, /FreezeNotInitialized/);
 });
 
-test('it transfers SOL to an escrow account and locks the Programmable NFT', async (t) => {
+test('it transfers TRZ to an escrow account and locks the Programmable NFT', async (t) => {
   // Given a loaded Candy Machine with a freezeSolPayment guard.
   const umi = await createUmi();
   const destination = generateSigner(umi).publicKey;
@@ -662,11 +662,11 @@ test('it transfers SOL to an escrow account and locks the Programmable NFT', asy
     ruleSet: METAPLEX_DEFAULT_RULESET,
     collectionMint,
     configLines: [
-      { name: 'Degen #1', uri: 'https://example.com/degen/1' },
-      { name: 'Degen #2', uri: 'https://example.com/degen/2' },
+      { name: 'Degen #1', uri: 'https://exatple.com/degen/1' },
+      { name: 'Degen #2', uri: 'https://exatple.com/degen/2' },
     ],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
 
@@ -722,7 +722,7 @@ test('it transfers SOL to an escrow account and locks the Programmable NFT', asy
   const [treasuryEscrow] = getFreezeEscrow(umi, candyMachine, destination);
   const treasuryEscrowBalance = await umi.rpc.getBalance(treasuryEscrow);
   t.true(
-    isEqualToAmount(treasuryEscrowBalance, sol(1), sol(0.1)),
+    isEqualToAmount(treasuryEscrowBalance, trz(1), trz(0.1)),
     'treasury escrow received SOLs'
   );
 
@@ -743,8 +743,8 @@ test('it transfers SOL to an escrow account and locks the Programmable NFT', asy
   t.true(
     isEqualToAmount(
       newIdentityBalance,
-      subtractAmounts(identityBalance, sol(1)),
-      sol(0.1)
+      subtractAmounts(identityBalance, trz(1)),
+      trz(0.1)
     )
   );
 });
@@ -759,9 +759,9 @@ test('it can thaw a Programmable NFT once all NFTs are minted', async (t) => {
     collectionMint,
     tokenStandard: TokenStandard.ProgrammableNonFungible,
     ruleSet: METAPLEX_DEFAULT_RULESET,
-    configLines: [{ name: 'Degen #1', uri: 'https://example.com/degen/1' }],
+    configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      freezeSolPayment: some({ lamports: sol(1), destination }),
+      freezeSolPayment: some({ lamports: trz(1), destination }),
     },
   });
   await initFreezeEscrow(umi, candyMachine, destination);

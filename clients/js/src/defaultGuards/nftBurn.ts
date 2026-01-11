@@ -1,12 +1,12 @@
-import { findAssociatedTokenPda } from '@metaplex-foundation/mpl-toolbox';
+import { findAssociatedTokenPda } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   findMasterEditionPda,
   findMetadataPda,
   findTokenRecordPda,
   isProgrammable,
   TokenStandard,
-} from '@metaplex-foundation/mpl-token-metadata';
-import { PublicKey } from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/tpl-token-metadata';
+import { PublicKey } from '@trezoaplex-foundation/umi';
 import { getNftBurnSerializer, NftBurn, NftBurnArgs } from '../generated';
 import { GuardManifest, GuardRemainingAccount, noopParser } from '../guards';
 

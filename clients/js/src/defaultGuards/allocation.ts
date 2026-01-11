@@ -1,5 +1,5 @@
-import { getSplSystemProgramId } from '@metaplex-foundation/mpl-toolbox';
-import { Signer } from '@metaplex-foundation/umi';
+import { getSplSystemProgramId } from '@trezoaplex-foundation/tpl-toolbox';
+import { Signer } from '@trezoaplex-foundation/umi';
 import {
   findAllocationTrackerPda,
   getAllocationSerializer,

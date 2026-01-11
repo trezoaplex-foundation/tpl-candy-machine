@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use solana_program::{
+use trezoa_program::{
     entrypoint::MAX_PERMITTED_DATA_INCREASE, program::invoke, system_instruction,
 };
 

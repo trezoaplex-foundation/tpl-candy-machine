@@ -1,7 +1,7 @@
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
-import { PublicKey } from '@solana/web3.js';
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo } from '@trezoa/tpl-token';
+import { PublicKey } from '@trezoa/web3.js';
 
 const SPL_TOKEN_2022 = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
 const API = new InitTransactions();
@@ -16,7 +16,7 @@ test('Token-2022 Payment', async (t) => {
     connection: authorityConnection,
   } = await API.authority();
 
-  // SPL Token 2022 mint account
+  // TPL Token 2022 mint account
   const tokenMint = await createMint(
     authorityConnection,
     authority,

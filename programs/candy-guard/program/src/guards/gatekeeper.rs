@@ -1,5 +1,5 @@
-use solana_gateway::{instruction::expire_token, state::get_expire_address_with_seed, Gateway};
-use solana_program::program::invoke;
+use trezoa_gateway::{instruction::expire_token, state::get_expire_address_with_seed, Gateway};
+use trezoa_program::program::invoke;
 
 use crate::{state::GuardType, utils::assert_keys_equal};
 
@@ -7,10 +7,10 @@ use super::*;
 
 // The program ID (not exported from the gateway integration crate).
 const GATEWAY_PROGRAM_ID: Pubkey =
-    solana_program::pubkey!("gatem74V238djXdzWnJf94Wo1DcnuGkfijbf3AuBhfs");
+    trezoa_program::pubkey!("gatem74V238djXdzWnJf94Wo1DcnuGkfijbf3AuBhfs");
 
 /// Guard that validates if the payer of the transaction has a token from a specified
-/// gateway network — in most cases, a token after completing a captcha challenge.
+/// gateway network — in most cases, a token after cotpleting a captcha challenge.
 ///
 /// List of accounts required:
 ///
@@ -26,7 +26,7 @@ pub struct Gatekeeper {
     pub expire_on_use: bool,
 }
 
-impl Guard for Gatekeeper {
+itpl Guard for Gatekeeper {
     fn size() -> usize {
         32  // gatekeeper network
         + 1 // expire on use
@@ -37,7 +37,7 @@ impl Guard for Gatekeeper {
     }
 }
 
-impl Condition for Gatekeeper {
+itpl Condition for Gatekeeper {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,

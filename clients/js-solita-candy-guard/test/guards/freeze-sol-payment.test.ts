@@ -1,6 +1,6 @@
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData, sleep } from '../setup';
-import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
+import { PublicKey, SystemProgram, Transaction } from '@trezoa/web3.js';
 import { PROGRAM_ID } from '../../src';
 import {
   createRouteInstruction,
@@ -8,9 +8,9 @@ import {
   RouteInstructionArgs,
 } from '../../src/generated/instructions/route';
 import { GuardType } from '../../src/generated/types/GuardType';
-import { i64 } from '@metaplex-foundation/beet';
-import { getAccount, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { keypairIdentity, Metaplex } from '@metaplex-foundation/js';
+import { i64 } from '@trezoaplex-foundation/beet';
+import { getAccount, TOKEN_PROGRAM_ID } from '@trezoa/tpl-token';
+import { keypairIdentity, Trezoaplex } from '@trezoaplex-foundation/js';
 import { assertIsNotNull, METAPLEX_PROGRAM_ID } from '../utils';
 import {
   FreezeInstruction,
@@ -129,7 +129,7 @@ test('Freeze Sol Payment (thaw not enabled)', async (t) => {
   // minting
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account 2 (minter)');
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(minterPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
   const nftAta = metaplex
     .tokens()
     .pdas()
@@ -320,7 +320,7 @@ test('Freeze Sol Payment (thaw enabled)', async (t) => {
   } = await API.minter();
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(minterPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
   const nftAta = metaplex
     .tokens()
     .pdas()
@@ -583,7 +583,7 @@ test('Freeze Sol Payment (unlock not enabled)', async (t) => {
   } = await API.minter();
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(minterPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
   const nftAta = metaplex
     .tokens()
     .pdas()
@@ -756,7 +756,7 @@ test('Freeze Sol Payment (thaw with closed candy guard)', async (t) => {
   } = await API.minter();
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(minterPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
   const nftAta = metaplex
     .tokens()
     .pdas()

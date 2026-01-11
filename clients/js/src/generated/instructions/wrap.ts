@@ -13,14 +13,14 @@ import {
   Signer,
   TransactionBuilder,
   transactionBuilder,
-} from '@metaplex-foundation/umi';
+} from '@trezoaplex-foundation/umi';
 import {
   Serializer,
   array,
   mapSerializer,
   struct,
   u8,
-} from '@metaplex-foundation/umi/serializers';
+} from '@trezoaplex-foundation/umi/serializers';
 import {
   ResolvedAccount,
   ResolvedAccountsWithIndices,
@@ -63,7 +63,7 @@ export function wrap(
 ): TransactionBuilder {
   // Program ID.
   const programId = context.programs.getPublicKey(
-    'mplCandyGuard',
+    'tplCandyGuard',
     'Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g'
   );
 
@@ -98,7 +98,7 @@ export function wrap(
   }
   if (!resolvedAccounts.candyMachineProgram.value) {
     resolvedAccounts.candyMachineProgram.value = context.programs.getPublicKey(
-      'mplCandyMachine',
+      'tplCandyMachine',
       'CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR'
     );
     resolvedAccounts.candyMachineProgram.isWritable = false;

@@ -1,9 +1,9 @@
-import { generateSigner, transactionBuilder } from '@metaplex-foundation/umi';
+import { generateSigner, transactionBuilder } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import {
   TokenStandard,
   findCollectionAuthorityRecordPda,
-} from '@metaplex-foundation/mpl-token-metadata';
+} from '@trezoaplex-foundation/tpl-token-metadata';
 import {
   AccountVersion,
   CandyMachine,

@@ -7,7 +7,7 @@ import {
 } from '../src/generated';
 import test from 'tape';
 import { InitTransactions, killStuckProcess } from './setup';
-import { Transaction } from '@solana/web3.js';
+import { Transaction } from '@trezoa/web3.js';
 
 killStuckProcess();
 
@@ -119,7 +119,7 @@ test('add_config_lines (hidden settings)', async (t) => {
   }
 });
 
-test('add_config_lines (incomplete)', async (t) => {
+test('add_config_lines (incotplete)', async (t) => {
   const API = new InitTransactions();
   const { fstTxHandler, payerPair, connection } = await API.payer();
   const items = 10;

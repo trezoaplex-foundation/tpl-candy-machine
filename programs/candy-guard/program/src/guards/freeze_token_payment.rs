@@ -1,8 +1,8 @@
 use super::{freeze_sol_payment::freeze_nft, *};
 
 use anchor_lang::AccountsClose;
-use mpl_token_metadata::accounts::Metadata;
-use solana_program::{
+use tpl_token_metadata::accounts::Metadata;
+use trezoa_program::{
     program::{invoke, invoke_signed},
     program_pack::Pack,
     system_instruction, system_program,
@@ -10,7 +10,7 @@ use solana_program::{
 use spl_associated_token_account::{
     get_associated_token_address, instruction::create_associated_token_account,
 };
-use spl_token::{instruction::close_account, state::Account as TokenAccount};
+use tpl_token::{instruction::close_account, state::Account as TokenAccount};
 
 use crate::{
     errors::CandyGuardError,
@@ -19,11 +19,11 @@ use crate::{
     state::GuardType,
     utils::{
         assert_initialized, assert_is_ata, assert_is_token_account, assert_keys_equal,
-        assert_owned_by, cmp_pubkeys, spl_token_transfer, TokenTransferParams,
+        assert_owned_by, cmp_pubkeys, tpl_token_transfer, TokenTransferParams,
     },
 };
 
-/// Guard that charges an amount in a specified spl-token as payment for the mint with a freeze period.
+/// Guard that charges an amount in a specified tpl-token as payment for the mint with a freeze period.
 ///
 /// List of accounts required:
 ///
@@ -42,7 +42,7 @@ pub struct FreezeTokenPayment {
     pub destination_ata: Pubkey,
 }
 
-impl Guard for FreezeTokenPayment {
+itpl Guard for FreezeTokenPayment {
     fn size() -> usize {
         8    // amount
         + 32 // token mint
@@ -116,10 +116,10 @@ impl Guard for FreezeTokenPayment {
                 let freeze_ata = try_get_account_info(ctx.remaining_accounts, 3)?;
                 let token_mint = try_get_account_info(ctx.remaining_accounts, 4)?;
                 assert_keys_equal(token_mint.key, &mint)?;
-                // spl token program
+                // tpl token program
                 let token_program = try_get_account_info(ctx.remaining_accounts, 5)?;
-                assert_keys_equal(token_program.key, &spl_token::ID)?;
-                // spl associated token program
+                assert_keys_equal(token_program.key, &tpl_token::ID)?;
+                // tpl associated token program
                 let associate_token_program = try_get_account_info(ctx.remaining_accounts, 6)?;
                 assert_keys_equal(
                     associate_token_program.key,
@@ -128,7 +128,7 @@ impl Guard for FreezeTokenPayment {
 
                 let destination_ata = try_get_account_info(ctx.remaining_accounts, 7)?;
                 assert_keys_equal(destination_ata.key, &destination)?;
-                let ata_account: spl_token::state::Account = assert_initialized(destination_ata)?;
+                let ata_account: tpl_token::state::Account = assert_initialized(destination_ata)?;
                 assert_keys_equal(&ata_account.mint, &mint)?;
 
                 assert_keys_equal(
@@ -141,7 +141,7 @@ impl Guard for FreezeTokenPayment {
                         ctx.accounts.payer.key,
                         freeze_pda.key,
                         token_mint.key,
-                        &spl_token::ID,
+                        &tpl_token::ID,
                     ),
                     &[
                         ctx.accounts.payer.to_account_info(),
@@ -164,8 +164,8 @@ impl Guard for FreezeTokenPayment {
             //   2. `[]` Address of the owner of the NFT.
             //   3. `[writable]` Associate token account of the NFT.
             //   4. `[]` Master Edition account of the NFT.
-            //   5. `[]` spl-token program ID.
-            //   6. `[]` Metaplex Token Metadata program.
+            //   5. `[]` tpl-token program ID.
+            //   6. `[]` Trezoaplex Token Metadata program.
             //
             // Remaining accounts required for Programmable NFTs:
             //
@@ -173,7 +173,7 @@ impl Guard for FreezeTokenPayment {
             //   8. `[writable]` Freeze PDA associated token account of the NFT.
             //   9. `[]` System program.
             //   10. `[]` Sysvar instructions account.
-            //   11. `[]` SPL Associated Token Account program.
+            //   11. `[]` TPL Associated Token Account program.
             //   12. `[optional, writable]` Owner token record account.
             //   13. `[optional, writable]` Freeze PDA token record account.
             //   14. `[optional]` Token Authorization Rules program.
@@ -203,7 +203,7 @@ impl Guard for FreezeTokenPayment {
     }
 }
 
-impl Condition for FreezeTokenPayment {
+itpl Condition for FreezeTokenPayment {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,
@@ -243,7 +243,7 @@ impl Condition for FreezeTokenPayment {
             let (derivation, _) = Pubkey::find_program_address(
                 &[
                     ctx.accounts.minter.key.as_ref(),
-                    spl_token::id().as_ref(),
+                    tpl_token::id().as_ref(),
                     ctx.accounts.nft_mint.key.as_ref(),
                 ],
                 &spl_associated_token_account::id(),
@@ -297,7 +297,7 @@ impl Condition for FreezeTokenPayment {
                 FREEZE_SOL_FEE,
                 ctx.accounts.payer.lamports(),
             );
-            return err!(CandyGuardError::NotEnoughSOL);
+            return err!(CandyGuardError::NotEnoughTRZ);
         }
 
         ctx.indices.insert("freeze_token_payment", index);
@@ -317,12 +317,12 @@ impl Condition for FreezeTokenPayment {
         let token_account_info = try_get_account_info(ctx.accounts.remaining, index + 2)?;
         let destination_ata = try_get_account_info(ctx.accounts.remaining, index + 3)?;
 
-        spl_token_transfer(TokenTransferParams {
+        tpl_token_transfer(TokenTransferParams {
             source: token_account_info.to_account_info(),
             destination: destination_ata.to_account_info(),
             authority: ctx.accounts.minter.to_account_info(),
             authority_signer_seeds: &[],
-            token_program: ctx.accounts.spl_token_program.to_account_info(),
+            token_program: ctx.accounts.tpl_token_program.to_account_info(),
             amount: self.amount,
         })?;
 
@@ -399,7 +399,7 @@ fn unlock_funds<'info>(
     }
 
     let freeze_ata = try_get_account_info(ctx.remaining_accounts, 2)?;
-    assert_owned_by(freeze_ata, &spl_token::ID)?;
+    assert_owned_by(freeze_ata, &tpl_token::ID)?;
     let freeze_ata_account = TokenAccount::unpack(&freeze_ata.try_borrow_data()?)?;
     assert_keys_equal(&freeze_ata_account.owner, freeze_pda.key)?;
 
@@ -419,7 +419,7 @@ fn unlock_funds<'info>(
         &[bump],
     ];
 
-    spl_token_transfer(TokenTransferParams {
+    tpl_token_transfer(TokenTransferParams {
         source: freeze_ata.to_account_info(),
         destination: destination_ata_account.to_account_info(),
         authority: freeze_pda.to_account_info(),

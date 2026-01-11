@@ -1,4 +1,4 @@
-use solana_program::{
+use trezoa_program::{
     pubkey,
     serialize_utils::{read_pubkey, read_u16},
     system_program,
@@ -10,9 +10,9 @@ use crate::{errors::CandyGuardError, state::GuardType, utils::cmp_pubkeys};
 // Default list of authorized programs.
 pub static DEFAULT_PROGRAMS: &[Pubkey] = &[
     crate::ID,
-    mpl_candy_machine_core::ID,
+    tpl_candy_machine_core::ID,
     system_program::ID,
-    spl_token::ID,
+    tpl_token::ID,
     spl_associated_token_account::ID,
     pubkey!("ComputeBudget111111111111111111111111111111"),
     pubkey!("SysExL2WDyJi9aRZrXorrjHJut3JwHQ7R9bTyctbNNG"),
@@ -28,7 +28,7 @@ pub struct ProgramGate {
     pub additional: Vec<Pubkey>,
 }
 
-impl Guard for ProgramGate {
+itpl Guard for ProgramGate {
     fn size() -> usize {
         4 + (MAXIMUM_SIZE * 32) // programs
     }
@@ -58,7 +58,7 @@ impl Guard for ProgramGate {
     }
 }
 
-impl Condition for ProgramGate {
+itpl Condition for ProgramGate {
     fn validate<'info>(
         &self,
         ctx: &mut EvaluationContext,

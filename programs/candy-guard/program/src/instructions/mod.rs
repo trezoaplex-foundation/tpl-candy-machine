@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 pub use initialize::*;
 pub use mint::*;
 pub use mint_v2::*;
-use mpl_candy_machine_core::CandyMachine;
+use tpl_candy_machine_core::CandyMachine;
 pub use route::*;
 pub use set_authority::*;
 pub use unwrap::*;
@@ -42,7 +42,7 @@ pub(crate) struct MintAccounts<'b, 'c, 'info> {
     pub(crate) collection_update_authority: AccountInfo<'info>,
     pub(crate) _candy_machine_program: AccountInfo<'info>,
     pub(crate) token_metadata_program: AccountInfo<'info>,
-    pub(crate) spl_token_program: AccountInfo<'info>,
+    pub(crate) tpl_token_program: AccountInfo<'info>,
     pub(crate) spl_ata_program: Option<AccountInfo<'info>>,
     pub(crate) system_program: AccountInfo<'info>,
     pub(crate) sysvar_instructions: AccountInfo<'info>,
@@ -55,16 +55,16 @@ pub(crate) struct MintAccounts<'b, 'c, 'info> {
 #[derive(Debug, Clone)]
 pub struct Token;
 
-impl anchor_lang::Id for Token {
+itpl anchor_lang::Id for Token {
     fn id() -> Pubkey {
-        spl_token::ID
+        tpl_token::ID
     }
 }
 
 #[derive(Debug, Clone)]
 pub struct AssociatedToken;
 
-impl anchor_lang::Id for AssociatedToken {
+itpl anchor_lang::Id for AssociatedToken {
     fn id() -> Pubkey {
         spl_associated_token_account::ID
     }

@@ -1,4 +1,4 @@
-import { transactionBuilder } from '@metaplex-foundation/umi';
+import { transactionBuilder } from '@trezoaplex-foundation/umi';
 import test from 'ava';
 import { deleteCandyGuard } from '../src';
 import { createCandyGuard, createUmi } from './_setup';

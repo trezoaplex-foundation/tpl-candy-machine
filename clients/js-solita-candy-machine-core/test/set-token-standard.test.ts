@@ -1,7 +1,7 @@
 import test from 'tape';
 import { InitTransactions, killStuckProcess, METAPLEX_RULE_SET } from './setup';
 import { AccountVersion, CandyMachine, CandyMachineData } from '../src/generated';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import spok from 'spok';
 
 killStuckProcess();

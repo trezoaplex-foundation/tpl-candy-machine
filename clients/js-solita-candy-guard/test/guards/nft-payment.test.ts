@@ -1,11 +1,11 @@
 import spok from 'spok';
 import test from 'tape';
 import { amman, InitTransactions, killStuckProcess, newCandyGuardData } from '../setup';
-import { Metaplex, keypairIdentity, Nft } from '@metaplex-foundation/js';
-import { AccountMeta, PublicKey } from '@solana/web3.js';
-import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID, getAccount } from '@solana/spl-token';
-import { CandyMachine } from '@metaplex-foundation/mpl-candy-machine-core';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { Trezoaplex, keypairIdentity, Nft } from '@trezoaplex-foundation/js';
+import { AccountMeta, PublicKey } from '@trezoa/web3.js';
+import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID, getAccount } from '@trezoa/tpl-token';
+import { CandyMachine } from '@trezoaplex-foundation/tpl-candy-machine-core';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import { METAPLEX_PROGRAM_ID, spokSameBigint } from '../utils';
 import { BN } from 'bn.js';
 
@@ -83,7 +83,7 @@ test('nft payment: NonFungible', async (t) => {
   );
   await minterMintTx2.assertError(t, /Missing expected remaining account/i);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
   const paymentGuardAccounts: AccountMeta[] = [];
 
@@ -231,7 +231,7 @@ test('nft payment: Programmable NonFungible', async (t) => {
   );
   await minterMintTx2.assertError(t, /Missing expected remaining account/i);
 
-  const metaplex = Metaplex.make(connection).use(keypairIdentity(payerPair));
+  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
   const nft = (await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey })) as Nft;
   const paymentGuardAccounts: AccountMeta[] = [];
 

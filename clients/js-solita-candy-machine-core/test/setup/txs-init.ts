@@ -4,7 +4,7 @@ import {
   LoadOrGenKeypair,
   LOCALHOST,
   PayerTransactionHandler,
-} from '@metaplex-foundation/amman-client';
+} from '@trezoaplex-foundation/amman-client';
 import {
   Connection,
   Keypair,
@@ -15,7 +15,7 @@ import {
   Transaction,
   TransactionInstruction,
   ComputeBudgetProgram,
-} from '@solana/web3.js';
+} from '@trezoa/web3.js';
 import {
   createAssociatedTokenAccountInstruction,
   createInitializeMintInstruction,
@@ -23,14 +23,14 @@ import {
   MintLayout,
   TOKEN_PROGRAM_ID,
   ASSOCIATED_TOKEN_PROGRAM_ID,
-} from '@solana/spl-token';
+} from '@trezoa/tpl-token';
 import { Test } from 'tape';
 import * as program from '../../src/generated';
 import { AccountVersion, CandyMachine, CandyMachineData } from '../../src/generated';
 import { amman } from '.';
 import { COLLECTION_METADATA, getCandyMachineSpace } from '../utils';
-import { keypairIdentity, Metaplex, NftWithToken } from '@metaplex-foundation/js';
-import { TokenStandard } from '@metaplex-foundation/mpl-token-metadata';
+import { keypairIdentity, Trezoaplex, NftWithToken } from '@trezoaplex-foundation/js';
+import { TokenStandard } from '@trezoaplex-foundation/tpl-token-metadata';
 import { BN } from 'bn.js';
 
 const METAPLEX_PROGRAM_ID = new PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
@@ -98,32 +98,32 @@ export class InitTransactions {
     connection: Connection,
   ): Promise<{ tx: ConfirmedTransactionAssertablePromise; candyMachine: PublicKey }> {
     // creates a collection nft
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const { nft: collection } = await metaplex.nfts().create({
+    const { nft: collection } = await trezoaplex.nfts().create({
       uri: COLLECTION_METADATA,
       name: 'CORE Collection',
       sellerFeeBasisPoints: 500,
     });
 
     const [, candyMachine] = await this.getKeypair('Candy Machine Account');
-    const authorityPda = metaplex
+    const authorityPda = trezoaplex
       .candyMachines()
       .pdas()
       .authority({ candyMachine: candyMachine.publicKey });
 
     await amman.addr.addLabel('Collection Mint', collection.address);
 
-    const collectionAuthorityRecord = metaplex.nfts().pdas().collectionAuthorityRecord({
+    const collectionAuthorityRecord = trezoaplex.nfts().pdas().collectionAuthorityRecord({
       mint: collection.mint.address,
       collectionAuthority: authorityPda,
     });
     await amman.addr.addLabel('Collection Authority Record', collectionAuthorityRecord);
 
-    const collectionMetadata = metaplex.nfts().pdas().metadata({ mint: collection.mint.address });
+    const collectionMetadata = trezoaplex.nfts().pdas().metadata({ mint: collection.mint.address });
     await amman.addr.addLabel('Collection Metadata', collectionMetadata);
 
-    const collectionMasterEdition = metaplex
+    const collectionMasterEdition = trezoaplex
       .nfts()
       .pdas()
       .masterEdition({ mint: collection.mint.address });
@@ -177,9 +177,9 @@ export class InitTransactions {
     ruleSet: PublicKey | null = null,
   ): Promise<{ tx: ConfirmedTransactionAssertablePromise; candyMachine: PublicKey }> {
     // creates a collection nft
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const { nft: collection } = await metaplex.nfts().create({
+    const { nft: collection } = await trezoaplex.nfts().create({
       uri: COLLECTION_METADATA,
       name: 'CORE Collection',
       sellerFeeBasisPoints: 500,
@@ -187,23 +187,23 @@ export class InitTransactions {
 
     const [, candyMachine] = await this.getKeypair('Candy Machine Account');
 
-    const authorityPda = metaplex
+    const authorityPda = trezoaplex
       .candyMachines()
       .pdas()
       .authority({ candyMachine: candyMachine.publicKey });
 
     await amman.addr.addLabel('Collection Mint', collection.address);
 
-    const collectionMetadata = metaplex.nfts().pdas().metadata({ mint: collection.mint.address });
+    const collectionMetadata = trezoaplex.nfts().pdas().metadata({ mint: collection.mint.address });
     await amman.addr.addLabel('Collection Metadata', collectionMetadata);
 
-    const collectionMasterEdition = metaplex
+    const collectionMasterEdition = trezoaplex
       .nfts()
       .pdas()
       .masterEdition({ mint: collection.mint.address });
     await amman.addr.addLabel('Collection Master Edition', collectionMasterEdition);
 
-    const collectionDelegateRecord = metaplex.nfts().pdas().metadataDelegateRecord({
+    const collectionDelegateRecord = trezoaplex.nfts().pdas().metadataDelegateRecord({
       mint: collection.address,
       type: 'CollectionV1',
       updateAuthority: payer.publicKey,
@@ -321,27 +321,27 @@ export class InitTransactions {
 
     // PDAs required for the mint
 
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const nftMetadata = metaplex.nfts().pdas().metadata({ mint: nftMint });
-    const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: nftMint });
-    const nftTokenAccount = metaplex
+    const nftMetadata = trezoaplex.nfts().pdas().metadata({ mint: nftMint });
+    const nftMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: nftMint });
+    const nftTokenAccount = trezoaplex
       .tokens()
       .pdas()
       .associatedTokenAccount({ mint: nftMint, owner: payer.publicKey });
 
     const collectionMint = candyMachineObject.collectionMint;
     // retrieves the collection nft
-    const collection = await metaplex.nfts().findByMint({ mintAddress: collectionMint });
+    const collection = await trezoaplex.nfts().findByMint({ mintAddress: collectionMint });
     // collection PDAs
-    const authorityPda = metaplex.candyMachines().pdas().authority({ candyMachine });
-    const collectionAuthorityRecord = metaplex.nfts().pdas().collectionAuthorityRecord({
+    const authorityPda = trezoaplex.candyMachines().pdas().authority({ candyMachine });
+    const collectionAuthorityRecord = trezoaplex.nfts().pdas().collectionAuthorityRecord({
       mint: collectionMint,
       collectionAuthority: authorityPda,
     });
 
-    const collectionMetadata = metaplex.nfts().pdas().metadata({ mint: collectionMint });
-    const collectionMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: collectionMint });
+    const collectionMetadata = trezoaplex.nfts().pdas().metadata({ mint: collectionMint });
+    const collectionMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: collectionMint });
 
     const accounts: program.MintInstructionAccounts = {
       candyMachine: candyMachine,
@@ -402,7 +402,7 @@ export class InitTransactions {
       });
 
       // token record
-      const tokenRecord = metaplex
+      const tokenRecord = trezoaplex
         .nfts()
         .pdas()
         .tokenRecord({ mint: nftMint, token: nftTokenAccount });
@@ -419,7 +419,7 @@ export class InitTransactions {
         isWritable: false,
       });
 
-      // SPL ATA program
+      // TPL ATA program
       remainingAccounts.push({
         pubkey: ASSOCIATED_TOKEN_PROGRAM_ID,
         isSigner: false,
@@ -473,25 +473,25 @@ export class InitTransactions {
 
     // PDAs required for the mint
 
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const nftMetadata = metaplex.nfts().pdas().metadata({ mint: nftMint });
-    const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: nftMint });
-    const nftTokenAccount = metaplex
+    const nftMetadata = trezoaplex.nfts().pdas().metadata({ mint: nftMint });
+    const nftMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: nftMint });
+    const nftTokenAccount = trezoaplex
       .tokens()
       .pdas()
       .associatedTokenAccount({ mint: nftMint, owner: payer.publicKey });
 
-    const authorityPda = metaplex.candyMachines().pdas().authority({ candyMachine });
+    const authorityPda = trezoaplex.candyMachines().pdas().authority({ candyMachine });
 
     const collectionMint = candyMachineObject.collectionMint;
     // retrieves the collection nft
-    const collection = await metaplex.nfts().findByMint({ mintAddress: collectionMint });
+    const collection = await trezoaplex.nfts().findByMint({ mintAddress: collectionMint });
     // collection PDAs
-    const collectionMetadata = metaplex.nfts().pdas().metadata({ mint: collectionMint });
-    const collectionMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: collectionMint });
+    const collectionMetadata = trezoaplex.nfts().pdas().metadata({ mint: collectionMint });
+    const collectionMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: collectionMint });
 
-    const collectionDelegateRecord = metaplex.nfts().pdas().metadataDelegateRecord({
+    const collectionDelegateRecord = trezoaplex.nfts().pdas().metadataDelegateRecord({
       mint: collection.address,
       type: 'CollectionV1',
       updateAuthority: payer.publicKey,
@@ -523,7 +523,7 @@ export class InitTransactions {
     };
 
     if (candyMachineObject.version == AccountVersion.V2) {
-      accounts.tokenRecord = metaplex
+      accounts.tokenRecord = trezoaplex
         .nfts()
         .pdas()
         .tokenRecord({ mint: nftMint, token: nftTokenAccount });
@@ -588,33 +588,33 @@ export class InitTransactions {
     handler: PayerTransactionHandler,
     connection: Connection,
   ): Promise<{ tx: ConfirmedTransactionAssertablePromise }> {
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const authorityPda = metaplex.candyMachines().pdas().authority({ candyMachine });
+    const authorityPda = trezoaplex.candyMachines().pdas().authority({ candyMachine });
 
     await amman.addr.addLabel('New Collection Mint', newCollection.address);
 
-    const newCollectionAuthorityRecord = metaplex.nfts().pdas().collectionAuthorityRecord({
+    const newCollectionAuthorityRecord = trezoaplex.nfts().pdas().collectionAuthorityRecord({
       mint: newCollection.mint.address,
       collectionAuthority: authorityPda,
     });
     await amman.addr.addLabel('New Collection Authority Record', newCollectionAuthorityRecord);
 
-    const newCollectionMetadata = metaplex
+    const newCollectionMetadata = trezoaplex
       .nfts()
       .pdas()
       .metadata({ mint: newCollection.mint.address });
     await amman.addr.addLabel('New Collection Metadata', newCollectionMetadata);
 
-    const newCollectionMasterEdition = metaplex
+    const newCollectionMasterEdition = trezoaplex
       .nfts()
       .pdas()
       .masterEdition({ mint: newCollection.mint.address });
     await amman.addr.addLabel('New Collection Master Edition', newCollectionMasterEdition);
 
     // current collection details
-    const collectionMetadata = metaplex.nfts().pdas().metadata({ mint: collection });
-    const collectionAuthorityRecord = metaplex
+    const collectionMetadata = trezoaplex.nfts().pdas().metadata({ mint: collection });
+    const collectionAuthorityRecord = trezoaplex
       .nfts()
       .pdas()
       .collectionAuthorityRecord({ mint: collection, collectionAuthority: authorityPda });
@@ -654,12 +654,12 @@ export class InitTransactions {
     connection: Connection,
     ruleSet: PublicKey | null = null,
   ): Promise<{ tx: ConfirmedTransactionAssertablePromise }> {
-    const metaplex = Metaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const authorityPda = metaplex.candyMachines().pdas().authority({ candyMachine });
+    const authorityPda = trezoaplex.candyMachines().pdas().authority({ candyMachine });
     amman.addr.addLabel('Authority PDA', authorityPda);
 
-    const collectionMetadata = metaplex
+    const collectionMetadata = trezoaplex
       .nfts()
       .pdas()
       .metadata({ mint: candyMachineObject.collectionMint });
@@ -668,14 +668,14 @@ export class InitTransactions {
     let collectionAuthorityRecord = null;
 
     if (candyMachineObject.version == AccountVersion.V1) {
-      collectionAuthorityRecord = metaplex.nfts().pdas().collectionAuthorityRecord({
+      collectionAuthorityRecord = trezoaplex.nfts().pdas().collectionAuthorityRecord({
         mint: candyMachineObject.collectionMint,
         collectionAuthority: authorityPda,
       });
       amman.addr.addLabel('Collection Authority Record', collectionAuthorityRecord);
     }
 
-    const collectionDelegateRecord = metaplex.nfts().pdas().metadataDelegateRecord({
+    const collectionDelegateRecord = trezoaplex.nfts().pdas().metadataDelegateRecord({
       mint: candyMachineObject.collectionMint,
       type: 'CollectionV1',
       updateAuthority: payer.publicKey,

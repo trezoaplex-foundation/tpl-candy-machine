@@ -2,7 +2,7 @@ import {
   dateTime,
   generateSigner,
   publicKey,
-  sol,
+  trz,
   some,
   subtractAmounts,
   transactionBuilder,
@@ -57,8 +57,8 @@ test('it can create a candy guard with guards', async (t) => {
       createCandyGuard(umi, {
         base,
         guards: {
-          botTax: some({ lamports: sol(0.001), lastInstruction: true }),
-          solPayment: some({ lamports: sol(1.5), destination: solDestination }),
+          botTax: some({ lamports: trz(0.001), lastInstruction: true }),
+          solPayment: some({ lamports: trz(1.5), destination: solDestination }),
           startDate: some({ date: '2023-03-07T16:13:00.000Z' }),
           endDate: some({ date: '2023-03-08T16:13:00.000Z' }),
           gatekeeper: some({ gatekeeperNetwork, expireOnUse: true }),
@@ -81,8 +81,8 @@ test('it can create a candy guard with guards', async (t) => {
     authority: publicKey(umi.identity),
     guards: {
       ...emptyDefaultGuardSetArgs,
-      botTax: some({ lamports: sol(0.001), lastInstruction: true }),
-      solPayment: some({ lamports: sol(1.5), destination: solDestination }),
+      botTax: some({ lamports: trz(0.001), lastInstruction: true }),
+      solPayment: some({ lamports: trz(1.5), destination: solDestination }),
       startDate: some({ date: dateTime('2023-03-07T16:13:00.000Z') }),
       endDate: some({ date: dateTime('2023-03-08T16:13:00.000Z') }),
       gatekeeper: some({ gatekeeperNetwork, expireOnUse: true }),
@@ -112,7 +112,7 @@ test('it can create a candy guard with guard groups', async (t) => {
         base,
         guards: {
           // Bot tax for all groups.
-          botTax: some({ lamports: sol(0.01), lastInstruction: false }),
+          botTax: some({ lamports: trz(0.01), lastInstruction: false }),
           // Mint finished after 24h for all groups.
           endDate: some({ date: '2022-09-06T16:00:00.000Z' }),
         },
@@ -124,7 +124,7 @@ test('it can create a candy guard with guard groups', async (t) => {
               startDate: some({ date: '2022-09-05T16:00:00.000Z' }),
               allowList: some({ merkleRoot }),
               solPayment: some({
-                lamports: sol(1),
+                lamports: trz(1),
                 destination: solDestination,
               }),
             },
@@ -136,7 +136,7 @@ test('it can create a candy guard with guard groups', async (t) => {
               startDate: some({ date: '2022-09-05T18:00:00.000Z' }),
               tokenGate: some({ mint: tokenGateMint, amount: 1 }),
               solPayment: some({
-                lamports: sol(2),
+                lamports: trz(2),
                 destination: solDestination,
               }),
             },
@@ -148,7 +148,7 @@ test('it can create a candy guard with guard groups', async (t) => {
               startDate: some({ date: '2022-09-05T20:00:00.000Z' }),
               gatekeeper: some({ gatekeeperNetwork, expireOnUse: false }),
               solPayment: some({
-                lamports: sol(3),
+                lamports: trz(3),
                 destination: solDestination,
               }),
             },
@@ -165,7 +165,7 @@ test('it can create a candy guard with guard groups', async (t) => {
     publicKey: publicKey(candyGuard),
     guards: {
       ...emptyDefaultGuardSetArgs,
-      botTax: some({ lamports: sol(0.01), lastInstruction: false }),
+      botTax: some({ lamports: trz(0.01), lastInstruction: false }),
       endDate: some({ date: dateTime('2022-09-06T16:00:00.000Z') }),
     },
     groups: [
@@ -176,7 +176,7 @@ test('it can create a candy guard with guard groups', async (t) => {
           startDate: some({ date: dateTime('2022-09-05T16:00:00.000Z') }),
           allowList: some({ merkleRoot }),
           solPayment: some({
-            lamports: sol(1),
+            lamports: trz(1),
             destination: publicKey(solDestination),
           }),
         },
@@ -188,7 +188,7 @@ test('it can create a candy guard with guard groups', async (t) => {
           startDate: some({ date: dateTime('2022-09-05T18:00:00.000Z') }),
           tokenGate: some({ mint: tokenGateMint, amount: 1n }),
           solPayment: some({
-            lamports: sol(2),
+            lamports: trz(2),
             destination: publicKey(solDestination),
           }),
         },
@@ -200,7 +200,7 @@ test('it can create a candy guard with guard groups', async (t) => {
           startDate: some({ date: dateTime('2022-09-05T20:00:00.000Z') }),
           gatekeeper: some({ gatekeeperNetwork, expireOnUse: false }),
           solPayment: some({
-            lamports: sol(3),
+            lamports: trz(3),
             destination: publicKey(solDestination),
           }),
         },

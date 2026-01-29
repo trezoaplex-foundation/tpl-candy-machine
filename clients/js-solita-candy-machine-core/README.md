@@ -4,7 +4,7 @@ This package contains the Trezoaplex Candy Machine Core contract SDK code.
 
 ## API Docs
 
-Find the [candy-machine-core API docs published here](https://trezoaplex-foundation.github.io/metaplex-program-library/docs/candy-machine-core/index.html).
+Find the [candy-machine-core API docs published here](https://trezoaplex-foundation.github.io/trezoaplex-program-library/docs/candy-machine-core/index.html).
 
 ## Installation
 

@@ -1,7 +1,7 @@
 import { addMemo, setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
-  sol,
+  trz,
   some,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
@@ -23,7 +23,7 @@ test('it does nothing if all conditions are valid', async (t) => {
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.01), lastInstruction: true }),
+      botTax: some({ lamports: trz(0.01), lastInstruction: true }),
     },
   });
 
@@ -53,7 +53,7 @@ test('it optionally charges a bot tax if the mint instruction is not the last on
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.01), lastInstruction: true }),
+      botTax: some({ lamports: trz(0.01), lastInstruction: true }),
     },
   });
 

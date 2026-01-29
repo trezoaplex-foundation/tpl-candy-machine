@@ -1,7 +1,7 @@
 import { setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
-  sol,
+  trz,
   some,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
@@ -93,7 +93,7 @@ test('it charges a bot tax when trying to mint using the wrong third party signe
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.1), lastInstruction: true }),
+      botTax: some({ lamports: trz(0.1), lastInstruction: true }),
       thirdPartySigner: some({ signerKey: thirdPartySigner.publicKey }),
     },
   });

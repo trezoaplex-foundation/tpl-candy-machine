@@ -14,7 +14,7 @@ import {
   generateSigner,
   PublicKey,
   Signer,
-  sol,
+  trz,
   some,
   transactionBuilder,
   Umi,
@@ -430,7 +430,7 @@ test('it charges a bot tax when trying to mint using the wrong token', async (t)
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.1), lastInstruction: true }),
+      botTax: some({ lamports: trz(0.1), lastInstruction: true }),
       gatekeeper: some({
         gatekeeperNetwork: gatekeeperNetwork.publicKey,
         expireOnUse: false,
@@ -469,7 +469,7 @@ const createGatekeeperNetwork = async (
   gatekeeperAuthority: Signer;
 }> => {
   // Prepare the accounts.
-  const gatekeeperAuthority = await generateSignerWithSol(umi, sol(10));
+  const gatekeeperAuthority = await generateSignerWithSol(umi, trz(10));
   const gatekeeperNetwork = generateSigner(umi);
   const s = umi.serializer;
   const gatewayProgram = umi.programs.getPublicKey('civicGateway');

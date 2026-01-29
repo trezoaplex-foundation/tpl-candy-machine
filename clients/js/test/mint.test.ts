@@ -2,7 +2,7 @@ import { createMintWithAssociatedToken } from '@trezoaplex-foundation/tpl-toolbo
 import {
   generateSigner,
   isEqualToAmount,
-  sol,
+  trz,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
 import { generateSignerWithSol } from '@trezoaplex-foundation/umi-bundle-tests';
@@ -61,8 +61,8 @@ test('it can mint from a candy guard with guards', async (t) => {
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: { lamports: sol(0.01), lastInstruction: true },
-      solPayment: { lamports: sol(2), destination },
+      botTax: { lamports: trz(0.01), lastInstruction: true },
+      solPayment: { lamports: trz(2), destination },
     },
   });
   const candyMachine = candyMachineSigner.publicKey;
@@ -70,7 +70,7 @@ test('it can mint from a candy guard with guards', async (t) => {
   // When we mint from the candy guard.
   const mint = generateSigner(umi);
   const owner = generateSigner(umi).publicKey;
-  const payer = await generateSignerWithSol(umi, sol(10));
+  const payer = await generateSignerWithSol(umi, trz(10));
   await transactionBuilder()
     .add(createMintWithAssociatedToken(umi, { mint, owner, amount: 1 }))
     .add(
@@ -92,7 +92,7 @@ test('it can mint from a candy guard with guards', async (t) => {
 
   // And the payer was charged.
   const payerBalance = await umi.rpc.getBalance(payer.publicKey);
-  t.true(isEqualToAmount(payerBalance, sol(8), sol(0.02)));
+  t.true(isEqualToAmount(payerBalance, trz(8), trz(0.02)));
 
   // And the candy machine was updated.
   const candyMachineAccount = await fetchCandyMachine(umi, candyMachine);
@@ -108,8 +108,8 @@ test('it can mint from a candy guard with groups', async (t) => {
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: { lamports: sol(0.01), lastInstruction: true },
-      solPayment: { lamports: sol(2), destination },
+      botTax: { lamports: trz(0.01), lastInstruction: true },
+      solPayment: { lamports: trz(2), destination },
     },
     groups: [
       { label: 'GROUP1', guards: { startDate: { date: yesterday() } } },

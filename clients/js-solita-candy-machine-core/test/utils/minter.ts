@@ -31,8 +31,8 @@ export async function drain(
     );
     await mintTransaction.assertNone();
 
-    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
-    const nft = await metaplex.nfts().findByMint({ mintAddress });
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
+    const nft = await trezoaplex.nfts().findByMint({ mintAddress });
     indices.push(parseInt(nft.name));
   }
 

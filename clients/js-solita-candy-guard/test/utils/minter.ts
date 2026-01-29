@@ -36,8 +36,8 @@ export async function multiple(
     );
     await mintTransaction.assertNone();
 
-    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
-    const nft = await metaplex.nfts().findByMint({ mintAddress: mint.publicKey });
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
+    const nft = await trezoaplex.nfts().findByMint({ mintAddress: mint.publicKey });
     indices.push(parseInt(nft.name));
   }
 

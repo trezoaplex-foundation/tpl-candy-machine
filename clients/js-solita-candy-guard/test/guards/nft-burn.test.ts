@@ -77,9 +77,9 @@ test('nft burn (authority)', async (t) => {
   );
   await minterMintTx.assertError(t, /Missing expected remaining account/i);
 
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
-  const nft = await metaplex.nfts().findByMint({ mintAddress: mintForAuthority.publicKey });
-  const collection = await metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: mintForAuthority.publicKey });
+  const collection = await trezoaplex
     .nfts()
     .findByMint({ mintAddress: candyMachineObject.collectionMint });
   const paymentGuardAccounts: AccountMeta[] = [];
@@ -207,9 +207,9 @@ test('nft burn (minter)', async (t) => {
 
   // mint from the second (gated) candy machine
 
-  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
-  const nft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
-  const collection = await metaplex
+  const trezoaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
+  const collection = await trezoaplex
     .nfts()
     .findByMint({ mintAddress: candyMachineObject.collectionMint });
 
@@ -278,14 +278,14 @@ test('nft burn (minter)', async (t) => {
     payerConnection,
     secondCandyMachine,
   );
-  const secondNft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter2.publicKey });
+  const secondNft = await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter2.publicKey });
 
   spok(t, secondNft.collection, {
     address: spokSamePubkey(secondCandyMachineObject.collectionMint),
   });
 
   try {
-    await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
+    await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
     t.error('failed to burn gate NFT');
   } catch {
     t.pass('gate NFT was not found');
@@ -370,9 +370,9 @@ test('nft burn: Programmable NonFungible', async (t) => {
 
   // mint from the second (gated) candy machine
 
-  const metaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
-  const nft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
-  const collection = await metaplex
+  const trezoaplex = Trezoaplex.make(minterConnection).use(keypairIdentity(minter));
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
+  const collection = await trezoaplex
     .nfts()
     .findByMint({ mintAddress: candyMachineObject.collectionMint });
 
@@ -502,14 +502,14 @@ test('nft burn: Programmable NonFungible', async (t) => {
     payerConnection,
     secondCandyMachine,
   );
-  const secondNft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter2.publicKey });
+  const secondNft = await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter2.publicKey });
 
   spok(t, secondNft.collection, {
     address: spokSamePubkey(secondCandyMachineObject.collectionMint),
   });
 
   try {
-    await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
+    await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
     t.error('failed to burn gate NFT');
   } catch {
     t.pass('burned NFT was not found');

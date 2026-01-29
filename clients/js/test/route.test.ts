@@ -1,7 +1,7 @@
 import {
   generateSigner,
   none,
-  sol,
+  trz,
   some,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
@@ -118,7 +118,7 @@ test('it cannot call the route instruction of a guard that does not support it',
   // Given a candy machine with an bot tax guard which does not support the route instruction.
   const umi = await createUmi();
   const { publicKey: candyMachine } = await createV2(umi, {
-    guards: { botTax: some({ lamports: sol(0.01), lastInstruction: true }) },
+    guards: { botTax: some({ lamports: trz(0.01), lastInstruction: true }) },
   });
 
   // When we try to call the route instruction of the bot tax guard.

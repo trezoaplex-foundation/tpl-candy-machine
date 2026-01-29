@@ -1,7 +1,7 @@
 import {
   generateSigner,
   publicKey,
-  sol,
+  trz,
   some,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
@@ -35,8 +35,8 @@ test('it can create a candy machine with an associated candy guard', async (t) =
     candyMachine,
     collectionMint,
     guards: {
-      botTax: some({ lamports: sol(0.01), lastInstruction: true }),
-      solPayment: some({ lamports: sol(2), destination }),
+      botTax: some({ lamports: trz(0.01), lastInstruction: true }),
+      solPayment: some({ lamports: trz(2), destination }),
     },
     ...defaultCandyMachineData(umi),
   });
@@ -51,8 +51,8 @@ test('it can create a candy machine with an associated candy guard', async (t) =
     authority: publicKey(umi.identity),
     guards: {
       ...emptyDefaultGuardSetArgs,
-      botTax: some({ lamports: sol(0.01), lastInstruction: true }),
-      solPayment: some({ lamports: sol(2), destination }),
+      botTax: some({ lamports: trz(0.01), lastInstruction: true }),
+      solPayment: some({ lamports: trz(2), destination }),
     },
     groups: [] as GuardGroup<GuardSet>[],
   });

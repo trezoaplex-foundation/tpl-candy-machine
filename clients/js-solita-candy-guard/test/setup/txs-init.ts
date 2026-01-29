@@ -593,27 +593,27 @@ export class InitTransactions {
 
     // PDAs required for the mint
 
-    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const nftMetadata = metaplex.nfts().pdas().metadata({ mint: mint.publicKey });
-    const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });
-    const nftTokenAccount = metaplex
+    const nftMetadata = trezoaplex.nfts().pdas().metadata({ mint: mint.publicKey });
+    const nftMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });
+    const nftTokenAccount = trezoaplex
       .tokens()
       .pdas()
       .associatedTokenAccount({ mint: mint.publicKey, owner: payer.publicKey });
 
     const collectionMint = candyMachineObject.collectionMint;
     // retrieves the collection nft
-    const collection = await metaplex.nfts().findByMint({ mintAddress: collectionMint });
+    const collection = await trezoaplex.nfts().findByMint({ mintAddress: collectionMint });
     // collection PDAs
-    const authorityPda = metaplex.candyMachines().pdas().authority({ candyMachine });
-    const collectionAuthorityRecord = metaplex.nfts().pdas().collectionAuthorityRecord({
+    const authorityPda = trezoaplex.candyMachines().pdas().authority({ candyMachine });
+    const collectionAuthorityRecord = trezoaplex.nfts().pdas().collectionAuthorityRecord({
       mint: collectionMint,
       collectionAuthority: authorityPda,
     });
 
-    const collectionMetadata = metaplex.nfts().pdas().metadata({ mint: collectionMint });
-    const collectionMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: collectionMint });
+    const collectionMetadata = trezoaplex.nfts().pdas().metadata({ mint: collectionMint });
+    const collectionMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: collectionMint });
 
     const accounts: MintInstructionAccounts = {
       candyGuard,
@@ -692,25 +692,25 @@ export class InitTransactions {
 
     // PDAs required for the mint
 
-    const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
+    const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payer));
 
-    const nftMetadata = metaplex.nfts().pdas().metadata({ mint: mint.publicKey });
-    const nftMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });
-    const nftTokenAccount = metaplex
+    const nftMetadata = trezoaplex.nfts().pdas().metadata({ mint: mint.publicKey });
+    const nftMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: mint.publicKey });
+    const nftTokenAccount = trezoaplex
       .tokens()
       .pdas()
       .associatedTokenAccount({ mint: mint.publicKey, owner: minter.publicKey });
 
-    const authorityPda = metaplex.candyMachines().pdas().authority({ candyMachine });
+    const authorityPda = trezoaplex.candyMachines().pdas().authority({ candyMachine });
 
     const collectionMint = candyMachineObject.collectionMint;
     // retrieves the collection nft
-    const collection = await metaplex.nfts().findByMint({ mintAddress: collectionMint });
+    const collection = await trezoaplex.nfts().findByMint({ mintAddress: collectionMint });
     // collection PDAs
-    const collectionMetadata = metaplex.nfts().pdas().metadata({ mint: collectionMint });
-    const collectionMasterEdition = metaplex.nfts().pdas().masterEdition({ mint: collectionMint });
+    const collectionMetadata = trezoaplex.nfts().pdas().metadata({ mint: collectionMint });
+    const collectionMasterEdition = trezoaplex.nfts().pdas().masterEdition({ mint: collectionMint });
 
-    const collectionDelegateRecord = metaplex.nfts().pdas().metadataDelegateRecord({
+    const collectionDelegateRecord = trezoaplex.nfts().pdas().metadataDelegateRecord({
       mint: collectionMint,
       type: 'CollectionV1',
       updateAuthority: collection.updateAuthorityAddress,
@@ -744,7 +744,7 @@ export class InitTransactions {
     };
 
     if (candyMachineObject.version == AccountVersion.V2) {
-      accounts.tokenRecord = metaplex
+      accounts.tokenRecord = trezoaplex
         .nfts()
         .pdas()
         .tokenRecord({ mint: mint.publicKey, token: nftTokenAccount });

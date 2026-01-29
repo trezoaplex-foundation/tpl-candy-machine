@@ -35,7 +35,7 @@ pub struct CandyGuard {
     //
     // available guards:
     //  1) bot tax
-    //  2) sol payment
+    //  2) trz payment
     //  3) token payment
     //  4) start date
     //  5) third party signer
@@ -50,7 +50,7 @@ pub struct CandyGuard {
     // 14) nft gate
     // 15) nft burn
     // 16) token burn
-    // 17) freeze sol payment
+    // 17) freeze trz payment
     // 18) freeze token payment
     // 19) program gate
     // 20) allocation
@@ -106,7 +106,7 @@ pub struct GuardSet {
     pub nft_burn: Option<NftBurn>,
     /// Token burn guard (burn a specified amount of tpl-token).
     pub token_burn: Option<TokenBurn>,
-    /// Freeze sol payment guard (set the price for the mint in lamports with a freeze period).
+    /// Freeze trz payment guard (set the price for the mint in lamports with a freeze period).
     pub freeze_sol_payment: Option<FreezeSolPayment>,
     /// Freeze token payment guard (set the price for the mint in tpl-token amount with a freeze period).
     pub freeze_token_payment: Option<FreezeTokenPayment>,

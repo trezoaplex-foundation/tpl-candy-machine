@@ -1,7 +1,7 @@
 import { setComputeUnitLimit } from '@trezoaplex-foundation/tpl-toolbox';
 import {
   generateSigner,
-  sol,
+  trz,
   some,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
@@ -85,7 +85,7 @@ test('it charges a bot tax when trying to mint before the start date', async (t)
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.01), lastInstruction: true }),
+      botTax: some({ lamports: trz(0.01), lastInstruction: true }),
       startDate: some({ date: tomorrow() }),
     },
   });

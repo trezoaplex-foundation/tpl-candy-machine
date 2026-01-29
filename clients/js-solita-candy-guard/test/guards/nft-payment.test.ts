@@ -83,8 +83,8 @@ test('nft payment: NonFungible', async (t) => {
   );
   await minterMintTx2.assertError(t, /Missing expected remaining account/i);
 
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
-  const nft = await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey });
   const paymentGuardAccounts: AccountMeta[] = [];
 
   // nft account
@@ -231,8 +231,8 @@ test('nft payment: Programmable NonFungible', async (t) => {
   );
   await minterMintTx2.assertError(t, /Missing expected remaining account/i);
 
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
-  const nft = (await metaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey })) as Nft;
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const nft = (await trezoaplex.nfts().findByMint({ mintAddress: mintForMinter.publicKey })) as Nft;
   const paymentGuardAccounts: AccountMeta[] = [];
 
   // nft account

@@ -45,9 +45,9 @@ test('set collection', async (t) => {
   await txInit.assertSuccess(t);
 
   // creates a new collection nft
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
 
-  const { nft: newCollection } = await metaplex.nfts().create({
+  const { nft: newCollection } = await trezoaplex.nfts().create({
     uri: COLLECTION_METADATA,
     name: 'CORE Collection',
     sellerFeeBasisPoints: 500,
@@ -107,9 +107,9 @@ test('set collection: wrong collection mint', async (t) => {
   await txInit.assertSuccess(t);
 
   // creates a new collection nft
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
 
-  const { nft: newCollection } = await metaplex.nfts().create({
+  const { nft: newCollection } = await trezoaplex.nfts().create({
     uri: COLLECTION_METADATA,
     name: 'CORE Collection',
     sellerFeeBasisPoints: 500,

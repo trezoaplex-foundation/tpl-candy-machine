@@ -23,7 +23,7 @@ use crate::{
 ///   2. `[]` Mint account of the NFT.
 ///   3. `[]` Account to receive the NFT.
 ///   4. `[writeable]` Destination PDA key (seeds [destination pubkey, token program id, nft mint pubkey]).
-///   5. `[]` spl-associate-token program ID.
+///   5. `[]` tpl-associate-token program ID.
 ///   6. `[]` Master edition (pNFT)
 ///   7. `[writable]` Owner token record (pNFT)
 ///   8. `[writable]` Destination token record (pNFT)

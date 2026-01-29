@@ -129,8 +129,8 @@ test('Freeze Sol Payment (thaw not enabled)', async (t) => {
   // minting
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account 2 (minter)');
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
-  const nftAta = metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
+  const nftAta = trezoaplex
     .tokens()
     .pdas()
     .associatedTokenAccount({ mint: mintForMinter2.publicKey, owner: minterPair.publicKey });
@@ -205,7 +205,7 @@ test('Freeze Sol Payment (thaw not enabled)', async (t) => {
         isWritable: true,
       },
       {
-        pubkey: metaplex.nfts().pdas().masterEdition({ mint: mintForMinter2.publicKey }),
+        pubkey: trezoaplex.nfts().pdas().masterEdition({ mint: mintForMinter2.publicKey }),
         isSigner: false,
         isWritable: false,
       },
@@ -320,8 +320,8 @@ test('Freeze Sol Payment (thaw enabled)', async (t) => {
   } = await API.minter();
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
-  const nftAta = metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
+  const nftAta = trezoaplex
     .tokens()
     .pdas()
     .associatedTokenAccount({ mint: mintForMinter2.publicKey, owner: minterPair.publicKey });
@@ -398,7 +398,7 @@ test('Freeze Sol Payment (thaw enabled)', async (t) => {
         isWritable: true,
       },
       {
-        pubkey: metaplex.nfts().pdas().masterEdition({ mint: mintForMinter2.publicKey }),
+        pubkey: trezoaplex.nfts().pdas().masterEdition({ mint: mintForMinter2.publicKey }),
         isSigner: false,
         isWritable: false,
       },
@@ -583,8 +583,8 @@ test('Freeze Sol Payment (unlock not enabled)', async (t) => {
   } = await API.minter();
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
-  const nftAta = metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
+  const nftAta = trezoaplex
     .tokens()
     .pdas()
     .associatedTokenAccount({ mint: mintForMinter2.publicKey, owner: minterPair.publicKey });
@@ -756,8 +756,8 @@ test('Freeze Sol Payment (thaw with closed candy guard)', async (t) => {
   } = await API.minter();
 
   const [, mintForMinter2] = await amman.genLabeledKeypair('Mint Account (minter)');
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
-  const nftAta = metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(minterPair));
+  const nftAta = trezoaplex
     .tokens()
     .pdas()
     .associatedTokenAccount({ mint: mintForMinter2.publicKey, owner: minterPair.publicKey });
@@ -844,7 +844,7 @@ test('Freeze Sol Payment (thaw with closed candy guard)', async (t) => {
         isWritable: true,
       },
       {
-        pubkey: metaplex.nfts().pdas().masterEdition({ mint: mintForMinter2.publicKey }),
+        pubkey: trezoaplex.nfts().pdas().masterEdition({ mint: mintForMinter2.publicKey }),
         isSigner: false,
         isWritable: false,
       },

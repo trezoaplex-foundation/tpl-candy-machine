@@ -20,7 +20,7 @@ import {
   publicKey,
   PublicKey,
   Signer,
-  sol,
+  trz,
   some,
   transactionBuilder,
   Umi,
@@ -780,7 +780,7 @@ test('it charges a bot tax if something goes wrong', async (t) => {
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.1), lastInstruction: true }),
+      botTax: some({ lamports: trz(0.1), lastInstruction: true }),
       freezeTokenPayment: some({
         mint: tokenMint.publicKey,
         destinationAta,

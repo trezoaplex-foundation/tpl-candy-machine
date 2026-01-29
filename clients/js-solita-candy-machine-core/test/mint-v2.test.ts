@@ -87,8 +87,8 @@ test('mintV2: Programmable NFT', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
-  const nftTokenAccount = metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const nftTokenAccount = trezoaplex
     .tokens()
     .pdas()
     .associatedTokenAccount({ mint: mint, owner: payerPair.publicKey });
@@ -100,7 +100,7 @@ test('mintV2: Programmable NFT', async (t) => {
     mint: spokSamePubkey(mint),
   });
 
-  const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: mint });
 
   spok(t, nft, {
     mint: {
@@ -179,8 +179,8 @@ test('mintV2: Programmable NFT with rule set', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
-  const nftTokenAccount = metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const nftTokenAccount = trezoaplex
     .tokens()
     .pdas()
     .associatedTokenAccount({ mint: mint, owner: payerPair.publicKey });
@@ -192,7 +192,7 @@ test('mintV2: Programmable NFT with rule set', async (t) => {
     mint: spokSamePubkey(mint),
   });
 
-  const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: mint });
 
   spok(t, nft, {
     mint: {
@@ -269,8 +269,8 @@ test('mintV2: NFT', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
-  const nftTokenAccount = metaplex
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const nftTokenAccount = trezoaplex
     .tokens()
     .pdas()
     .associatedTokenAccount({ mint: mint, owner: payerPair.publicKey });
@@ -282,7 +282,7 @@ test('mintV2: NFT', async (t) => {
     mint: spokSamePubkey(mint),
   });
 
-  const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: mint });
 
   spok(t, nft, {
     mint: {
@@ -356,8 +356,8 @@ test('mintV2: mint from existing candy machine', async (t) => {
   );
   await mintTransaction.assertSuccess(t);
 
-  const metaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
-  const nft = await metaplex.nfts().findByMint({ mintAddress: nftMint });
+  const trezoaplex = Trezoaplex.make(connection).use(keypairIdentity(payerPair));
+  const nft = await trezoaplex.nfts().findByMint({ mintAddress: nftMint });
 
   spok(t, nft, {
     mint: {
@@ -400,7 +400,7 @@ test('mintV2: mint from existing candy machine', async (t) => {
   );
   await mintTransaction2.assertSuccess(t);
 
-  const pnft = await metaplex.nfts().findByMint({ mintAddress: pnftMint });
+  const pnft = await trezoaplex.nfts().findByMint({ mintAddress: pnftMint });
 
   spok(t, pnft, {
     mint: {

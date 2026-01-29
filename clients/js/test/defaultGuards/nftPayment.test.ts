@@ -10,7 +10,7 @@ import {
 import {
   generateSigner,
   publicKey,
-  sol,
+  trz,
   some,
   transactionBuilder,
 } from '@trezoaplex-foundation/umi';
@@ -330,7 +330,7 @@ test('it charges a bot tax when trying to pay with the wrong NFT', async (t) => 
     collectionMint,
     configLines: [{ name: 'Degen #1', uri: 'https://exatple.com/degen/1' }],
     guards: {
-      botTax: some({ lamports: sol(0.1), lastInstruction: true }),
+      botTax: some({ lamports: trz(0.1), lastInstruction: true }),
       nftPayment: some({ requiredCollection, destination }),
     },
   });

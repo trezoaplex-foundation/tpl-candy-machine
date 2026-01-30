@@ -1,5 +1,5 @@
 [registry]
-url = "https://trezoa.projectserum.com"
+url = "https://trezoa.trezoaserum.com"
 
 [provider]
 cluster = "localnet"

@@ -8,7 +8,7 @@ You can [**read more about Candy Machines in the official Trezoaplex documentati
 
 ## Programs
 
-This project contains the following programs:
+This trezoa contains the following programs:
 
 - [Candy Machine Core](./programs/candy-machine-core/README.md) `CndyV3LdqHUfDLmE5naZjVN8rBZz4tqhdefbAnjHG3JR`
 - [Candy Guard](./programs/candy-guard/README.md) `Guard1JwRhJkVH6XZhzoYxeBVQe872VH6QggF4BWmS9g`
@@ -17,6 +17,6 @@ You will need a Rust version compatible with BPF to compile the program, current
 
 ## Clients
 
-This project contains the following clients:
+This trezoa contains the following clients:
 
 - [JavaScript](./clients/js/README.md)

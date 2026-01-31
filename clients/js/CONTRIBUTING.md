@@ -1,6 +1,6 @@
 # Contributing to the JavaScript client
 
-This is a quick guide to help you contribute to the JavaScript client of Mpl Candy Machine.
+This is a quick guide to help you contribute to the JavaScript client of Tpl Candy Machine.
 
 ## Getting started
 
